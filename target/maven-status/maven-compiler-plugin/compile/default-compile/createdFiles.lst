@@ -4,8 +4,10 @@ Views\LoginSystem$1.class
 Views\MainFrame$2.class
 Views\ProgressBarFrame.class
 Views\LoginClient.class
+Views\LoginSystem$2.class
 Views\LoginSystem.class
 Views\ProgressBarFrame$1.class
 Views\MainFrame$1.class
 Views\MainFrame.class
 Services\MainRun.class
+Views\LoginClient$2.class
