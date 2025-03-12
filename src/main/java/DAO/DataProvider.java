@@ -14,7 +14,7 @@ import java.sql.DriverManager;
 public class DataProvider {
     public static Connection dataConnection() throws Exception{
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        String url = "jdbc:sqlserver://localhost:1433;Database=QuanLyKhachSan2";
+        String url = "jdbc:sqlserver://localhost:1433;Database=QuanLyKhachSan";
         String username = "sa";
         String password = "123456";
         
