@@ -4,6 +4,9 @@
  */
 package Views;
 
+import DAO.LoginSystemDAO;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ADMIN
@@ -35,10 +38,10 @@ public class LoginSystem extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txt_email = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        txt_mat_khau = new javax.swing.JPasswordField();
+        btn_login = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -107,7 +110,12 @@ public class LoginSystem extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Mật khẩu");
 
-        jButton1.setText("ĐĂNG NHẬP");
+        btn_login.setText("ĐĂNG NHẬP");
+        btn_login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_loginActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -120,11 +128,11 @@ public class LoginSystem extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_login, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-                    .addComponent(jPasswordField1))
+                    .addComponent(txt_email, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+                    .addComponent(txt_mat_khau))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -135,13 +143,13 @@ public class LoginSystem extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_mat_khau, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_login, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(211, Short.MAX_VALUE))
         );
 
@@ -198,6 +206,38 @@ public class LoginSystem extends javax.swing.JFrame {
         return;
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
+        // TODO add your handling code here:
+        String email = txt_email.getText();
+        String password = txt_mat_khau.getText();
+
+        if (email.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "⚠ Email hoặc Mật khẩu không được để trống.",
+                    "Lỗi",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        LoginSystemDAO loginDAO = new LoginSystemDAO();
+        boolean isValid = loginDAO.checkLogin(email, password);
+
+        if (isValid) {
+            System.out.println("login done");
+            SystemFrame sf = new SystemFrame();
+            sf.setVisible(true);
+            sf.setLocationRelativeTo(null);
+            this.dispose();
+            return;
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "⚠ Vui lòng kiểm tra lại!\nEmail hoặc mật khẩu không đúng.",
+                    "Lỗi đăng nhập",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    }//GEN-LAST:event_btn_loginActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -235,7 +275,7 @@ public class LoginSystem extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btn_login;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
@@ -246,7 +286,7 @@ public class LoginSystem extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txt_email;
+    private javax.swing.JPasswordField txt_mat_khau;
     // End of variables declaration//GEN-END:variables
 }

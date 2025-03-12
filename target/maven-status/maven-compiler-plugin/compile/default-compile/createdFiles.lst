@@ -3,11 +3,16 @@ Views\MainFrame$3.class
 Views\LoginSystem$1.class
 Views\MainFrame$2.class
 Views\ProgressBarFrame.class
+Views\SystemFrame.class
 Views\LoginClient.class
 Views\LoginSystem$2.class
+Views\SystemFrame$1.class
 Views\LoginSystem.class
 Views\ProgressBarFrame$1.class
 Views\MainFrame$1.class
+Views\LoginSystem$3.class
 Views\MainFrame.class
+DAO\DataProvider.class
 Services\MainRun.class
+DAO\LoginSystemDAO.class
 Views\LoginClient$2.class
