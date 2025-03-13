@@ -15,7 +15,7 @@ import java.sql.ResultSet;
 public class LoginSystemDAO {
 
     public boolean checkLogin(String email, String password) {
-        String sql = "SELECT * FROM nhan_vien WHERE email = ? AND mat_khau = ?";
+        String sql = "SELECT * FROM nhan_vien WHERE email = ? AND mat_khau = ? AND (vai_tro = 0 OR vai_tro IS NULL)";
         try (Connection conn = DataProvider.dataConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, email);

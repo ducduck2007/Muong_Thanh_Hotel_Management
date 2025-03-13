@@ -4,17 +4,84 @@
  */
 package Views;
 
+import DAO.QuanLyNhanVienDAO;
+import Models.QuanLyNhanVien;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ADMIN
  */
 public class QuanLyNhanVienFrame extends javax.swing.JFrame {
 
+    DefaultTableModel tableModel_nv = new DefaultTableModel();
+    DefaultTableModel tableModel_ql = new DefaultTableModel();
+
     /**
      * Creates new form QuanLyNhanVienFrame
      */
     public QuanLyNhanVienFrame() {
         initComponents();
+        initTable();
+        fillTable();
+    }
+
+    public void initTable() {
+        String[] cols_nv = new String[]{"Mã NV", "Tên NV", "Email", "Vai Trò", "Ghi Chú"};
+        tableModel_nv.setColumnIdentifiers(cols_nv);
+        tbl_nv.setModel(tableModel_nv);
+
+        String[] cols_ql = new String[]{"Mã QL", "Tên QL", "Email", "Ghi Chú"};
+        tableModel_ql.setColumnIdentifiers(cols_ql);
+        tbl_ql.setModel(tableModel_ql);
+    }
+
+    public void fillTable() {
+        tableModel_nv.setRowCount(0);
+        QuanLyNhanVienDAO qlnvDAO = new QuanLyNhanVienDAO();
+        List<QuanLyNhanVien> listNV = qlnvDAO.getDataNV();
+
+        for (QuanLyNhanVien nv : listNV) {
+            String vaiTroStr = (nv.isVai_tro()) ? "Phục Vụ" : "Lễ Tân";
+
+            tableModel_nv.addRow(new Object[]{
+                nv.getMa_nhan_vien(),
+                nv.getTen_nhan_vien(),
+                nv.getEmail(),
+                vaiTroStr,
+                nv.getGhi_chu() != null ? nv.getGhi_chu() : ""
+            });
+        }
+
+        tableModel_ql.setRowCount(0);
+        List<QuanLyNhanVien> listQL = qlnvDAO.getDataQL();
+
+        for (QuanLyNhanVien ql : listQL) {
+            tableModel_ql.addRow(new Object[]{
+                ql.getMa_quan_ly(),
+                ql.getTen_nhan_vien(),
+                ql.getEmail(),
+                ql.getGhi_chu()
+            });
+        }
+    }
+
+    public void fillTable(List<QuanLyNhanVien> listNV) {
+        DefaultTableModel tableModel_nv = (DefaultTableModel) tbl_nv.getModel();
+        tableModel_nv.setRowCount(0);
+
+        for (QuanLyNhanVien nv : listNV) {
+            tableModel_nv.addRow(new Object[]{
+                nv.getMa_nhan_vien(),
+                nv.getTen_nhan_vien(),
+                nv.getEmail(),
+                nv.isVai_tro() ? "Phục Vụ" : "Lễ Tân",
+                nv.getGhi_chu()
+            });
+        }
     }
 
     /**
@@ -26,21 +93,659 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txt_ma_nv = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        txt_ten_nv = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txt_email_nv = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        cbo_vai_tro = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txt_ghi_chu_nv = new javax.swing.JTextArea();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        txt_password_nv = new javax.swing.JPasswordField();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        txt_search_ten_nv = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbl_nv = new javax.swing.JTable();
+        btn_search_name_nv = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        txt_ma_ql = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        txt_ten_ql = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txt_email_ql = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txt_ghi_chu_ql = new javax.swing.JTextArea();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tbl_ql = new javax.swing.JTable();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        txt_password_ql = new javax.swing.JPasswordField();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("Mã nhân viên");
+
+        jLabel2.setText("Tên nhân viên");
+
+        jLabel3.setText("Email");
+
+        jLabel4.setText("Mật khẩu");
+
+        jLabel5.setText("Vai trò");
+
+        cbo_vai_tro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Phục Vụ", "Lễ Tân" }));
+
+        jLabel6.setText("Ghi chú");
+
+        txt_ghi_chu_nv.setColumns(20);
+        txt_ghi_chu_nv.setRows(5);
+        jScrollPane1.setViewportView(txt_ghi_chu_nv);
+
+        jButton1.setText("Thêm");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Sửa");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Xóa");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Reset");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton4))
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_email_nv, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_ten_nv, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_ma_nv)
+                    .addComponent(cbo_vai_tro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
+                    .addComponent(txt_password_nv))
+                .addContainerGap(43, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_ma_nv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_ten_nv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_email_nv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_password_nv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbo_vai_tro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
+                .addContainerGap(93, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Quản Lý Nhân Viên", jPanel1);
+
+        jLabel7.setText("Tìm theo tên nhân viên");
+
+        tbl_nv.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tbl_nv.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_nvMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tbl_nv);
+
+        btn_search_name_nv.setText("Tìm kiếm");
+        btn_search_name_nv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_search_name_nvActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                            .addComponent(txt_search_ten_nv, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(btn_search_name_nv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(43, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_search_ten_nv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_search_name_nv))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(44, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Danh Sách Nhân Viên", jPanel2);
+
+        jLabel8.setText("Mã quản lý");
+
+        txt_ma_ql.setEditable(false);
+
+        jLabel9.setText("Tên quản lý");
+
+        jLabel10.setText("Email");
+
+        jLabel11.setText("Mật khẩu");
+
+        jLabel13.setText("Ghi chú");
+
+        txt_ghi_chu_ql.setColumns(20);
+        txt_ghi_chu_ql.setRows(5);
+        jScrollPane3.setViewportView(txt_ghi_chu_ql);
+
+        tbl_ql.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tbl_ql.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_qlMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tbl_ql);
+
+        jButton5.setText("Sửa");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setText("Reset");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jButton5)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton6)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(txt_ma_ql, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                                        .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txt_email_ql, javax.swing.GroupLayout.Alignment.LEADING)))
+                                .addGap(65, 65, 65)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_ten_ql)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(txt_password_ql)))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(52, 52, 52))))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_ma_ql, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_ten_ql, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txt_email_ql, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_password_ql, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel11))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton5)
+                    .addComponent(jButton6))
+                .addContainerGap(51, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Quản Lý", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        try {
+            String ma_nhan_vien = txt_ma_nv.getText().trim();
+            String ten_nhan_vien = txt_ten_nv.getText().trim();
+            String email = txt_email_nv.getText().trim();
+            char[] passwordChars = txt_password_nv.getPassword();
+            String mat_khau = new String(passwordChars);
+            String vai_tro_str = cbo_vai_tro.getSelectedItem().toString();
+            boolean vai_tro = vai_tro_str.equalsIgnoreCase("Phục Vụ"); // "Phục Vụ" -> true, "Lễ Tân" -> false
+            String ghi_chu = txt_ghi_chu_nv.getText().trim();
+
+            if (ma_nhan_vien.isEmpty() || ten_nhan_vien.isEmpty() || email.isEmpty() || mat_khau.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "⚠️ Vui lòng nhập đầy đủ thông tin!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (!ma_nhan_vien.matches("^NV\\d{3}$")) {
+                JOptionPane.showMessageDialog(this, "⚠️ Mã nhân viên phải có định dạng 'NV+3 số' (VD: NV015, NV123)", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            QuanLyNhanVienDAO qlnvDAO = new QuanLyNhanVienDAO();
+            if (qlnvDAO.checkMaNhanVienExists(ma_nhan_vien)) {
+                JOptionPane.showMessageDialog(this,
+                        "⚠️ Mã nhân viên đã tồn tại! Vui lòng nhập mã khác.",
+                        "Lỗi nhập liệu",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (!ten_nhan_vien.matches("^[^0-9]+$")) {
+                JOptionPane.showMessageDialog(this, "⚠️ Tên nhân viên không được chứa số!", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
+                JOptionPane.showMessageDialog(this, "⚠️ Email không hợp lệ! Vui lòng nhập đúng định dạng.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Nếu là "Phục Vụ", mật khẩu sẽ mặc định là "0"
+            if (vai_tro) {
+                mat_khau = "0";
+            }
+
+            QuanLyNhanVien qlnv = new QuanLyNhanVien();
+
+            qlnv.setMa_nhan_vien(ma_nhan_vien);
+            qlnv.setTen_nhan_vien(ten_nhan_vien);
+            qlnv.setEmail(email);
+            qlnv.setMat_khau(mat_khau);
+            qlnv.setVai_tro(vai_tro);
+            qlnv.setGhi_chu(ghi_chu);
+
+            if (qlnvDAO.insertNV(qlnv)) {
+                JOptionPane.showMessageDialog(this,
+                        "✅ Nhân viên đã được thêm thành công!",
+                        "Thành công",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "❌ Thêm nhân viên thất bại! Vui lòng kiểm tra lại.",
+                        "Lỗi",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            fillTable();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Lỗi hệ thống: " + e.getMessage());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tbl_nvMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_nvMouseClicked
+        // TODO add your handling code here:
+        int row = tbl_nv.getSelectedRow();
+        if (row >= 0) {
+            String maNhanVien = tbl_nv.getValueAt(row, 0).toString();
+            String tenNhanVien = tbl_nv.getValueAt(row, 1).toString();
+            String email = tbl_nv.getValueAt(row, 2).toString();
+            String vaiTroStr = tbl_nv.getValueAt(row, 3).toString();
+            String ghiChu = tbl_nv.getValueAt(row, 4) != null ? tbl_nv.getValueAt(row, 4).toString() : "";
+
+            txt_ma_nv.setText(maNhanVien);
+            txt_ten_nv.setText(tenNhanVien);
+            txt_email_nv.setText(email);
+            cbo_vai_tro.setSelectedItem(vaiTroStr);
+            txt_ghi_chu_nv.setText(ghiChu);
+        }
+    }//GEN-LAST:event_tbl_nvMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        try {
+            String ma_nhan_vien = txt_ma_nv.getText().trim();
+            String ten_nhan_vien = txt_ten_nv.getText().trim();
+            String email = txt_email_nv.getText().trim();
+            char[] passwordChars = txt_password_nv.getPassword();
+            String mat_khau = new String(passwordChars);
+            String vai_tro_str = cbo_vai_tro.getSelectedItem().toString();
+            boolean vai_tro = vai_tro_str.equalsIgnoreCase("Phục Vụ"); // "Phục Vụ" -> true, "Lễ Tân" -> false
+            String ghi_chu = txt_ghi_chu_nv.getText().trim();
+
+            if (ma_nhan_vien.isEmpty() || ten_nhan_vien.isEmpty() || email.isEmpty() || mat_khau.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "⚠️ Vui lòng nhập đầy đủ thông tin!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (!ma_nhan_vien.matches("^NV\\d{3}$")) {
+                JOptionPane.showMessageDialog(this, "⚠️ Mã nhân viên phải có định dạng 'NV+3 số' (VD: NV015, NV123)", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+
+            if (!ten_nhan_vien.matches("^[^0-9]+$")) {
+                JOptionPane.showMessageDialog(this, "⚠️ Tên nhân viên không được chứa số!", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
+                JOptionPane.showMessageDialog(this, "⚠️ Email không hợp lệ! Vui lòng nhập đúng định dạng.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Nếu là "Phục Vụ", mật khẩu sẽ mặc định là "0"
+            if (vai_tro) {
+                mat_khau = "0";
+            }
+            
+            QuanLyNhanVienDAO qlnvDAO = new QuanLyNhanVienDAO();
+            QuanLyNhanVien qlnv = new QuanLyNhanVien();
+
+            qlnv.setMa_nhan_vien(ma_nhan_vien);
+            qlnv.setTen_nhan_vien(ten_nhan_vien);
+            qlnv.setEmail(email);
+            qlnv.setMat_khau(mat_khau);
+            qlnv.setVai_tro(vai_tro);
+            qlnv.setGhi_chu(ghi_chu);
+
+            if (qlnvDAO.updateNV(qlnv)) {
+                JOptionPane.showMessageDialog(this,
+                        "✅ Nhân viên đã được cập nhật thành công!",
+                        "Thành công",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "❌ Sửa nhân viên thất bại! Vui lòng kiểm tra lại.",
+                        "Lỗi",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            fillTable();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Lỗi hệ thống: " + e.getMessage());
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        try {
+            String ma_nhan_vien = txt_ma_nv.getText().trim();
+
+            if (ma_nhan_vien.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "⚠️ Vui lòng nhập đầy đủ thông tin!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (!ma_nhan_vien.matches("^NV\\d{3}$")) {
+                JOptionPane.showMessageDialog(this, "⚠️ Mã nhân viên phải có định dạng 'NV+3 số' (VD: NV015, NV123)", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            QuanLyNhanVienDAO qlnvDAO = new QuanLyNhanVienDAO();
+            QuanLyNhanVien qlnv = new QuanLyNhanVien();
+
+            qlnv.setMa_nhan_vien(ma_nhan_vien);
+
+            if (qlnvDAO.deleteNV(qlnv)) {
+                JOptionPane.showMessageDialog(this,
+                        "✅ Nhân viên đã được xóa thành công!",
+                        "Thành công",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "❌ Xóa nhân viên thất bại! Vui lòng kiểm tra lại.",
+                        "Lỗi",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            fillTable();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Lỗi hệ thống: " + e.getMessage());
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        txt_ma_nv.setText("");
+        txt_ten_nv.setText("");
+        txt_email_nv.setText("");
+        txt_password_nv.setText("");
+        cbo_vai_tro.setSelectedIndex(0);
+        txt_ghi_chu_nv.setText("");
+        fillTable();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        txt_ma_ql.setText("");
+        txt_ten_ql.setText("");
+        txt_email_ql.setText("");
+        txt_password_ql.setText("");
+        txt_ghi_chu_ql.setText("");
+        fillTable();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void tbl_qlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_qlMouseClicked
+        // TODO add your handling code here:
+        int row = tbl_ql.getSelectedRow();
+        if (row >= 0) {
+            String maQuanLy = tbl_ql.getValueAt(row, 0).toString();
+            String tenNhanVien = tbl_ql.getValueAt(row, 1).toString();
+            String email = tbl_ql.getValueAt(row, 2).toString();
+            String ghiChu = tbl_ql.getValueAt(row, 3) != null ? tbl_ql.getValueAt(row, 3).toString() : "";
+
+            txt_ma_ql.setText(maQuanLy);
+            txt_ten_ql.setText(tenNhanVien);
+            txt_email_ql.setText(email);
+            txt_ghi_chu_ql.setText(ghiChu);
+        }
+    }//GEN-LAST:event_tbl_qlMouseClicked
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        try {
+            String ma_quan_ly = txt_ma_ql.getText().trim();
+            String ten_quan_ly = txt_ten_ql.getText().trim();
+            String email = txt_email_ql.getText().trim();
+            char[] passwordChars = txt_password_ql.getPassword();
+            String mat_khau = new String(passwordChars);
+            String ghi_chu = txt_ghi_chu_ql.getText().trim();
+
+            if (ma_quan_ly.isEmpty() || ten_quan_ly.isEmpty() || email.isEmpty() || mat_khau.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "⚠️ Vui lòng nhập đầy đủ thông tin!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (!ten_quan_ly.matches("^[^0-9]+$")) {
+                JOptionPane.showMessageDialog(this, "⚠️ Tên quản lý không được chứa số!", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
+                JOptionPane.showMessageDialog(this, "⚠️ Email không hợp lệ! Vui lòng nhập đúng định dạng.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            QuanLyNhanVienDAO qlnvDAO = new QuanLyNhanVienDAO();
+            QuanLyNhanVien qlnv = new QuanLyNhanVien();
+
+            qlnv.setMa_quan_ly(ma_quan_ly);
+            qlnv.setTen_nhan_vien(ten_quan_ly);
+            qlnv.setEmail(email);
+            qlnv.setMat_khau(mat_khau);
+            qlnv.setGhi_chu(ghi_chu);
+
+            if (qlnvDAO.updateQL(qlnv)) {
+                JOptionPane.showMessageDialog(this,
+                        "✅ Quản lý đã được cập nhật thành công!",
+                        "Thành công",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "❌ Sửa quản lý thất bại! Vui lòng kiểm tra lại.",
+                        "Lỗi",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            fillTable();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Lỗi hệ thống: " + e.getMessage());
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void btn_search_name_nvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_search_name_nvActionPerformed
+        // TODO add your handling code here:
+        String searchText = txt_search_ten_nv.getText().trim();
+        QuanLyNhanVienDAO qlnvDAO = new QuanLyNhanVienDAO();
+
+        List<QuanLyNhanVien> result = qlnvDAO.searchNhanVienByName(searchText);
+
+        fillTable(result);
+    }//GEN-LAST:event_btn_search_name_nvActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +783,46 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_search_name_nv;
+    private javax.swing.JComboBox<String> cbo_vai_tro;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable tbl_nv;
+    private javax.swing.JTable tbl_ql;
+    private javax.swing.JTextField txt_email_nv;
+    private javax.swing.JTextField txt_email_ql;
+    private javax.swing.JTextArea txt_ghi_chu_nv;
+    private javax.swing.JTextArea txt_ghi_chu_ql;
+    private javax.swing.JTextField txt_ma_nv;
+    private javax.swing.JTextField txt_ma_ql;
+    private javax.swing.JPasswordField txt_password_nv;
+    private javax.swing.JPasswordField txt_password_ql;
+    private javax.swing.JTextField txt_search_ten_nv;
+    private javax.swing.JTextField txt_ten_nv;
+    private javax.swing.JTextField txt_ten_ql;
     // End of variables declaration//GEN-END:variables
 }
