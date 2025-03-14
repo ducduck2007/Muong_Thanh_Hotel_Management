@@ -31,7 +31,7 @@ public class QuanLyNhanVienDAO {
                 qlnv.setMa_nhan_vien(rs.getString("ma_nhan_vien"));
                 qlnv.setTen_nhan_vien(rs.getString("ten_nhan_vien"));
                 qlnv.setEmail(rs.getString("email"));
-                qlnv.setVai_tro(rs.getBoolean("vai_tro"));
+                qlnv.setVai_tro(rs.getInt("vai_tro"));
                 qlnv.setGhi_chu(rs.getString("ghi_chu"));
                 list.add(qlnv);
             }
@@ -77,13 +77,13 @@ public class QuanLyNhanVienDAO {
 
         try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStm = conn.prepareStatement(sql)) {
 
-            String matKhau = qlnv.isVai_tro() ? "0" : qlnv.getMat_khau(); // Nếu vai_tro = true (Phục Vụ) thì đặt "0"
+            
 
             preStm.setString(1, qlnv.getMa_nhan_vien());
             preStm.setString(2, qlnv.getTen_nhan_vien());
             preStm.setString(3, qlnv.getEmail());
-            preStm.setString(4, matKhau);
-            preStm.setBoolean(5, qlnv.isVai_tro());
+            preStm.setString(4, qlnv.getMat_khau());
+            preStm.setInt(5, qlnv.getVai_tro());
             preStm.setString(6, qlnv.getGhi_chu() != null ? qlnv.getGhi_chu() : "");
 
             return preStm.executeUpdate() > 0;
@@ -98,12 +98,11 @@ public class QuanLyNhanVienDAO {
 
         try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStm = conn.prepareStatement(sql)) {
 
-            String matKhau = qlnv.isVai_tro() ? "0" : qlnv.getMat_khau(); // Nếu vai_tro = true (Phục Vụ) thì đặt "0"
 
             preStm.setString(1, qlnv.getTen_nhan_vien());
             preStm.setString(2, qlnv.getEmail());
-            preStm.setString(3, matKhau);
-            preStm.setBoolean(4, qlnv.isVai_tro());
+            preStm.setString(3, qlnv.getMat_khau());
+            preStm.setInt(4, qlnv.getVai_tro());
             preStm.setString(5, qlnv.getGhi_chu() != null ? qlnv.getGhi_chu() : "");
             preStm.setString(6, qlnv.getMa_nhan_vien());
 
@@ -178,7 +177,7 @@ public class QuanLyNhanVienDAO {
                 nv.setTen_nhan_vien(rs.getString("ten_nhan_vien"));
                 nv.setEmail(rs.getString("email"));
                 nv.setMat_khau(rs.getString("mat_khau"));
-                nv.setVai_tro(rs.getBoolean("vai_tro"));
+                nv.setVai_tro(rs.getInt("vai_tro"));
                 nv.setGhi_chu(rs.getString("ghi_chu"));
 
                 listNV.add(nv); // Thêm vào danh sách kết quả

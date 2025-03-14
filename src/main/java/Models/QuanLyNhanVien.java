@@ -14,14 +14,14 @@ public class QuanLyNhanVien {
     private String ten_nhan_vien;
     private String email;
     private String mat_khau;
-    private boolean vai_tro;
+    private int vai_tro;
     private String ma_quan_ly;
     private String ghi_chu;
 
     public QuanLyNhanVien() {
     }
 
-    public QuanLyNhanVien(String ma_nhan_vien, String ten_nhan_vien, String email, String mat_khau, boolean vai_tro, String ma_quan_ly, String ghi_chu) {
+    public QuanLyNhanVien(String ma_nhan_vien, String ten_nhan_vien, String email, String mat_khau, int vai_tro, String ma_quan_ly, String ghi_chu) {
         this.ma_nhan_vien = ma_nhan_vien;
         this.ten_nhan_vien = ten_nhan_vien;
         this.email = email;
@@ -63,11 +63,11 @@ public class QuanLyNhanVien {
         this.mat_khau = mat_khau;
     }
 
-    public boolean isVai_tro() {
+    public int getVai_tro() {
         return vai_tro;
     }
 
-    public void setVai_tro(boolean vai_tro) {
+    public void setVai_tro(int vai_tro) {
         this.vai_tro = vai_tro;
     }
 
@@ -86,5 +86,7 @@ public class QuanLyNhanVien {
     public void setGhi_chu(String ghi_chu) {
         this.ghi_chu = ghi_chu;
     }
+
+
 
 }

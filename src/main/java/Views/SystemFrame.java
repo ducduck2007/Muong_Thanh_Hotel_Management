@@ -4,6 +4,8 @@
  */
 package Views;
 
+import Services.Auth;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -284,11 +286,16 @@ public class SystemFrame extends javax.swing.JFrame {
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
         // TODO add your handling code here:
-        this.dispose();
-        QuanLyNhanVienFrame qlnvFrame = new QuanLyNhanVienFrame();
-        qlnvFrame.setLocationRelativeTo(null);
-        qlnvFrame.setVisible(true);
-        return;
+        if (Auth.isManager() == 1 || Auth.isManager() == 2) {
+            JOptionPane.showMessageDialog(this, "Bạn không có quyền để truy cập");
+            return;
+        } else {
+            this.dispose();
+            QuanLyNhanVienFrame qlnvFrame = new QuanLyNhanVienFrame();
+            qlnvFrame.setLocationRelativeTo(null);
+            qlnvFrame.setVisible(true);
+            return;
+        }
     }//GEN-LAST:event_jLabel8MouseClicked
 
     /**

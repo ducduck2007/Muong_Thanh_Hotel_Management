@@ -5,6 +5,8 @@
 package Views;
 
 import DAO.LoginSystemDAO;
+import Models.QuanLyNhanVien;
+import Services.Auth;
 import javax.swing.JOptionPane;
 
 /**
@@ -221,9 +223,12 @@ public class LoginSystem extends javax.swing.JFrame {
 
         LoginSystemDAO loginDAO = new LoginSystemDAO();
         boolean isValid = loginDAO.checkLogin(email, password);
+        QuanLyNhanVien nv = loginDAO.findByEmail(email);
 
         if (isValid) {
             System.out.println("login done");
+            Auth.user = nv;
+            System.out.println(Auth.isManager());
             SystemFrame sf = new SystemFrame();
             sf.setVisible(true);
             sf.setLocationRelativeTo(null);

@@ -45,13 +45,12 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
         List<QuanLyNhanVien> listNV = qlnvDAO.getDataNV();
 
         for (QuanLyNhanVien nv : listNV) {
-            String vaiTroStr = (nv.isVai_tro()) ? "Phục Vụ" : "Lễ Tân";
 
             tableModel_nv.addRow(new Object[]{
                 nv.getMa_nhan_vien(),
                 nv.getTen_nhan_vien(),
                 nv.getEmail(),
-                vaiTroStr,
+                nv.getVai_tro(),
                 nv.getGhi_chu() != null ? nv.getGhi_chu() : ""
             });
         }
@@ -78,7 +77,7 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
                 nv.getMa_nhan_vien(),
                 nv.getTen_nhan_vien(),
                 nv.getEmail(),
-                nv.isVai_tro() ? "Phục Vụ" : "Lễ Tân",
+                nv.getVai_tro(),
                 nv.getGhi_chu()
             });
         }
@@ -453,8 +452,13 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
             String email = txt_email_nv.getText().trim();
             char[] passwordChars = txt_password_nv.getPassword();
             String mat_khau = new String(passwordChars);
-            String vai_tro_str = cbo_vai_tro.getSelectedItem().toString();
-            boolean vai_tro = vai_tro_str.equalsIgnoreCase("Phục Vụ"); // "Phục Vụ" -> true, "Lễ Tân" -> false
+            String vaiTro = (String) cbo_vai_tro.getSelectedItem();
+            int vai_tro;
+            if(vaiTro.equals("Phụ vụ")){
+                vai_tro = 1;
+            }else {
+                vai_tro = 2;
+            };
             String ghi_chu = txt_ghi_chu_nv.getText().trim();
 
             if (ma_nhan_vien.isEmpty() || ten_nhan_vien.isEmpty() || email.isEmpty() || mat_khau.isEmpty()) {
@@ -484,11 +488,6 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
             if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
                 JOptionPane.showMessageDialog(this, "⚠️ Email không hợp lệ! Vui lòng nhập đúng định dạng.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
                 return;
-            }
-
-            // Nếu là "Phục Vụ", mật khẩu sẽ mặc định là "0"
-            if (vai_tro) {
-                mat_khau = "0";
             }
 
             QuanLyNhanVien qlnv = new QuanLyNhanVien();
@@ -546,8 +545,13 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
             String email = txt_email_nv.getText().trim();
             char[] passwordChars = txt_password_nv.getPassword();
             String mat_khau = new String(passwordChars);
-            String vai_tro_str = cbo_vai_tro.getSelectedItem().toString();
-            boolean vai_tro = vai_tro_str.equalsIgnoreCase("Phục Vụ"); // "Phục Vụ" -> true, "Lễ Tân" -> false
+            String vaiTro = (String) cbo_vai_tro.getSelectedItem();
+            int vai_tro;
+            if(vaiTro.equals("Phụ vụ")){
+                vai_tro = 1;
+            }else {
+                vai_tro = 2;
+            }
             String ghi_chu = txt_ghi_chu_nv.getText().trim();
 
             if (ma_nhan_vien.isEmpty() || ten_nhan_vien.isEmpty() || email.isEmpty() || mat_khau.isEmpty()) {
@@ -560,7 +564,6 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
                 return;
             }
 
-
             if (!ten_nhan_vien.matches("^[^0-9]+$")) {
                 JOptionPane.showMessageDialog(this, "⚠️ Tên nhân viên không được chứa số!", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -571,11 +574,6 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
                 return;
             }
 
-            // Nếu là "Phục Vụ", mật khẩu sẽ mặc định là "0"
-            if (vai_tro) {
-                mat_khau = "0";
-            }
-            
             QuanLyNhanVienDAO qlnvDAO = new QuanLyNhanVienDAO();
             QuanLyNhanVien qlnv = new QuanLyNhanVien();
 
