@@ -77,8 +77,6 @@ public class QuanLyNhanVienDAO {
 
         try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStm = conn.prepareStatement(sql)) {
 
-            
-
             preStm.setString(1, qlnv.getMa_nhan_vien());
             preStm.setString(2, qlnv.getTen_nhan_vien());
             preStm.setString(3, qlnv.getEmail());
@@ -94,11 +92,18 @@ public class QuanLyNhanVienDAO {
     }
 
     public boolean updateNV(QuanLyNhanVien qlnv) {
+        System.out.printf("DEBUG: Updating NV - MaNV: %s, Ten: %s, Email: %s, MK: %s, VaiTro: %d, GhiChu: %s\n",
+                qlnv.getMa_nhan_vien(),
+                qlnv.getTen_nhan_vien(),
+                qlnv.getEmail(),
+                qlnv.getMat_khau(),
+                qlnv.getVai_tro(),
+                qlnv.getGhi_chu()
+        );
+
         String sql = "UPDATE nhan_vien SET ten_nhan_vien = ?, email = ?, mat_khau = ?, vai_tro = ?, ghi_chu = ? WHERE ma_nhan_vien = ?";
 
         try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStm = conn.prepareStatement(sql)) {
-
-
             preStm.setString(1, qlnv.getTen_nhan_vien());
             preStm.setString(2, qlnv.getEmail());
             preStm.setString(3, qlnv.getMat_khau());
@@ -133,6 +138,23 @@ public class QuanLyNhanVienDAO {
         try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStm = conn.prepareStatement(sql)) {
 
             preStm.setString(1, ma_nhan_vien);
+            ResultSet rs = preStm.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean checkEmailNVExitsts(String email) {
+        String sql = "SELECT COUNT(*) FROM nhan_vien WHERE email = ?";
+
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStm = conn.prepareStatement(sql)) {
+
+            preStm.setString(1, email);
             ResultSet rs = preStm.executeQuery();
 
             if (rs.next()) {
@@ -180,12 +202,44 @@ public class QuanLyNhanVienDAO {
                 nv.setVai_tro(rs.getInt("vai_tro"));
                 nv.setGhi_chu(rs.getString("ghi_chu"));
 
-                listNV.add(nv); // Thêm vào danh sách kết quả
+                listNV.add(nv);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return listNV;
+    }
+
+    public String getMatKhauByMaNV(String maNhanVien) {
+        String sql = "SELECT mat_khau FROM nhan_vien WHERE ma_nhan_vien = ?";
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStm = conn.prepareStatement(sql)) {
+
+            preStm.setString(1, maNhanVien);
+            ResultSet rs = preStm.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("mat_khau");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public String getMatKhauByMaQL(String maQuanLy) {
+        String sql = "SELECT mat_khau FROM nhan_vien WHERE ma_quan_ly = ?";
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStm = conn.prepareStatement(sql)) {
+
+            preStm.setString(1, maQuanLy);
+            ResultSet rs = preStm.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("mat_khau");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 }

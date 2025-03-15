@@ -45,12 +45,18 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
         List<QuanLyNhanVien> listNV = qlnvDAO.getDataNV();
 
         for (QuanLyNhanVien nv : listNV) {
+            String vai_tro;
+            if (nv.getVai_tro() == 1) {
+                vai_tro = "Phục Vụ";
+            } else {
+                vai_tro = "Lễ Tân";
+            }
 
             tableModel_nv.addRow(new Object[]{
                 nv.getMa_nhan_vien(),
                 nv.getTen_nhan_vien(),
                 nv.getEmail(),
-                nv.getVai_tro(),
+                vai_tro,
                 nv.getGhi_chu() != null ? nv.getGhi_chu() : ""
             });
         }
@@ -73,11 +79,18 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
         tableModel_nv.setRowCount(0);
 
         for (QuanLyNhanVien nv : listNV) {
+            String vai_tro;
+            if (nv.getVai_tro() == 1) {
+                vai_tro = "Phục Vụ";
+            } else {
+                vai_tro = "Lễ Tân";
+            }
+
             tableModel_nv.addRow(new Object[]{
                 nv.getMa_nhan_vien(),
                 nv.getTen_nhan_vien(),
                 nv.getEmail(),
-                nv.getVai_tro(),
+                vai_tro,
                 nv.getGhi_chu()
             });
         }
@@ -453,12 +466,15 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
             char[] passwordChars = txt_password_nv.getPassword();
             String mat_khau = new String(passwordChars);
             String vaiTro = (String) cbo_vai_tro.getSelectedItem();
+            System.out.println(vaiTro);
             int vai_tro;
-            if(vaiTro.equals("Phụ vụ")){
+
+            if (vaiTro != null && vaiTro.toLowerCase().contains("phục")) {
                 vai_tro = 1;
-            }else {
+            } else {
                 vai_tro = 2;
-            };
+            }
+            System.out.println(vai_tro);
             String ghi_chu = txt_ghi_chu_nv.getText().trim();
 
             if (ma_nhan_vien.isEmpty() || ten_nhan_vien.isEmpty() || email.isEmpty() || mat_khau.isEmpty()) {
@@ -475,6 +491,14 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
             if (qlnvDAO.checkMaNhanVienExists(ma_nhan_vien)) {
                 JOptionPane.showMessageDialog(this,
                         "⚠️ Mã nhân viên đã tồn tại! Vui lòng nhập mã khác.",
+                        "Lỗi nhập liệu",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (qlnvDAO.checkEmailNVExitsts(email)) {
+                JOptionPane.showMessageDialog(this,
+                        "⚠️ Email đã tồn tại! Vui lòng nhập email khác.",
                         "Lỗi nhập liệu",
                         JOptionPane.ERROR_MESSAGE);
                 return;
@@ -529,11 +553,15 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
             String vaiTroStr = tbl_nv.getValueAt(row, 3).toString();
             String ghiChu = tbl_nv.getValueAt(row, 4) != null ? tbl_nv.getValueAt(row, 4).toString() : "";
 
+            QuanLyNhanVienDAO qlnvDAO = new QuanLyNhanVienDAO();
+            String matKhau = qlnvDAO.getMatKhauByMaNV(maNhanVien);
+
             txt_ma_nv.setText(maNhanVien);
             txt_ten_nv.setText(tenNhanVien);
             txt_email_nv.setText(email);
             cbo_vai_tro.setSelectedItem(vaiTroStr);
             txt_ghi_chu_nv.setText(ghiChu);
+            txt_password_nv.setText(matKhau);
         }
     }//GEN-LAST:event_tbl_nvMouseClicked
 
@@ -547,11 +575,13 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
             String mat_khau = new String(passwordChars);
             String vaiTro = (String) cbo_vai_tro.getSelectedItem();
             int vai_tro;
-            if(vaiTro.equals("Phụ vụ")){
+
+            if (vaiTro != null && vaiTro.toLowerCase().contains("phục")) {
                 vai_tro = 1;
-            }else {
+            } else {
                 vai_tro = 2;
             }
+
             String ghi_chu = txt_ghi_chu_nv.getText().trim();
 
             if (ma_nhan_vien.isEmpty() || ten_nhan_vien.isEmpty() || email.isEmpty() || mat_khau.isEmpty()) {
@@ -591,7 +621,7 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
                         JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(this,
-                        "❌ Sửa nhân viên thất bại! Vui lòng kiểm tra lại.",
+                        "❌ Cập nhật nhân viên thất bại! Vui lòng kiểm tra lại.",
                         "Lỗi",
                         JOptionPane.ERROR_MESSAGE);
                 return;
@@ -610,7 +640,7 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
             String ma_nhan_vien = txt_ma_nv.getText().trim();
 
             if (ma_nhan_vien.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "⚠️ Vui lòng nhập đầy đủ thông tin!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "⚠️ Vui lòng nhập mã nhân viên để xóa!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
@@ -707,8 +737,15 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
             }
 
             QuanLyNhanVienDAO qlnvDAO = new QuanLyNhanVienDAO();
-            QuanLyNhanVien qlnv = new QuanLyNhanVien();
 
+            String matKhauHienTai = qlnvDAO.getMatKhauByMaQL(ma_quan_ly);
+
+            if (!matKhauHienTai.equals(mat_khau)) {
+                JOptionPane.showMessageDialog(this, "❌ Mật khẩu không đúng! Vui lòng nhập lại đúng mật khẩu để sửa.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            QuanLyNhanVien qlnv = new QuanLyNhanVien();
             qlnv.setMa_quan_ly(ma_quan_ly);
             qlnv.setTen_nhan_vien(ten_quan_ly);
             qlnv.setEmail(email);

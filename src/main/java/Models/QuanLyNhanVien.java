@@ -87,6 +87,4 @@ public class QuanLyNhanVien {
         this.ghi_chu = ghi_chu;
     }
 
-
-
 }
