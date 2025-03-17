@@ -115,7 +115,7 @@ public class LichLamViecFrame extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ca 1: 6h - 14h", "Ca 2: 14h -22h", "Ca 3: 22h - 6h " }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ca 1: 06h00 - 14h00", "Ca 2: 14h00 - 22h00", "Ca 3: 22h00 - 06h00" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
