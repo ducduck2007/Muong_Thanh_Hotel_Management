@@ -4,17 +4,87 @@
  */
 package Views;
 
+import DAO.ThongTinPhongDAO;
+import Models.ThongTinPhong;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.math.BigDecimal;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Ggame
  */
 public class ThongTinPhongFrame extends javax.swing.JFrame {
 
+    DefaultTableModel tableModel = new DefaultTableModel();
+
     /**
      * Creates new form ThongTinPhong
      */
     public ThongTinPhongFrame() {
         initComponents();
+        initTable();
+        fillTable();
+        loadCBO();
+    }
+
+    public void loadCBO() {
+        ThongTinPhongDAO phongDAO = new ThongTinPhongDAO();
+        String loaiPhongMacDinh = (String) cbo_loai_phong.getSelectedItem();
+
+        BigDecimal giaPhong = phongDAO.getGiaPhongByLoaiPhong(loaiPhongMacDinh);
+
+        txt_gia_tien.setText(giaPhong.toString());
+
+        cbo_loai_phong.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String loaiPhongChon = (String) cbo_loai_phong.getSelectedItem();
+                BigDecimal giaPhong = phongDAO.getGiaPhongByLoaiPhong(loaiPhongChon);
+
+                txt_gia_tien.setText(giaPhong.toString());
+            }
+        });
+    }
+
+    public void initTable() {
+        String[] cols_nv = new String[]{"Mã Phòng", "Loại Phòng", "Giá Tiền", "Trạng Thái", "Ghi Chú"};
+        tableModel.setColumnIdentifiers(cols_nv);
+        tbl_phong.setModel(tableModel);
+    }
+
+    public void fillTable() {
+        tableModel.setRowCount(0);
+        ThongTinPhongDAO ttpDAO = new ThongTinPhongDAO();
+        List<ThongTinPhong> list = ttpDAO.getData();
+
+        for (ThongTinPhong thongTinPhong : list) {
+            tableModel.addRow(new Object[]{
+                thongTinPhong.getMa_phong(),
+                thongTinPhong.getLoai_phong(),
+                thongTinPhong.getGia_tien(),
+                thongTinPhong.getTrang_thai(),
+                thongTinPhong.getGhi_chu()
+            });
+        }
+    }
+
+    private void capNhatTablePhong(List<ThongTinPhong> danhSachPhong) {
+        DefaultTableModel model = (DefaultTableModel) tbl_phong.getModel();
+        model.setRowCount(0);
+
+        for (ThongTinPhong phong : danhSachPhong) {
+            model.addRow(new Object[]{
+                phong.getMa_phong(),
+                phong.getLoai_phong(),
+                phong.getGia_tien(),
+                phong.getTrang_thai(),
+                phong.getGhi_chu()
+            });
+        }
     }
 
     /**
@@ -30,48 +100,62 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txt_ma_phong = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbo_loai_phong = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        rdo_trong = new javax.swing.JRadioButton();
+        rdo_da_duoc_dat = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txt_gia_tien = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txt_ghi_chu = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbl_phong = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        cbo_search_loai_phong = new javax.swing.JComboBox<>();
+        cbo_search_trang_thai = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setText("Mã phòng");
 
         jLabel2.setText("Loại phòng");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Phòng thường", "Phòng VIP", "Phòng đặt biệt" }));
+        cbo_loai_phong.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Phòng thường", "Phòng VIP", "Phòng đặc biệt" }));
+        cbo_loai_phong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbo_loai_phongActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Trạng thái phòng");
 
-        btg_status_phong.add(jRadioButton1);
-        jRadioButton1.setText("Trống");
+        btg_status_phong.add(rdo_trong);
+        rdo_trong.setText("Trống");
 
-        btg_status_phong.add(jRadioButton2);
-        jRadioButton2.setText("Đã được đặt");
+        btg_status_phong.add(rdo_da_duoc_dat);
+        rdo_da_duoc_dat.setText("Đã được đặt");
 
         jLabel4.setText("Giá tiền");
 
+        txt_gia_tien.setEditable(false);
+
         jLabel5.setText("Ghi chú");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txt_ghi_chu.setColumns(20);
+        txt_ghi_chu.setRows(5);
+        jScrollPane1.setViewportView(txt_ghi_chu);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_phong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -82,17 +166,46 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        tbl_phong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_phongMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tbl_phong);
 
         jButton2.setText("Sửa");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Reset");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/back2.png"))); // NOI18N
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel6MouseClicked(evt);
+            }
+        });
+
+        cbo_search_loai_phong.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Chọn loại phòng --", "Phòng thường", "Phòng VIP", "Phòng đặc biệt" }));
+        cbo_search_loai_phong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbo_search_loai_phongActionPerformed(evt);
+            }
+        });
+
+        cbo_search_trang_thai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Chọn trạng thái --", "Trống", "Đã được đặt" }));
+        cbo_search_trang_thai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbo_search_trang_thaiActionPerformed(evt);
             }
         });
 
@@ -103,27 +216,31 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(rdo_trong)
+                            .addGap(18, 18, 18)
+                            .addComponent(rdo_da_duoc_dat))
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_ma_phong)
+                        .addComponent(cbo_loai_phong, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txt_gia_tien)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton4))
+                        .addComponent(jButton4)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRadioButton2))
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField2)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE))
+                        .addComponent(cbo_search_loai_phong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cbo_search_trang_thai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(41, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -139,21 +256,21 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_ma_phong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbo_loai_phong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton2))
+                            .addComponent(rdo_trong)
+                            .addComponent(rdo_da_duoc_dat))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_gia_tien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -161,7 +278,10 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2)
-                    .addComponent(jButton4))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton4)
+                        .addComponent(cbo_search_loai_phong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbo_search_trang_thai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addContainerGap())
@@ -191,6 +311,132 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
         sFrame.setVisible(true);
         return;
     }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void cbo_loai_phongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_loai_phongActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_cbo_loai_phongActionPerformed
+
+    private void tbl_phongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_phongMouseClicked
+        // TODO add your handling code here:
+        int row = tbl_phong.getSelectedRow();
+        if (row >= 0) {
+            String maPhong = tbl_phong.getValueAt(row, 0).toString();
+            String loaiPhong = tbl_phong.getValueAt(row, 1).toString();
+            String giaPhong = tbl_phong.getValueAt(row, 2).toString();
+            String trangThai = tbl_phong.getValueAt(row, 3).toString();
+            String ghiChu = tbl_phong.getValueAt(row, 4).toString();
+
+            txt_ma_phong.setText(maPhong);
+            cbo_loai_phong.setSelectedItem(loaiPhong);
+            txt_gia_tien.setText(giaPhong);
+
+            if (trangThai.equalsIgnoreCase("Trống")) {
+                rdo_trong.setSelected(true);
+            } else if (trangThai.equalsIgnoreCase("Đã được đặt")) {
+                rdo_da_duoc_dat.setSelected(true);
+            }
+
+            txt_ghi_chu.setText(ghiChu);
+        }
+    }//GEN-LAST:event_tbl_phongMouseClicked
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        txt_ghi_chu.setText("");
+        txt_ma_phong.setText("");
+        cbo_loai_phong.setSelectedIndex(0);
+        cbo_search_loai_phong.setSelectedIndex(0);
+        cbo_search_trang_thai.setSelectedIndex(0);
+        btg_status_phong.clearSelection();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void cbo_search_loai_phongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_search_loai_phongActionPerformed
+        // TODO add your handling code here:
+        String loaiPhongChon = (String) cbo_search_loai_phong.getSelectedItem();
+        String trangThaiChon = (String) cbo_search_trang_thai.getSelectedItem();
+
+        List<ThongTinPhong> danhSachPhong = ThongTinPhongDAO.timKiemPhong(loaiPhongChon, trangThaiChon);
+        capNhatTablePhong(danhSachPhong);
+    }//GEN-LAST:event_cbo_search_loai_phongActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        cbo_search_loai_phong.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cbo_search_loai_phongActionPerformed(e);
+            }
+        });
+        cbo_search_trang_thai.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cbo_search_trang_thaiActionPerformed(e);
+            }
+        });
+    }//GEN-LAST:event_formWindowOpened
+
+    private void cbo_search_trang_thaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_search_trang_thaiActionPerformed
+        // TODO add your handling code here:
+        String loaiPhongChon = (String) cbo_search_loai_phong.getSelectedItem();
+        String trangThaiChon = (String) cbo_search_trang_thai.getSelectedItem();
+
+        List<ThongTinPhong> danhSachPhong = ThongTinPhongDAO.timKiemPhong(loaiPhongChon, trangThaiChon);
+        capNhatTablePhong(danhSachPhong);
+    }//GEN-LAST:event_cbo_search_trang_thaiActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        try {
+            String ma_phong = txt_ma_phong.getText().trim();
+            String loai_phong = (String) cbo_loai_phong.getSelectedItem();
+
+            if (!rdo_trong.isSelected() && !rdo_da_duoc_dat.isSelected()) {
+                JOptionPane.showMessageDialog(this, "⚠️ Vui lòng chọn trạng thái phòng!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            String trang_thai = rdo_trong.isSelected() ? "Trống" : "Đã được đặt";
+
+            String ghi_chu = txt_ghi_chu.getText().trim();
+
+            if (ma_phong.isEmpty() || loai_phong.isEmpty() || ghi_chu.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "⚠️ Vui lòng nhập đầy đủ thông tin!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            ThongTinPhongDAO ttpDAO = new ThongTinPhongDAO();
+
+            if (!ttpDAO.existsMaPhong(ma_phong)) {
+                JOptionPane.showMessageDialog(this, "⚠️ Mã phòng không tồn tại! Vui lòng nhập mã phòng hợp lệ.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            ThongTinPhong ttp = new ThongTinPhong();
+            ttp.setMa_phong(ma_phong);
+            ttp.setLoai_phong(loai_phong);
+            ttp.setTrang_thai(trang_thai);
+            ttp.setGhi_chu(ghi_chu);
+
+            if (ttpDAO.update(ttp)) {
+                JOptionPane.showMessageDialog(this,
+                        "✅ Sửa thông tin phòng thành công!",
+                        "Thành công",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "❌ Sửa thông tin phòng thất bại! Vui lòng kiểm tra lại.",
+                        "Lỗi",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            fillTable();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Lỗi hệ thống: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -230,9 +476,11 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btg_status_phong;
+    private javax.swing.JComboBox<String> cbo_loai_phong;
+    private javax.swing.JComboBox<String> cbo_search_loai_phong;
+    private javax.swing.JComboBox<String> cbo_search_trang_thai;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -240,14 +488,14 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JRadioButton rdo_da_duoc_dat;
+    private javax.swing.JRadioButton rdo_trong;
+    private javax.swing.JTable tbl_phong;
+    private javax.swing.JTextArea txt_ghi_chu;
+    private javax.swing.JTextField txt_gia_tien;
+    private javax.swing.JTextField txt_ma_phong;
     // End of variables declaration//GEN-END:variables
 }

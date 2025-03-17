@@ -4,17 +4,49 @@
  */
 package Views;
 
+import DAO.ThietLapGiaDAO;
+import Models.ThietLapGia;
+import java.math.BigDecimal;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ADMIN
  */
 public class ThietLapGiaFrame extends javax.swing.JFrame {
 
+    DefaultTableModel tableModel = new DefaultTableModel();
+
     /**
      * Creates new form NewJFrame
      */
     public ThietLapGiaFrame() {
         initComponents();
+        initTable();
+        fillTable();
+    }
+
+    public void initTable() {
+        String[] cols_nv = new String[]{"Mã GP", "Loại Phòng", "Giá Phòng", "Ghi Chú"};
+        tableModel.setColumnIdentifiers(cols_nv);
+        tbl_thiet_lap_gia.setModel(tableModel);
+    }
+
+    public void fillTable() {
+        tableModel.setRowCount(0);
+        ThietLapGiaDAO tlgDAO = new ThietLapGiaDAO();
+        List<ThietLapGia> listNV = tlgDAO.getData();
+
+        for (ThietLapGia thietLapGia : listNV) {
+            tableModel.addRow(new Object[]{
+                thietLapGia.getMa_gia(),
+                thietLapGia.getLoai_phong(),
+                thietLapGia.getGia_tien(),
+                thietLapGia.getGhi_chu()
+            });
+        }
     }
 
     /**
@@ -27,28 +59,28 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel3 = new javax.swing.JLabel();
-        txt1 = new javax.swing.JTextField();
+        txt_ma_gia = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        txt3 = new javax.swing.JTextField();
+        txt_gia_phong = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txt_ghi_chu = new javax.swing.JTextArea();
         btn2 = new javax.swing.JButton();
         btn4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        tbl_thiet_lap_gia = new javax.swing.JTable();
+        cbo_loai_phong = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel3.setText("Mã giá");
 
-        txt1.addActionListener(new java.awt.event.ActionListener() {
+        txt_ma_gia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt1ActionPerformed(evt);
+                txt_ma_giaActionPerformed(evt);
             }
         });
 
@@ -62,15 +94,15 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(51, 0, 255));
         jLabel1.setText("Thiết lập giá");
 
-        txt3.addActionListener(new java.awt.event.ActionListener() {
+        txt_gia_phong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt3ActionPerformed(evt);
+                txt_gia_phongActionPerformed(evt);
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        txt_ghi_chu.setColumns(20);
+        txt_ghi_chu.setRows(5);
+        jScrollPane2.setViewportView(txt_ghi_chu);
 
         btn2.setText("Sửa");
         btn2.addActionListener(new java.awt.event.ActionListener() {
@@ -86,7 +118,7 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_thiet_lap_gia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -97,9 +129,19 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tbl_thiet_lap_gia.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_thiet_lap_giaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbl_thiet_lap_gia);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Phòng thường", "Phòng VIP", "Phòng đặt biệt" }));
+        cbo_loai_phong.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Phòng thường", "Phòng VIP", "Phòng đặc biệt" }));
+        cbo_loai_phong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbo_loai_phongActionPerformed(evt);
+            }
+        });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/back2.png"))); // NOI18N
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -129,10 +171,10 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
                                     .addComponent(jLabel6))
                                 .addGap(40, 40, 40)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txt3)
-                                    .addComponent(txt1)
+                                    .addComponent(txt_gia_phong)
+                                    .addComponent(txt_ma_gia)
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
-                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(cbo_loai_phong, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btn4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -151,17 +193,17 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_ma_gia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn2))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbo_loai_phong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn4))
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(txt3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_gia_phong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
@@ -176,20 +218,87 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt1ActionPerformed
+    private void txt_ma_giaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_ma_giaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt1ActionPerformed
+    }//GEN-LAST:event_txt_ma_giaActionPerformed
 
-    private void txt3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt3ActionPerformed
+    private void txt_gia_phongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_gia_phongActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt3ActionPerformed
+    }//GEN-LAST:event_txt_gia_phongActionPerformed
 
     private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
         // TODO add your handling code here:
+        try {
+            String ma_gia = txt_ma_gia.getText().trim();
+            String loai_phong = (String) cbo_loai_phong.getSelectedItem();
+            String gia_phong = txt_gia_phong.getText().trim();
+            String ghi_chu = txt_ghi_chu.getText().trim();
+
+            if (ma_gia.isEmpty() || loai_phong.isEmpty() || gia_phong.isEmpty() || ghi_chu.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "⚠️ Vui lòng nhập đầy đủ thông tin!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            int maGia;
+            try {
+                maGia = Integer.parseInt(ma_gia);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "⚠️ Mã giá phải là một số nguyên hợp lệ!", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            BigDecimal giaTien;
+            try {
+                giaTien = new BigDecimal(gia_phong);
+                if (giaTien.compareTo(BigDecimal.ZERO) < 0) {
+                    JOptionPane.showMessageDialog(this, "⚠️ Giá phòng phải là số dương!", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "⚠️ Giá phòng phải là một số hợp lệ!", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            ThietLapGiaDAO tlgDAO = new ThietLapGiaDAO();
+
+            if (!tlgDAO.existsMaGia(maGia)) {
+                JOptionPane.showMessageDialog(this, "⚠️ Mã giá không tồn tại! Vui lòng nhập mã giá hợp lệ.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            ThietLapGia tlg = new ThietLapGia();
+            tlg.setMa_gia(maGia);
+            tlg.setLoai_phong(loai_phong);
+            tlg.setGia_tien(giaTien);
+            tlg.setGhi_chu(ghi_chu);
+
+            if (tlgDAO.update(tlg)) {
+                JOptionPane.showMessageDialog(this,
+                        "✅ Thiết lập giá phòng thành công!",
+                        "Thành công",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "❌ Thiết lập giá phòng thất bại! Vui lòng kiểm tra lại.",
+                        "Lỗi",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            fillTable();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Lỗi hệ thống: " + e.getMessage());
+        }
     }//GEN-LAST:event_btn2ActionPerformed
 
     private void btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4ActionPerformed
         // TODO add your handling code here:
+        txt_ma_gia.setText("");
+        txt_gia_phong.setText("");
+        txt_ghi_chu.setText("");
+        cbo_loai_phong.setSelectedIndex(0);
+        fillTable();
     }//GEN-LAST:event_btn4ActionPerformed
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
@@ -200,6 +309,26 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
         sFrame.setVisible(true);
         return;
     }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void tbl_thiet_lap_giaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_thiet_lap_giaMouseClicked
+        // TODO add your handling code here:
+        int row = tbl_thiet_lap_gia.getSelectedRow();
+        if (row >= 0) {
+            String maGia = tbl_thiet_lap_gia.getValueAt(row, 0).toString();
+            String loaiPhong = tbl_thiet_lap_gia.getValueAt(row, 1).toString();
+            String giaPhong = tbl_thiet_lap_gia.getValueAt(row, 2).toString();
+            String ghiChu = tbl_thiet_lap_gia.getValueAt(row, 3).toString();
+
+            txt_ma_gia.setText(maGia);
+            cbo_loai_phong.setSelectedItem(loaiPhong);
+            txt_gia_phong.setText(giaPhong);
+            txt_ghi_chu.setText(ghiChu);
+        }
+    }//GEN-LAST:event_tbl_thiet_lap_giaMouseClicked
+
+    private void cbo_loai_phongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_loai_phongActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbo_loai_phongActionPerformed
 
     /**
      * @param args the command line arguments
@@ -246,7 +375,7 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn2;
     private javax.swing.JButton btn4;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cbo_loai_phong;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -255,9 +384,9 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField txt1;
-    private javax.swing.JTextField txt3;
+    private javax.swing.JTable tbl_thiet_lap_gia;
+    private javax.swing.JTextArea txt_ghi_chu;
+    private javax.swing.JTextField txt_gia_phong;
+    private javax.swing.JTextField txt_ma_gia;
     // End of variables declaration//GEN-END:variables
 }
