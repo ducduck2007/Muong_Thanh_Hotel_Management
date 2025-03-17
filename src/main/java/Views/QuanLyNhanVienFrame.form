@@ -51,28 +51,31 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jButton3" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jLabel6" min="-2" pref="110" max="-2" attributes="0"/>
+                              <Component id="jLabel5" min="-2" pref="110" max="-2" attributes="0"/>
+                              <Component id="jLabel4" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
+                              <Component id="jLabel3" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
+                              <Component id="txt_email_nv" alignment="0" pref="504" max="32767" attributes="0"/>
+                              <Component id="jLabel2" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
+                              <Component id="txt_ten_nv" alignment="0" pref="504" max="32767" attributes="0"/>
+                              <Component id="jLabel1" min="-2" pref="110" max="-2" attributes="0"/>
+                              <Component id="txt_ma_nv" max="32767" attributes="0"/>
+                              <Component id="cbo_vai_tro" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txt_password_nv" alignment="0" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="jLabel6" min="-2" pref="110" max="-2" attributes="0"/>
-                          <Component id="jLabel5" min="-2" pref="110" max="-2" attributes="0"/>
-                          <Component id="jLabel4" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
-                          <Component id="jLabel3" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
-                          <Component id="txt_email_nv" alignment="0" pref="504" max="32767" attributes="0"/>
-                          <Component id="jLabel2" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
-                          <Component id="txt_ten_nv" alignment="0" pref="504" max="32767" attributes="0"/>
-                          <Component id="jLabel1" min="-2" pref="110" max="-2" attributes="0"/>
-                          <Component id="txt_ma_nv" max="32767" attributes="0"/>
-                          <Component id="cbo_vai_tro" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txt_password_nv" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="43" max="32767" attributes="0"/>
                   </Group>
@@ -112,7 +115,9 @@
                           <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="93" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jLabel12" min="-2" pref="33" max="-2" attributes="0"/>
+                      <EmptySpace pref="48" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -215,6 +220,16 @@
               </Events>
             </Component>
             <Component class="javax.swing.JPasswordField" name="txt_password_nv">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel12">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/back2.png"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel12MouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

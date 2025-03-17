@@ -84,12 +84,6 @@ public class MainFrame extends javax.swing.JFrame {
         mcF.setLocationRelativeTo(null);
         mcF.setVisible(true);
         return;
-
-//        this.dispose();
-//        ClientFrame cliFrame = new ClientFrame();
-//        cliFrame.setLocationRelativeTo(null);
-//        cliFrame.setVisible(true);
-//        return;
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
