@@ -1,4 +1,5 @@
 Views\LienHeKhachHangFrame$2.class
+Views\ThongTinDatPhongFrame$3.class
 Views\HoaDonFrame$8.class
 Views\QuanLyNhanVienFrame$6.class
 Views\ThongTinPhongFrame$4.class
@@ -28,8 +29,10 @@ Views\QuanLyNhanVienFrame$11.class
 Views\QuanLyNhanVienFrame$3.class
 Views\ThongKeDoanhThuFrame$1.class
 Views\MainFrame.class
+DAO\ThongTinDatPhongDAO.class
 Services\MainRun.class
 Views\LichLamViecFrame$9.class
+Views\ThietLapGiaFrame$9.class
 Views\HoaDonChiTietFrame$2.class
 Views\MainFrame$2.class
 Views\ThongTinDatPhongFrame.class
@@ -70,6 +73,7 @@ Views\ThietLapGiaFrame$8.class
 Views\HoaDonFrame$2.class
 Views\LoginClient$2.class
 Views\LichLamViecFrame$8.class
+Models\ThongTinDatPhong.class
 Views\HoaDonFrame$1.class
 Views\DichVuFrame$6.class
 Views\LoginSystem$2.class

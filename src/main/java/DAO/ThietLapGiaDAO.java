@@ -31,6 +31,7 @@ public class ThietLapGiaDAO {
                 tlg.setMa_gia(rs.getInt("ma_gia"));
                 tlg.setLoai_phong(rs.getString("loai_phong"));
                 tlg.setGia_tien(rs.getBigDecimal("gia_phong"));
+                tlg.setThoi_luong(rs.getInt("thoi_luong"));
                 tlg.setGhi_chu(rs.getString("ghi_chu"));
                 list.add(tlg);
             }
@@ -45,13 +46,14 @@ public class ThietLapGiaDAO {
     }
 
     public boolean update(ThietLapGia tlg) {
-        String sql = "UPDATE thiet_lap_gia SET loai_phong = ?, gia_phong = ?, ghi_chu = ? WHERE ma_gia = ?";
+        String sql = "UPDATE thiet_lap_gia SET loai_phong = ?, gia_phong = ?, thoi_luong = ?, ghi_chu = ? WHERE ma_gia = ?";
 
         try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStm = conn.prepareStatement(sql)) {
             preStm.setString(1, tlg.getLoai_phong());
             preStm.setBigDecimal(2, tlg.getGia_tien());
-            preStm.setString(3, tlg.getGhi_chu());
-            preStm.setInt(4, tlg.getMa_gia());
+            preStm.setInt(3, tlg.getThoi_luong());
+            preStm.setString(4, tlg.getGhi_chu());
+            preStm.setInt(5, tlg.getMa_gia());
 
             return preStm.executeUpdate() > 0;
         } catch (Exception e) {

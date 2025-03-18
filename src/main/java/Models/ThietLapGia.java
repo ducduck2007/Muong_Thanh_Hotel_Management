@@ -16,15 +16,17 @@ public class ThietLapGia {
     private String loai_phong;
     private BigDecimal gia_tien;
     private String ghi_chu;
+    private int thoi_luong;
 
     public ThietLapGia() {
     }
 
-    public ThietLapGia(int ma_gia, String loai_phong, BigDecimal gia_tien, String ghi_chu) {
+    public ThietLapGia(int ma_gia, String loai_phong, BigDecimal gia_tien, String ghi_chu, int thoi_luong) {
         this.ma_gia = ma_gia;
         this.loai_phong = loai_phong;
         this.gia_tien = gia_tien;
         this.ghi_chu = ghi_chu;
+        this.thoi_luong = thoi_luong;
     }
 
     public int getMa_gia() {
@@ -57,6 +59,14 @@ public class ThietLapGia {
 
     public void setGhi_chu(String ghi_chu) {
         this.ghi_chu = ghi_chu;
+    }
+
+    public int getThoi_luong() {
+        return thoi_luong;
+    }
+
+    public void setThoi_luong(int thoi_luong) {
+        this.thoi_luong = thoi_luong;
     }
 
 }

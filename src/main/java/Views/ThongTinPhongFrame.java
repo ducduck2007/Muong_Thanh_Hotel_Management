@@ -141,9 +141,11 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
 
         btg_status_phong.add(rdo_trong);
         rdo_trong.setText("Trống");
+        rdo_trong.setEnabled(false);
 
         btg_status_phong.add(rdo_da_duoc_dat);
         rdo_da_duoc_dat.setText("Đã được đặt");
+        rdo_da_duoc_dat.setEnabled(false);
 
         jLabel4.setText("Giá tiền");
 
