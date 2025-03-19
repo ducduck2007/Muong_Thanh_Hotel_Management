@@ -42,7 +42,6 @@ public class ClientFrame extends javax.swing.JFrame {
         lbl_img = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(926, 518));
 
         pn_menu.setBackground(new java.awt.Color(204, 204, 204));
         pn_menu.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -69,6 +68,11 @@ public class ClientFrame extends javax.swing.JFrame {
         jButton2.setMaximumSize(new java.awt.Dimension(10000, 10000));
         jButton2.setMinimumSize(new java.awt.Dimension(256, 44));
         jButton2.setPreferredSize(new java.awt.Dimension(256, 44));
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         jButton3.setText("Đổi mật khẩu");
         jButton3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -190,6 +194,15 @@ public class ClientFrame extends javax.swing.JFrame {
         lCli.setVisible(true);
         return;
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        DichVuFrame dvFrame = new DichVuFrame();
+        dvFrame.setLocationRelativeTo(null);
+        dvFrame.setVisible(true);
+        return;
+    }//GEN-LAST:event_jButton2MouseClicked
 
     /**
      * @param args the command line arguments

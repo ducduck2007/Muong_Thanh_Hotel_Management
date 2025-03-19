@@ -5,6 +5,8 @@
 package Views;
 
 import DAO.KhachHangDAO;
+import Models.KhachHang;
+import Services.AuthKhachHang;
 import javax.swing.JOptionPane;
 
 /**
@@ -328,9 +330,12 @@ public class LoginClient extends javax.swing.JFrame {
 
         KhachHangDAO khDAO = new KhachHangDAO();
         boolean isValid = khDAO.checkLogin(email, password);
+        KhachHang kh = khDAO.findByEmail(email);
 
         if (isValid) {
             System.out.println("login done");
+            AuthKhachHang.user = kh;
+            System.out.println(AuthKhachHang.maKhachHang());
             this.dispose();
             ClientFrame cliFrame = new ClientFrame();
             cliFrame.setLocationRelativeTo(null);

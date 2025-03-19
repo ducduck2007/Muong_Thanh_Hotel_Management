@@ -66,6 +66,28 @@ public class KhachHangDAO {
         }
     }
     
+    public KhachHang findByEmail(String email){
+        String sql = "select * from khach_hang where email = ?";
+        try {
+            Connection con = DataProvider.dataConnection();
+            PreparedStatement pps = con.prepareCall(sql);
+            pps.setString(1, email);
+            ResultSet rs = pps.executeQuery();
+            if(rs.next()){
+                KhachHang kh = new KhachHang();
+                kh.setMa_khach_hang(rs.getInt("ma_khach_hang"));
+                kh.setTen_khach_hang(rs.getString("ten_khach_hang"));
+                kh.setEmail(rs.getString("email"));
+                kh.setMat_khau(rs.getString("mat_khau"));
+                kh.setSo_dien_thoai(rs.getString("so_dien_thoai"));
+                return kh;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
     public List<KhachHang> findAll(){
         String sql = "select * from khach_hang";
         try {

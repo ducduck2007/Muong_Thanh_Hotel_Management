@@ -30,8 +30,10 @@ Views\QuanLyNhanVienFrame$3.class
 Views\ThongKeDoanhThuFrame$1.class
 Views\MainFrame.class
 DAO\ThongTinDatPhongDAO.class
+Models\DichVuHoTro.class
 Services\MainRun.class
 Views\LichLamViecFrame$9.class
+DAO\DichVuHoTroDAO.class
 Views\ThietLapGiaFrame$9.class
 Views\HoaDonChiTietFrame$2.class
 Views\MainFrame$2.class
@@ -46,12 +48,14 @@ Views\ProgressBarFrame$1.class
 Views\ThietLapGiaFrame$2.class
 Views\SystemFrame$9.class
 Views\QuanLyNhanVienFrame$4.class
+Views\XuLyHoTroFrame.class
 Views\ThongTinDatPhongFrame$1.class
 Views\HoaDonFrame$3.class
 Views\LoginClient$3.class
 Views\KhachHangFrame$6.class
 Views\SystemFrame$2.class
 Views\DichVuFrame$1.class
+Views\ClientFrame$5.class
 Views\MainFrame$3.class
 Views\KhachHangFrame.class
 Views\SystemFrame$13.class
@@ -75,6 +79,7 @@ Views\ThietLapGiaFrame$8.class
 Views\HoaDonFrame$2.class
 Views\LoginClient$2.class
 Views\LichLamViecFrame$8.class
+Views\XuLyHoTroFrame$1.class
 Models\ThongTinDatPhong.class
 Views\HoaDonFrame$1.class
 Views\DichVuFrame$6.class
@@ -106,6 +111,7 @@ Views\SystemFrame$15.class
 Views\SystemFrame$3.class
 Views\ThongTinPhongFrame$2.class
 Views\KhachHangFrame$2.class
+Services\AuthKhachHang.class
 Views\LienHeKhachHangFrame.class
 Views\KhachHangFrame$5.class
 Views\HoaDonFrame$10.class

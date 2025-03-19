@@ -4,17 +4,41 @@
  */
 package Views;
 
+import DAO.DichVuHoTroDAO;
+import Models.DichVuHoTro;
+import Services.AuthKhachHang;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ADMIN
  */
 public class DichVuFrame extends javax.swing.JFrame {
-
+    DefaultTableModel tableModel = new DefaultTableModel();
     /**
      * Creates new form NewJFrame
      */
     public DichVuFrame() {
         initComponents();
+        initTable();
+        fillTable();
+    }
+    
+    public void initTable(){
+        String[] cols = new String[]{"Mã dịch vụ","Mã khách hàng","Tên dịch vụ","Nội dung"};
+        tableModel.setColumnIdentifiers(cols);
+        tblDichVu.setModel(tableModel);
+    }
+    
+    public void fillTable(){
+        tableModel.setRowCount(0);
+        DichVuHoTroDAO dvDao = new DichVuHoTroDAO();
+        List<DichVuHoTro> list = dvDao.findAll();
+        for (DichVuHoTro dichVuHoTro : list) {
+            tableModel.addRow(new Object[]{dichVuHoTro.getMa_dich_vu(),dichVuHoTro.getMa_khach_hang(),dichVuHoTro.getTen_dich_vu(),dichVuHoTro.getNoi_dung()});
+        }
     }
 
     /**
@@ -26,37 +50,42 @@ public class DichVuFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btn1 = new javax.swing.JButton();
+        btnGui = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        txt1 = new javax.swing.JTextField();
+        txtMaDichVu = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        txt2 = new javax.swing.JTextField();
-        txt3 = new javax.swing.JTextField();
+        txtTenDichVu = new javax.swing.JTextField();
+        txtMaKhachHang = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        btn4 = new javax.swing.JButton();
+        txtaNoiDung = new javax.swing.JTextArea();
+        btnReset = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblDichVu = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
-        btn1.setText("Gửi");
-        btn1.addActionListener(new java.awt.event.ActionListener() {
+        btnGui.setText("Gửi");
+        btnGui.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn1ActionPerformed(evt);
+                btnGuiActionPerformed(evt);
             }
         });
 
         jLabel3.setText("Mã dịch vụ");
 
-        txt1.setEditable(false);
-        txt1.addActionListener(new java.awt.event.ActionListener() {
+        txtMaDichVu.setEditable(false);
+        txtMaDichVu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt1ActionPerformed(evt);
+                txtMaDichVuActionPerformed(evt);
             }
         });
 
@@ -70,31 +99,31 @@ public class DichVuFrame extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(51, 0, 255));
         jLabel1.setText("Dịch vụ hỗ trợ");
 
-        txt2.addActionListener(new java.awt.event.ActionListener() {
+        txtTenDichVu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt2ActionPerformed(evt);
+                txtTenDichVuActionPerformed(evt);
             }
         });
 
-        txt3.setEditable(false);
-        txt3.addActionListener(new java.awt.event.ActionListener() {
+        txtMaKhachHang.setEditable(false);
+        txtMaKhachHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt3ActionPerformed(evt);
+                txtMaKhachHangActionPerformed(evt);
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        txtaNoiDung.setColumns(20);
+        txtaNoiDung.setRows(5);
+        jScrollPane2.setViewportView(txtaNoiDung);
 
-        btn4.setText("Reset");
-        btn4.addActionListener(new java.awt.event.ActionListener() {
+        btnReset.setText("Reset");
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn4ActionPerformed(evt);
+                btnResetActionPerformed(evt);
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblDichVu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -105,7 +134,12 @@ public class DichVuFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tblDichVu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDichVuMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblDichVu);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/back2.png"))); // NOI18N
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -122,32 +156,33 @@ public class DichVuFrame extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addGap(22, 22, 22)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txt2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
-                            .addComponent(txt1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn4, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6))
+                                .addGap(22, 22, 22)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtTenDichVu, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtMaKhachHang, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+                                    .addComponent(txtMaDichVu))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnGui, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(14, 14, 14)))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(14, 14, 14)))))
                         .addGap(15, 15, 15))))
         );
         layout.setVerticalGroup(
@@ -158,17 +193,17 @@ public class DichVuFrame extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn1))
+                    .addComponent(txtMaDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGui))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTenDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(btn4))
+                    .addComponent(btnReset))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(txt3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMaKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
@@ -183,25 +218,56 @@ public class DichVuFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
+    private void btnGuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiActionPerformed
+        StringBuilder sb = new StringBuilder();
+        if(txtTenDichVu.getText().equals("")){
+            sb.append("Xin nhập tên dịch vụ\n");
+        }
+        if(txtaNoiDung.getText().equals("")){
+            sb.append("Xin nhập nội dung\n");
+        }
+        if(sb.length() > 0){
+            JOptionPane.showMessageDialog(this, sb.toString());
+            return;
+        }
         
-    }//GEN-LAST:event_btn1ActionPerformed
+        DichVuHoTroDAO dvDao = new DichVuHoTroDAO();
+        DichVuHoTro dv = new DichVuHoTro();
+        int maKhachHang = Integer.parseInt(txtMaKhachHang.getText());
+        dv.setMa_khach_hang(maKhachHang);
+        dv.setTen_dich_vu(txtTenDichVu.getText());
+        dv.setNoi_dung(txtaNoiDung.getText());
+        
+        int choice = JOptionPane.showConfirmDialog(this, "Bạn có muốn gửi không ?");
+        if(choice == JOptionPane.YES_OPTION){
+            if(dvDao.insert(dv)){
+                JOptionPane.showMessageDialog(this, "Gửi thành công");
+                fillTable();
+            }else {
+                JOptionPane.showMessageDialog(this, "Gửi thất bại");
+            }
+        }
+    }//GEN-LAST:event_btnGuiActionPerformed
 
-    private void txt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt1ActionPerformed
+    private void txtMaDichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaDichVuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt1ActionPerformed
+    }//GEN-LAST:event_txtMaDichVuActionPerformed
 
-    private void txt2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt2ActionPerformed
+    private void txtTenDichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenDichVuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt2ActionPerformed
+    }//GEN-LAST:event_txtTenDichVuActionPerformed
 
-    private void txt3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt3ActionPerformed
+    private void txtMaKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaKhachHangActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt3ActionPerformed
+    }//GEN-LAST:event_txtMaKhachHangActionPerformed
 
-    private void btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4ActionPerformed
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn4ActionPerformed
+        txtMaDichVu.setText("");
+        txtTenDichVu.setText("");
+        txtMaKhachHang.setText("");
+        txtaNoiDung.setText("");
+    }//GEN-LAST:event_btnResetActionPerformed
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         // TODO add your handling code here:
@@ -211,6 +277,25 @@ public class DichVuFrame extends javax.swing.JFrame {
         sFrame.setVisible(true);
         return;
     }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        txtMaKhachHang.setText(String.valueOf(AuthKhachHang.maKhachHang()));
+    }//GEN-LAST:event_formWindowOpened
+
+    private void tblDichVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDichVuMouseClicked
+        // TODO add your handling code here:
+        int row = tblDichVu.getSelectedRow();
+        if(row >= 0){
+            int maDichVu = (int) tblDichVu.getValueAt(row, 0);
+            DichVuHoTroDAO dvDao = new DichVuHoTroDAO();
+            DichVuHoTro dv = dvDao.findById(maDichVu);
+            txtMaDichVu.setText(String.valueOf(dv.getMa_dich_vu()));
+            txtTenDichVu.setText(dv.getTen_dich_vu());
+            txtMaKhachHang.setText(String.valueOf(dv.getMa_khach_hang()));
+            txtaNoiDung.setText(dv.getNoi_dung());
+        }
+    }//GEN-LAST:event_tblDichVuMouseClicked
 
     /**
      * @param args the command line arguments
@@ -251,8 +336,8 @@ public class DichVuFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn1;
-    private javax.swing.JButton btn4;
+    private javax.swing.JButton btnGui;
+    private javax.swing.JButton btnReset;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -261,10 +346,10 @@ public class DichVuFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField txt1;
-    private javax.swing.JTextField txt2;
-    private javax.swing.JTextField txt3;
+    private javax.swing.JTable tblDichVu;
+    private javax.swing.JTextField txtMaDichVu;
+    private javax.swing.JTextField txtMaKhachHang;
+    private javax.swing.JTextField txtTenDichVu;
+    private javax.swing.JTextArea txtaNoiDung;
     // End of variables declaration//GEN-END:variables
 }
