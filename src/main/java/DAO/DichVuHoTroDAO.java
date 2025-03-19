@@ -29,6 +29,7 @@ public class DichVuHoTroDAO {
                 dv.setMa_khach_hang(rs.getInt("ma_khach_hang"));
                 dv.setTen_dich_vu(rs.getString("ten_dich_vu"));
                 dv.setNoi_dung(rs.getString("noi_dung"));
+                dv.setTrang_thai(rs.getString("trang_thai"));
                 list.add(dv);
             }
             return list;
@@ -67,6 +68,20 @@ public class DichVuHoTroDAO {
             pps.setInt(1, dv.getMa_khach_hang());
             pps.setString(2, dv.getTen_dich_vu());
             pps.setString(3, dv.getNoi_dung());
+            return pps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean updateTrangThai(int maDichVu, String trangThai){
+        String sql = "update dich_vu_ho_tro set trang_thai = ? where ma_dich_vu = ?";
+        try {
+            Connection con = DataProvider.dataConnection();
+            PreparedStatement pps = con.prepareCall(sql);
+            pps.setString(1, trangThai);
+            pps.setInt(2, maDichVu);
             return pps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();

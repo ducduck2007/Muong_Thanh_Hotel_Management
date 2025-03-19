@@ -4,17 +4,42 @@
  */
 package Views;
 
+import DAO.DichVuHoTroDAO;
+import Models.DichVuHoTro;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ADMIN
  */
 public class XuLyHoTroFrame extends javax.swing.JFrame {
 
+    DefaultTableModel tableModel = new DefaultTableModel();
+
     /**
      * Creates new form XuLyHoTroFrame
      */
     public XuLyHoTroFrame() {
         initComponents();
+        initTable();
+        fillTable();
+    }
+
+    public void initTable() {
+        String[] cols = new String[]{"Mã dịch vụ", "Tên dịch vụ", "Mã khách hàng", "Nội dung", "Trạng thái"};
+        tableModel.setColumnIdentifiers(cols);
+        tblDichVu.setModel(tableModel);
+    }
+
+    public void fillTable() {
+        tableModel.setRowCount(0);
+        DichVuHoTroDAO dvDao = new DichVuHoTroDAO();
+        List<DichVuHoTro> list = dvDao.findAll();
+        for (DichVuHoTro dichVuHoTro : list) {
+            tableModel.addRow(new Object[]{dichVuHoTro.getMa_dich_vu(), dichVuHoTro.getMa_khach_hang(), dichVuHoTro.getTen_dich_vu(), dichVuHoTro.getNoi_dung(), dichVuHoTro.getTrang_thai()});
+        }
     }
 
     /**
@@ -27,16 +52,16 @@ public class XuLyHoTroFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        tblDichVu = new javax.swing.JTable();
+        cboTrangThai = new javax.swing.JComboBox<>();
+        btnCapNhat = new javax.swing.JButton();
+        txtMaDichVu = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblDichVu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -47,11 +72,16 @@ public class XuLyHoTroFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblDichVu);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đã xử lý", "Chưa xử lý" }));
+        cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đã xử lý", "Chưa xử lý" }));
 
-        jButton1.setText("Cập nhật");
+        btnCapNhat.setText("Cập nhật");
+        btnCapNhat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCapNhatActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Mã dịch vụ");
 
@@ -70,10 +100,10 @@ public class XuLyHoTroFrame extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtMaDichVu)
+                            .addComponent(cboTrangThai, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1))
+                        .addComponent(btnCapNhat))
                     .addComponent(jScrollPane1))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
@@ -86,10 +116,10 @@ public class XuLyHoTroFrame extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(txtMaDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCapNhat))
                 .addGap(18, 18, 18)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cboTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42))
@@ -97,6 +127,23 @@ public class XuLyHoTroFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
+        // TODO add your handling code here:
+        int maDichVu = Integer.parseInt(txtMaDichVu.getText());
+        String trangThai = (String) cboTrangThai.getSelectedItem();
+
+        DichVuHoTroDAO dvDao = new DichVuHoTroDAO();
+        int choice = JOptionPane.showConfirmDialog(this, "Bạn có cập nhập không ?");
+        if (choice == JOptionPane.YES_OPTION) {
+            if (dvDao.updateTrangThai(maDichVu, trangThai)) {
+                JOptionPane.showMessageDialog(this, "Cập nhập thành công");
+                fillTable();
+            } else {
+                JOptionPane.showMessageDialog(this, "Cập nhập thất bại");
+            }
+        }
+    }//GEN-LAST:event_btnCapNhatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -134,12 +181,12 @@ public class XuLyHoTroFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton btnCapNhat;
+    private javax.swing.JComboBox<String> cboTrangThai;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tblDichVu;
+    private javax.swing.JTextField txtMaDichVu;
     // End of variables declaration//GEN-END:variables
 }

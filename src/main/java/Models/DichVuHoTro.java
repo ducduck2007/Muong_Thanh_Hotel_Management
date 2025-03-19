@@ -10,16 +10,17 @@ package Models;
  */
 public class DichVuHoTro {
     int ma_dich_vu, ma_khach_hang;
-    String ten_dich_vu, noi_dung;
-
+    String ten_dich_vu, noi_dung, trang_thai;
+    
     public DichVuHoTro() {
     }
 
-    public DichVuHoTro(int ma_dich_vu, int ma_khach_hang, String ten_dich_vu, String noi_dung) {
+    public DichVuHoTro(int ma_dich_vu, int ma_khach_hang, String ten_dich_vu, String noi_dung, String trang_thai) {
         this.ma_dich_vu = ma_dich_vu;
         this.ma_khach_hang = ma_khach_hang;
         this.ten_dich_vu = ten_dich_vu;
         this.noi_dung = noi_dung;
+        this.trang_thai = trang_thai;
     }
 
     public int getMa_dich_vu() {
@@ -53,5 +54,13 @@ public class DichVuHoTro {
     public void setNoi_dung(String noi_dung) {
         this.noi_dung = noi_dung;
     }
-    
+
+    public String getTrang_thai() {
+        return trang_thai;
+    }
+
+    public void setTrang_thai(String trang_thai) {
+        this.trang_thai = trang_thai;
+    }
+
 }

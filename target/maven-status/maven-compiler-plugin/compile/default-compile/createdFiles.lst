@@ -33,6 +33,7 @@ DAO\ThongTinDatPhongDAO.class
 Models\DichVuHoTro.class
 Services\MainRun.class
 Views\LichLamViecFrame$9.class
+Views\XuLyHoTroFrame$2.class
 DAO\DichVuHoTroDAO.class
 Views\ThietLapGiaFrame$9.class
 Views\HoaDonChiTietFrame$2.class
