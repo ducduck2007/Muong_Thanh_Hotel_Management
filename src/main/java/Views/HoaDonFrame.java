@@ -4,17 +4,49 @@
  */
 package Views;
 
+import DAO.HoaDonDAO;
+import Models.HoaDon;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ADMIN
  */
 public class HoaDonFrame extends javax.swing.JFrame {
 
+    DefaultTableModel tableModel = new DefaultTableModel();
+
     /**
      * Creates new form NewJFrame
      */
     public HoaDonFrame() {
         initComponents();
+        initTable();
+        fillTable();
+    }
+
+    public void initTable() {
+        String[] cols_nv = new String[]{"Mã KH", "Số Điện Thoại", "Tổng Tiền", "Mã phòng", "Ngày ĐP"};
+        tableModel.setColumnIdentifiers(cols_nv);
+        tbl_hoa_don.setModel(tableModel);
+    }
+
+    public void fillTable() {
+        tableModel.setRowCount(0);
+        HoaDonDAO hdDAO = new HoaDonDAO();
+        List<HoaDon> list = hdDAO.getData();
+
+        for (HoaDon hoaDon : list) {
+            tableModel.addRow(new Object[]{
+                hoaDon.getMa_khach_hang(),
+                hoaDon.getSo_dien_thoai(),
+                hoaDon.getTong_tien(),
+                hoaDon.getDanh_sach_phong(),
+                hoaDon.getNgay_dat_phong()
+            });
+        }
     }
 
     /**
@@ -33,21 +65,19 @@ public class HoaDonFrame extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        txt2 = new javax.swing.JTextField();
-        txt3 = new javax.swing.JTextField();
-        btn2 = new javax.swing.JButton();
+        txt_ma_kh = new javax.swing.JTextField();
+        txt_tong_tien = new javax.swing.JTextField();
         btn4 = new javax.swing.JButton();
-        btn3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        txt4 = new javax.swing.JTextField();
+        tbl_hoa_don = new javax.swing.JTable();
+        txt_so_dt = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txt5 = new javax.swing.JTextField();
+        txt_ma_phong = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btn1.setText("Thêm");
+        btn1.setText(" In hóa đơn");
         btn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn1ActionPerformed(evt);
@@ -56,6 +86,7 @@ public class HoaDonFrame extends javax.swing.JFrame {
 
         jLabel3.setText("Mã hóa đơn");
 
+        txt1.setEditable(false);
         txt1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt1ActionPerformed(evt);
@@ -64,7 +95,7 @@ public class HoaDonFrame extends javax.swing.JFrame {
 
         jLabel4.setText("Mã khách hàng");
 
-        jLabel5.setText("Giá tiền");
+        jLabel5.setText("Tổng tiền");
 
         jLabel6.setText("Số điện thoại");
 
@@ -72,22 +103,17 @@ public class HoaDonFrame extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(51, 0, 255));
         jLabel1.setText("Hóa Đơn");
 
-        txt2.addActionListener(new java.awt.event.ActionListener() {
+        txt_ma_kh.setEditable(false);
+        txt_ma_kh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt2ActionPerformed(evt);
+                txt_ma_khActionPerformed(evt);
             }
         });
 
-        txt3.addActionListener(new java.awt.event.ActionListener() {
+        txt_tong_tien.setEditable(false);
+        txt_tong_tien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt3ActionPerformed(evt);
-            }
-        });
-
-        btn2.setText("Sửa");
-        btn2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn2ActionPerformed(evt);
+                txt_tong_tienActionPerformed(evt);
             }
         });
 
@@ -98,14 +124,7 @@ public class HoaDonFrame extends javax.swing.JFrame {
             }
         });
 
-        btn3.setText("Xóa");
-        btn3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn3ActionPerformed(evt);
-            }
-        });
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_hoa_don.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -116,19 +135,26 @@ public class HoaDonFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tbl_hoa_don.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_hoa_donMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbl_hoa_don);
 
-        txt4.addActionListener(new java.awt.event.ActionListener() {
+        txt_so_dt.setEditable(false);
+        txt_so_dt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt4ActionPerformed(evt);
+                txt_so_dtActionPerformed(evt);
             }
         });
 
         jLabel7.setText("Mã phòng");
 
-        txt5.addActionListener(new java.awt.event.ActionListener() {
+        txt_ma_phong.setEditable(false);
+        txt_ma_phong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt5ActionPerformed(evt);
+                txt_ma_phongActionPerformed(evt);
             }
         });
 
@@ -163,15 +189,12 @@ public class HoaDonFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel6))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txt3)
-                                .addComponent(txt2)
-                                .addComponent(txt4, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
-                                .addComponent(txt5, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE))
+                                .addComponent(txt_tong_tien)
+                                .addComponent(txt_ma_kh)
+                                .addComponent(txt_so_dt, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+                                .addComponent(txt_ma_phong, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btn2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btn3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btn4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(btn4, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(19, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -193,23 +216,20 @@ public class HoaDonFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btn2)))
+                        .addComponent(txt_ma_kh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn4)))
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txt3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btn3)))
-                .addGap(15, 15, 15)
+                    .addComponent(txt_tong_tien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(txt4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn4))
-                .addGap(21, 21, 21)
+                    .addComponent(txt_so_dt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txt5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_ma_phong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -221,40 +241,48 @@ public class HoaDonFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
-        
+        String ma_khach_hang = txt_ma_kh.getText().trim();
+
+        if (ma_khach_hang.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "⚠️ Chọn row muốn in trong table để thực hiện", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        this.dispose();
+        HoaDonChiTietFrame hdctF = new HoaDonChiTietFrame();
+        hdctF.setMaKhachHang(ma_khach_hang);
+        hdctF.setLocationRelativeTo(null);
+        hdctF.setVisible(true);
+
     }//GEN-LAST:event_btn1ActionPerformed
 
     private void txt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt1ActionPerformed
 
-    private void txt2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt2ActionPerformed
+    private void txt_ma_khActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_ma_khActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt2ActionPerformed
+    }//GEN-LAST:event_txt_ma_khActionPerformed
 
-    private void txt3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt3ActionPerformed
+    private void txt_tong_tienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_tong_tienActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt3ActionPerformed
-
-    private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn2ActionPerformed
+    }//GEN-LAST:event_txt_tong_tienActionPerformed
 
     private void btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4ActionPerformed
         // TODO add your handling code here:
+        txt_ma_kh.setText("");
+        txt_so_dt.setText("");
+        txt_tong_tien.setText("");
+        txt_ma_phong.setText("");
     }//GEN-LAST:event_btn4ActionPerformed
 
-    private void btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3ActionPerformed
+    private void txt_so_dtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_so_dtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn3ActionPerformed
+    }//GEN-LAST:event_txt_so_dtActionPerformed
 
-    private void txt4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt4ActionPerformed
+    private void txt_ma_phongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_ma_phongActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt4ActionPerformed
-
-    private void txt5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt5ActionPerformed
+    }//GEN-LAST:event_txt_ma_phongActionPerformed
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         // TODO add your handling code here:
@@ -264,6 +292,22 @@ public class HoaDonFrame extends javax.swing.JFrame {
         sFrame.setVisible(true);
         return;
     }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void tbl_hoa_donMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_hoa_donMouseClicked
+        // TODO add your handling code here:
+        int row = tbl_hoa_don.getSelectedRow();
+        if (row >= 0) {
+            String maKhachHang = tbl_hoa_don.getValueAt(row, 0).toString();
+            String soDienThoai = tbl_hoa_don.getValueAt(row, 1).toString();
+            String tongTien = tbl_hoa_don.getValueAt(row, 2).toString();
+            String danhSachPhong = tbl_hoa_don.getValueAt(row, 3).toString();
+
+            txt_ma_kh.setText(maKhachHang);
+            txt_so_dt.setText(soDienThoai);
+            txt_tong_tien.setText(tongTien);
+            txt_ma_phong.setText(danhSachPhong);
+        }
+    }//GEN-LAST:event_tbl_hoa_donMouseClicked
 
     /**
      * @param args the command line arguments
@@ -309,8 +353,6 @@ public class HoaDonFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn1;
-    private javax.swing.JButton btn2;
-    private javax.swing.JButton btn3;
     private javax.swing.JButton btn4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -320,11 +362,11 @@ public class HoaDonFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tbl_hoa_don;
     private javax.swing.JTextField txt1;
-    private javax.swing.JTextField txt2;
-    private javax.swing.JTextField txt3;
-    private javax.swing.JTextField txt4;
-    private javax.swing.JTextField txt5;
+    private javax.swing.JTextField txt_ma_kh;
+    private javax.swing.JTextField txt_ma_phong;
+    private javax.swing.JTextField txt_so_dt;
+    private javax.swing.JTextField txt_tong_tien;
     // End of variables declaration//GEN-END:variables
 }

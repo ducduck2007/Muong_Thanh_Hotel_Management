@@ -10,11 +10,18 @@ package Views;
  */
 public class HoaDonChiTietFrame extends javax.swing.JFrame {
 
+    private String maKhachHang;
+
     /**
      * Creates new form HoaDonChiTietFrame
      */
     public HoaDonChiTietFrame() {
         initComponents();
+    }
+
+    public void setMaKhachHang(String maKhachHang) {
+        this.maKhachHang = maKhachHang;
+        System.out.println("Ma KH: " + maKhachHang);
     }
 
     /**

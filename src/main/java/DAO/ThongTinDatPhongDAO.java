@@ -6,9 +6,11 @@ package DAO;
 
 import Models.ThongTinDatPhong;
 import Models.ThongTinPhong;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.ArrayList;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -95,4 +97,50 @@ public class ThongTinDatPhongDAO {
         }
         return giaPhong;
     }
+
+    public String layMaKhachHangTheoEmail(String email) {
+        String sql = "SELECT ma_khach_hang FROM khach_hang WHERE email = ?";
+
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("ma_khach_hang");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public boolean insert(ThongTinDatPhong ttdp) {
+        String insertSQL = "INSERT INTO thong_tin_dat_phong (ma_phong, ma_khach_hang, loai_phong, ngay_dat_phong, tong_tien, ghi_chu, ngay_nhan_phong, ngay_tra_phong) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String updateSQL = "UPDATE thong_tin_phong SET trang_thai = N'Đã được đặt' WHERE ma_phong = ?";
+
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStmInsert = conn.prepareStatement(insertSQL); PreparedStatement preStmUpdate = conn.prepareStatement(updateSQL)) {
+
+            // Thêm đặt phòng vào bảng thong_tin_dat_phong
+            preStmInsert.setString(1, ttdp.getMa_phong());
+            preStmInsert.setInt(2, ttdp.getMa_khach_hang());
+            preStmInsert.setString(3, ttdp.getLoai_phong());
+            preStmInsert.setDate(4, new java.sql.Date(ttdp.getNgay_dat_phong().getTime()));
+            preStmInsert.setBigDecimal(5, ttdp.getTong_tien());
+            preStmInsert.setString(6, ttdp.getGhi_chu());
+            preStmInsert.setDate(7, new java.sql.Date(ttdp.getNgay_nhan_phong().getTime()));
+            preStmInsert.setDate(8, new java.sql.Date(ttdp.getNgay_tra_phong().getTime()));
+
+            if (preStmInsert.executeUpdate() > 0) {
+                // Cập nhật trạng thái phòng sau khi đặt thành công
+                preStmUpdate.setString(1, ttdp.getMa_phong());
+                preStmUpdate.executeUpdate();
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

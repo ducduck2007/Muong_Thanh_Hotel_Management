@@ -9,10 +9,13 @@ import Models.ThongTinDatPhong;
 import Models.ThongTinPhong;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Date;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -57,9 +60,9 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
                 ttdp.getLoai_phong(),
                 ttdp.getNgay_dat_phong(),
                 ttdp.getTong_tien(),
-                ttdp.getGhi_chu(),
                 ttdp.getNgay_nhan_phong(),
-                ttdp.getNgay_tra_phong(),});
+                ttdp.getNgay_tra_phong(),
+                ttdp.getGhi_chu(),});
         }
 
         tableModel_phong_trong.setRowCount(0);
@@ -136,6 +139,22 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
         return date.matches("^\\d{4}-\\d{2}-\\d{2}$");
     }
 
+    private boolean kiemTraDinhDangNgay(String ngay) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        sdf.setLenient(false);
+        try {
+            sdf.parse(ngay);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
+    }
+
+    private boolean kiemTraDinhDangEmail(String email) {
+        String regex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        return Pattern.matches(regex, email);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -206,6 +225,8 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
 
         jLabel8.setText("Mã đặt phòng");
 
+        txt_ma_dp.setEditable(false);
+
         jLabel10.setText("Email khách hàng");
 
         tbl_ds_phong_dat.setModel(new javax.swing.table.DefaultTableModel(
@@ -222,12 +243,32 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
         jScrollPane4.setViewportView(tbl_ds_phong_dat);
 
         jButton1.setText("Đặt");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Reset");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Sửa");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Hủy đặt phòng");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -430,6 +471,83 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
             cbo_loai_phong.setSelectedItem(loaiPhong);
         }
     }//GEN-LAST:event_tbl_ds_phong_trongMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String ma_phong = txt_ma_phong.getText().trim();
+        String ngay_dat_phong = txt_ngay_dat_phong.getText().trim();
+        String ngay_nhan_phong = txt_ngay_nhan_phong.getText().trim();
+        String ngay_tra_phong = txt_ngay_tra_phong.getText().trim();
+        String email = txt_email_kh.getText().trim();
+        String tong_tien = txt_tong_tien.getText().trim();
+        String ghi_chu = txt_ghi_chu.getText().trim();
+        String loai_phong = (String) cbo_loai_phong.getSelectedItem();
+
+        if (ma_phong.isEmpty() || ngay_nhan_phong.isEmpty()
+                || ngay_tra_phong.isEmpty() || email.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!kiemTraDinhDangNgay(ngay_nhan_phong) || !kiemTraDinhDangNgay(ngay_tra_phong)) {
+            JOptionPane.showMessageDialog(null, "Định dạng ngày phải là yyyy-MM-dd!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!kiemTraDinhDangEmail(email)) {
+            JOptionPane.showMessageDialog(null, "Email không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        ThongTinDatPhong ttdp = new ThongTinDatPhong();
+        ThongTinDatPhongDAO ttdpDAO = new ThongTinDatPhongDAO();
+        String ma_khach_hang = ttdpDAO.layMaKhachHangTheoEmail(email);
+
+        if (ma_khach_hang == null) {
+            JOptionPane.showMessageDialog(null, "Email không tồn tại trong hệ thống!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            ttdp.setMa_phong(ma_phong);
+            ttdp.setMa_khach_hang(Integer.parseInt(ma_khach_hang));
+            ttdp.setLoai_phong(loai_phong);
+            ttdp.setNgay_dat_phong(sdf.parse(ngay_dat_phong));
+            ttdp.setTong_tien(new BigDecimal(tong_tien));
+            ttdp.setGhi_chu(ghi_chu);
+            ttdp.setNgay_nhan_phong(sdf.parse(ngay_nhan_phong));
+            ttdp.setNgay_tra_phong(sdf.parse(ngay_tra_phong));
+
+            if (ttdpDAO.insert(ttdp)) {
+                JOptionPane.showMessageDialog(this,
+                        "✅ Đặt phòng thành công!",
+                        "Thành công",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "❌ Đặt phòng thất bại! Vui lòng kiểm tra lại.",
+                        "Lỗi",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+            fillTable();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

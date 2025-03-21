@@ -45,17 +45,13 @@
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="txt3" max="32767" attributes="0"/>
-                              <Component id="txt2" max="32767" attributes="0"/>
-                              <Component id="txt4" alignment="0" pref="279" max="32767" attributes="0"/>
-                              <Component id="txt5" alignment="0" pref="279" max="32767" attributes="0"/>
+                              <Component id="txt_tong_tien" max="32767" attributes="0"/>
+                              <Component id="txt_ma_kh" max="32767" attributes="0"/>
+                              <Component id="txt_so_dt" alignment="0" pref="279" max="32767" attributes="0"/>
+                              <Component id="txt_ma_phong" alignment="0" pref="279" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btn2" alignment="1" min="-2" pref="107" max="-2" attributes="0"/>
-                              <Component id="btn3" alignment="1" min="-2" pref="107" max="-2" attributes="0"/>
-                              <Component id="btn4" alignment="1" min="-2" pref="107" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="btn4" min="-2" pref="107" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -85,28 +81,24 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txt2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btn2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txt_ma_kh" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn4" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txt3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btn3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="txt_tong_tien" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txt4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btn4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_so_dt" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txt5" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_ma_phong" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="177" max="-2" attributes="0"/>
@@ -120,7 +112,7 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="btn1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
+        <Property name="text" type="java.lang.String" value=" In h&#xf3;a &#x111;&#x1a1;n"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn1ActionPerformed"/>
@@ -132,6 +124,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txt1">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt1ActionPerformed"/>
       </Events>
@@ -143,7 +138,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Gi&#xe1; ti&#x1ec1;n"/>
+        <Property name="text" type="java.lang.String" value="T&#x1ed5;ng ti&#x1ec1;n"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
@@ -162,22 +157,20 @@
         <Property name="text" type="java.lang.String" value="H&#xf3;a &#x110;&#x1a1;n"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txt2">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt2ActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txt3">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt3ActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btn2">
+    <Component class="javax.swing.JTextField" name="txt_ma_kh">
       <Properties>
-        <Property name="text" type="java.lang.String" value="S&#x1eed;a"/>
+        <Property name="editable" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_ma_khActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txt_tong_tien">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_tong_tienActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btn4">
@@ -188,14 +181,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn4ActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btn3">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn3ActionPerformed"/>
-      </Events>
-    </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -203,7 +188,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="jTable1">
+        <Component class="javax.swing.JTable" name="tbl_hoa_don">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="4" rowCount="4">
@@ -214,12 +199,18 @@
               </Table>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbl_hoa_donMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JTextField" name="txt4">
+    <Component class="javax.swing.JTextField" name="txt_so_dt">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt4ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_so_dtActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
@@ -227,9 +218,12 @@
         <Property name="text" type="java.lang.String" value="M&#xe3; ph&#xf2;ng"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txt5">
+    <Component class="javax.swing.JTextField" name="txt_ma_phong">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt5ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_ma_phongActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
