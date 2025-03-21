@@ -384,9 +384,9 @@ public class SystemFrame extends javax.swing.JFrame {
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
         // TODO add your handling code here:
         this.dispose();
-        DichVuFrame dvF = new DichVuFrame();
-        dvF.setLocationRelativeTo(null);
-        dvF.setVisible(true);
+        XuLyHoTroFrame xlht = new XuLyHoTroFrame();
+        xlht.setLocationRelativeTo(null);
+        xlht.setVisible(true);
         return;
     }//GEN-LAST:event_jLabel12MouseClicked
 
