@@ -27,7 +27,7 @@ public class DichVuFrame extends javax.swing.JFrame {
     }
     
     public void initTable(){
-        String[] cols = new String[]{"Mã dịch vụ","Mã khách hàng","Tên dịch vụ","Nội dung"};
+        String[] cols = new String[]{"Mã dịch vụ","Mã khách hàng","Tên dịch vụ","Nội dung","Trạng thái"};
         tableModel.setColumnIdentifiers(cols);
         tblDichVu.setModel(tableModel);
     }
@@ -35,9 +35,9 @@ public class DichVuFrame extends javax.swing.JFrame {
     public void fillTable(){
         tableModel.setRowCount(0);
         DichVuHoTroDAO dvDao = new DichVuHoTroDAO();
-        List<DichVuHoTro> list = dvDao.findAll();
+        List<DichVuHoTro> list = dvDao.findByKhachHang(AuthKhachHang.maKhachHang());
         for (DichVuHoTro dichVuHoTro : list) {
-            tableModel.addRow(new Object[]{dichVuHoTro.getMa_dich_vu(),dichVuHoTro.getMa_khach_hang(),dichVuHoTro.getTen_dich_vu(),dichVuHoTro.getNoi_dung()});
+            tableModel.addRow(new Object[]{dichVuHoTro.getMa_dich_vu(),dichVuHoTro.getMa_khach_hang(),dichVuHoTro.getTen_dich_vu(),dichVuHoTro.getNoi_dung(),dichVuHoTro.getTrang_thai()});
         }
     }
 
@@ -265,22 +265,24 @@ public class DichVuFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         txtMaDichVu.setText("");
         txtTenDichVu.setText("");
-        txtMaKhachHang.setText("");
         txtaNoiDung.setText("");
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         // TODO add your handling code here:
         this.dispose();
-        SystemFrame sFrame = new SystemFrame();
-        sFrame.setLocationRelativeTo(null);
-        sFrame.setVisible(true);
+        ClientFrame cFrame = new ClientFrame();
+        cFrame.setLocationRelativeTo(null);
+        cFrame.setVisible(true);
         return;
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        txtMaKhachHang.setText(String.valueOf(AuthKhachHang.maKhachHang()));
+        try {
+            txtMaKhachHang.setText(String.valueOf(AuthKhachHang.maKhachHang()));
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_formWindowOpened
 
     private void tblDichVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDichVuMouseClicked

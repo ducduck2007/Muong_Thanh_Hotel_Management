@@ -39,6 +39,30 @@ public class DichVuHoTroDAO {
         return null;
     }
     
+    public List<DichVuHoTro> findByKhachHang(int maKhachHang){
+        String sql = "select * from dich_vu_ho_tro where ma_khach_hang = ?";
+        try {
+            Connection con = DataProvider.dataConnection();
+            PreparedStatement pps = con.prepareCall(sql);
+            pps.setInt(1, maKhachHang);
+            List<DichVuHoTro> list = new ArrayList<>();
+            ResultSet rs = pps.executeQuery();
+            while(rs.next()){
+                DichVuHoTro dv = new DichVuHoTro();
+                dv.setMa_dich_vu(rs.getInt("ma_dich_vu"));
+                dv.setMa_khach_hang(rs.getInt("ma_khach_hang"));
+                dv.setTen_dich_vu(rs.getString("ten_dich_vu"));
+                dv.setNoi_dung(rs.getString("noi_dung"));
+                dv.setTrang_thai(rs.getString("trang_thai"));
+                list.add(dv);
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
     public DichVuHoTro findById(int maDichVu){
         String sql = "select * from dich_vu_ho_tro where ma_dich_vu = ?";
         try {
@@ -61,13 +85,14 @@ public class DichVuHoTroDAO {
     }
     
     public boolean insert(DichVuHoTro dv){
-        String sql = "insert into dich_vu_ho_tro values(?,?,?)";
+        String sql = "insert into dich_vu_ho_tro values(?,?,?,?)";
         try {
             Connection con = DataProvider.dataConnection();
             PreparedStatement pps = con.prepareCall(sql);
             pps.setInt(1, dv.getMa_khach_hang());
             pps.setString(2, dv.getTen_dich_vu());
             pps.setString(3, dv.getNoi_dung());
+            pps.setString(4, "Chưa xử lý");
             return pps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
