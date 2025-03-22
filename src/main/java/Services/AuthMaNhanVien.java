@@ -8,9 +8,9 @@ import Models.QuanLyNhanVien;
 
 /**
  *
- * @author Admin
+ * @author Ggame
  */
-public class Auth {
+public class AuthMaNhanVien {
 
     public static QuanLyNhanVien user = null;
 
@@ -18,7 +18,7 @@ public class Auth {
         Auth.user = null;
     }
 
-    public static int isManager() {
-        return user.getVai_tro();
+    public static String maNhanVien() {
+        return user.getMa_quan_ly();
     }
 }
