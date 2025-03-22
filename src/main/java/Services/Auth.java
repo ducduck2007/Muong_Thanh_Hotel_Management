@@ -21,4 +21,8 @@ public class Auth {
     public static int isManager() {
         return user.getVai_tro();
     }
+    
+    public static String getMaNhanVien() {
+        return user.getMa_nhan_vien();
+    }
 }

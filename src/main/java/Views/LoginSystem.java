@@ -229,6 +229,7 @@ public class LoginSystem extends javax.swing.JFrame {
             System.out.println("login done");
             Auth.user = nv;
             System.out.println(Auth.isManager());
+            System.out.println(Auth.getMaNhanVien());
             SystemFrame sf = new SystemFrame();
             sf.setVisible(true);
             sf.setLocationRelativeTo(null);

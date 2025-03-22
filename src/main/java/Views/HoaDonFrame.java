@@ -6,7 +6,7 @@ package Views;
 
 import DAO.HoaDonDAO;
 import Models.HoaDon;
-import Services.AuthMaNhanVien;
+import Services.Auth;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -331,7 +331,7 @@ public class HoaDonFrame extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         try {
-            System.out.println(AuthMaNhanVien.maNhanVien());
+            txt_ma_kh.setText(Auth.getMaNhanVien());
         } catch (Exception e) {
         }
     }//GEN-LAST:event_formWindowOpened

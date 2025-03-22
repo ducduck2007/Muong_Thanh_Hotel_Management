@@ -69,7 +69,6 @@ Views\HoaDonFrame.class
 Views\LichLamViecFrame$1.class
 Views\HoaDonFrame$9.class
 Views\SystemFrame$1.class
-Services\AuthMaNhanVien.class
 Views\ThongTinDatPhongFrame$7.class
 Models\KhachHang.class
 Views\KhachHangFrame$7.class
