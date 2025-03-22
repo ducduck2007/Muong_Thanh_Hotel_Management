@@ -14,10 +14,13 @@ import java.util.Date;
 public class HoaDonChiTiet {
 
     private int ma_khach_hang;
+    private String ten_khach_hang;
     private String ma_phong;
     private int ma_dat_phong;
     private String ma_nhan_vien;
     private int ma_dich_vu;
+    private String ten_dich_vu;
+    private String noi_dung_ho_tro;
     private String loai_phong;
     private BigDecimal tong_tien;
     private Date ngay_dat_phong;
@@ -27,12 +30,15 @@ public class HoaDonChiTiet {
     public HoaDonChiTiet() {
     }
 
-    public HoaDonChiTiet(int ma_khach_hang, String ma_phong, int ma_dat_phong, String ma_nhan_vien, int ma_dich_vu, String loai_phong, BigDecimal tong_tien, Date ngay_dat_phong, Date ngay_nhan_phong, Date ngay_tra_phong) {
+    public HoaDonChiTiet(int ma_khach_hang, String ten_khach_hang, String ma_phong, int ma_dat_phong, String ma_nhan_vien, int ma_dich_vu, String ten_dich_vu, String noi_dung_ho_tro, String loai_phong, BigDecimal tong_tien, Date ngay_dat_phong, Date ngay_nhan_phong, Date ngay_tra_phong) {
         this.ma_khach_hang = ma_khach_hang;
+        this.ten_khach_hang = ten_khach_hang;
         this.ma_phong = ma_phong;
         this.ma_dat_phong = ma_dat_phong;
         this.ma_nhan_vien = ma_nhan_vien;
         this.ma_dich_vu = ma_dich_vu;
+        this.ten_dich_vu = ten_dich_vu;
+        this.noi_dung_ho_tro = noi_dung_ho_tro;
         this.loai_phong = loai_phong;
         this.tong_tien = tong_tien;
         this.ngay_dat_phong = ngay_dat_phong;
@@ -46,6 +52,14 @@ public class HoaDonChiTiet {
 
     public void setMa_khach_hang(int ma_khach_hang) {
         this.ma_khach_hang = ma_khach_hang;
+    }
+
+    public String getTen_khach_hang() {
+        return ten_khach_hang;
+    }
+
+    public void setTen_khach_hang(String ten_khach_hang) {
+        this.ten_khach_hang = ten_khach_hang;
     }
 
     public String getMa_phong() {
@@ -78,6 +92,22 @@ public class HoaDonChiTiet {
 
     public void setMa_dich_vu(int ma_dich_vu) {
         this.ma_dich_vu = ma_dich_vu;
+    }
+
+    public String getTen_dich_vu() {
+        return ten_dich_vu;
+    }
+
+    public void setTen_dich_vu(String ten_dich_vu) {
+        this.ten_dich_vu = ten_dich_vu;
+    }
+
+    public String getNoi_dung_ho_tro() {
+        return noi_dung_ho_tro;
+    }
+
+    public void setNoi_dung_ho_tro(String noi_dung_ho_tro) {
+        this.noi_dung_ho_tro = noi_dung_ho_tro;
     }
 
     public String getLoai_phong() {

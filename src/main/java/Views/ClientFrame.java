@@ -5,6 +5,7 @@
 package Views;
 
 import Services.Auth;
+import Services.AuthKhachHang;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
@@ -62,6 +63,11 @@ public class ClientFrame extends javax.swing.JFrame {
         jButton1.setMaximumSize(new java.awt.Dimension(10000, 10000));
         jButton1.setMinimumSize(new java.awt.Dimension(256, 44));
         jButton1.setPreferredSize(new java.awt.Dimension(256, 44));
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         jButton2.setText("Hỗ trợ");
         jButton2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -79,6 +85,11 @@ public class ClientFrame extends javax.swing.JFrame {
         jButton3.setMaximumSize(new java.awt.Dimension(10000, 10000));
         jButton3.setMinimumSize(new java.awt.Dimension(256, 44));
         jButton3.setPreferredSize(new java.awt.Dimension(256, 44));
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
 
         jButton4.setText("Log out");
         jButton4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -203,6 +214,23 @@ public class ClientFrame extends javax.swing.JFrame {
         dvFrame.setVisible(true);
         return;
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        ThongTinDatPhongFrame ttdpF = new ThongTinDatPhongFrame();
+        ttdpF.setLocationRelativeTo(null);
+        ttdpF.setVisible(true);
+        return;
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        // TODO add your handling code here:
+        ChangePasswordFrame cpF = new ChangePasswordFrame();
+        cpF.setLocationRelativeTo(null);
+        cpF.setVisible(true);
+        return;
+    }//GEN-LAST:event_jButton3MouseClicked
 
     /**
      * @param args the command line arguments

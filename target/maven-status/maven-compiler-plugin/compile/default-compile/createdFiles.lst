@@ -1,5 +1,6 @@
 Views\LienHeKhachHangFrame$2.class
 Views\ThongTinDatPhongFrame$3.class
+Views\ClientFrame$6.class
 Views\HoaDonFrame$8.class
 Views\QuanLyNhanVienFrame$6.class
 Views\ThongTinPhongFrame$4.class
@@ -110,6 +111,7 @@ Views\ThongTinPhongFrame$5.class
 Views\LienHeKhachHangFrame$1.class
 Models\ThongTinPhong.class
 Views\ThongTinDatPhongFrame$2.class
+Views\ClientFrame$7.class
 Views\HoaDonFrame$4.class
 Views\MainFrame$1.class
 Views\LichLamViecFrame$6.class
