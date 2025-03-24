@@ -9,8 +9,6 @@ import Models.ThongTinDatPhong;
 import Models.ThongTinPhong;
 import Services.AuthKhachHang;
 import Services.AuthNhanVien;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -240,6 +238,11 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbl_ds_phong_dat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_ds_phong_datMouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(tbl_ds_phong_dat);
 
         jButton1.setText("Đặt");
@@ -598,6 +601,7 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             try {
+                ttdp.setMa_dat_phong(Integer.parseInt(ma_dat_phong));
                 ttdp.setMa_phong(ma_phong);
                 ttdp.setMa_khach_hang(Integer.parseInt(ma_khach_hang));
                 ttdp.setLoai_phong(loai_phong);
@@ -640,6 +644,36 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
             return;
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void tbl_ds_phong_datMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_ds_phong_datMouseClicked
+        // TODO add your handling code here:
+        int row = tbl_ds_phong_dat.getSelectedRow();
+        if (row >= 0) {
+            String maDatPhong = tbl_ds_phong_dat.getValueAt(row, 0).toString();
+            String maPhong = tbl_ds_phong_dat.getValueAt(row, 1).toString();
+            String maKhachHang = tbl_ds_phong_dat.getValueAt(row, 2).toString();
+            String loaiPhong = tbl_ds_phong_dat.getValueAt(row, 3).toString();
+            String ngayDatPhong = tbl_ds_phong_dat.getValueAt(row, 4).toString();
+            String tongTien = tbl_ds_phong_dat.getValueAt(row, 5).toString();
+            String ngayNhanPhong = tbl_ds_phong_dat.getValueAt(row, 6).toString();
+            String ngayTraPhong = tbl_ds_phong_dat.getValueAt(row, 7).toString();
+            String ghiChu = tbl_ds_phong_dat.getValueAt(row, 8).toString();
+
+            ThongTinDatPhongDAO thongTinDatPhongDAO = new ThongTinDatPhongDAO();
+            String emailKhachHang = thongTinDatPhongDAO.getEmailByMaKhachHang(maKhachHang);
+            txt_email_kh.setText(emailKhachHang);
+
+            txt_ma_dp.setText(maDatPhong);
+            txt_ma_phong.setText(maPhong);
+            txt_email_kh.setText(emailKhachHang);
+            cbo_loai_phong.setSelectedItem(loaiPhong);
+            txt_ngay_dat_phong.setText(ngayDatPhong);
+            txt_tong_tien.setText(tongTien);
+            txt_ngay_nhan_phong.setText(ngayNhanPhong);
+            txt_ngay_tra_phong.setText(ngayTraPhong);
+            txt_ghi_chu.setText(ghiChu);
+        }
+    }//GEN-LAST:event_tbl_ds_phong_datMouseClicked
 
     /**
      * @param args the command line arguments

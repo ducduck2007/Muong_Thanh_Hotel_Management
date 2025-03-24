@@ -44,6 +44,7 @@ Views\ThongTinDatPhongFrame.class
 Views\ClientFrame$4.class
 Views\ProgressBarFrame.class
 Views\ThongTinPhongFrame$12.class
+Views\ThongTinDatPhongFrame$8.class
 Views\DichVuFrame$8.class
 Views\ThongTinPhongFrame$9.class
 Views\LichLamViecFrame$2.class

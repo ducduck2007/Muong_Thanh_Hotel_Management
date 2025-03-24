@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.ArrayList;
 import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -140,25 +140,48 @@ public class ThongTinDatPhongDAO {
         }
         return false;
     }
-    
+
     public boolean update(ThongTinDatPhong ttdp) {
         String sql = "UPDATE thong_tin_dat_phong SET ma_phong = ?, ma_khach_hang = ?, loai_phong = ?, ngay_dat_phong = ?, tong_tien = ?, ghi_chu = ?, ngay_nhan_phong = ?, ngay_tra_phong = ? WHERE ma_dat_phong = ?";
 
         try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStm = conn.prepareStatement(sql)) {
+
             preStm.setString(1, ttdp.getMa_phong());
             preStm.setInt(2, ttdp.getMa_khach_hang());
             preStm.setString(3, ttdp.getLoai_phong());
-            preStm.setDate(4, (Date) ttdp.getNgay_dat_phong());
+
+            preStm.setDate(4, new java.sql.Date(ttdp.getNgay_dat_phong().getTime()));
             preStm.setBigDecimal(5, ttdp.getTong_tien());
             preStm.setString(6, ttdp.getGhi_chu());
-            preStm.setDate(7, (Date) ttdp.getNgay_nhan_phong());
-            preStm.setDate(8, (Date) ttdp.getNgay_tra_phong());
+            preStm.setDate(7, new java.sql.Date(ttdp.getNgay_nhan_phong().getTime()));
+            preStm.setDate(8, new java.sql.Date(ttdp.getNgay_tra_phong().getTime()));
+
+            preStm.setInt(9, ttdp.getMa_dat_phong());
 
             return preStm.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public String getEmailByMaKhachHang(String maKhachHang) {
+        String email = "";
+        String sql = "SELECT email FROM khach_hang WHERE ma_khach_hang = ?";
+
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, maKhachHang);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    email = rs.getString("email");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return email;
     }
 
 }
