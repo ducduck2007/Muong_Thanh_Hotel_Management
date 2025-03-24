@@ -200,6 +200,7 @@ public class ClientFrame extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         this.dispose();
+        AuthKhachHang.clear();
         LoginClient lCli = new LoginClient();
         lCli.setLocationRelativeTo(null);
         lCli.setVisible(true);

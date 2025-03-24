@@ -227,8 +227,6 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
 
         jLabel8.setText("Mã đặt phòng");
 
-        txt_ma_dp.setEditable(false);
-
         jLabel10.setText("Email khách hàng");
 
         tbl_ds_phong_dat.setModel(new javax.swing.table.DefaultTableModel(
@@ -456,10 +454,17 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
         // TODO add your handling code here:
         this.dispose();
-        SystemFrame sFrame = new SystemFrame();
-        sFrame.setLocationRelativeTo(null);
-        sFrame.setVisible(true);
-        return;
+        if (AuthKhachHang.user != null) {
+            ClientFrame sFrame = new ClientFrame();
+            sFrame.setLocationRelativeTo(null);
+            sFrame.setVisible(true);
+            return;
+        } else if (AuthNhanVien.user != null) {
+            SystemFrame sFrame = new SystemFrame();
+            sFrame.setLocationRelativeTo(null);
+            sFrame.setVisible(true);
+            return;
+        }
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void tbl_ds_phong_trongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_ds_phong_trongMouseClicked
@@ -545,24 +550,93 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        txt_email_kh.setText("");
+        txt_ghi_chu.setText("");
+        txt_ma_dp.setText("");
+        txt_ma_phong.setText("");
+        txt_ngay_nhan_phong.setText("");
+        txt_ngay_tra_phong.setText("");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        if (AuthNhanVien.isManager() == 0) {
-            JOptionPane.showMessageDialog(this, "Đcm quang đức");
+        if (AuthNhanVien.user != null && AuthNhanVien.isManager() == 0) {
+            String ma_dat_phong = txt_ma_dp.getText().trim();
+            String ma_phong = txt_ma_phong.getText().trim();
+            String ngay_dat_phong = txt_ngay_dat_phong.getText().trim();
+            String ngay_nhan_phong = txt_ngay_nhan_phong.getText().trim();
+            String ngay_tra_phong = txt_ngay_tra_phong.getText().trim();
+            String email = txt_email_kh.getText().trim();
+            String tong_tien = txt_tong_tien.getText().trim();
+            String ghi_chu = txt_ghi_chu.getText().trim();
+            String loai_phong = (String) cbo_loai_phong.getSelectedItem();
+
+            if (ma_phong.isEmpty() || ngay_nhan_phong.isEmpty()
+                    || ngay_tra_phong.isEmpty() || email.isEmpty() || ma_dat_phong.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (!kiemTraDinhDangNgay(ngay_nhan_phong) || !kiemTraDinhDangNgay(ngay_tra_phong)) {
+                JOptionPane.showMessageDialog(null, "Định dạng ngày phải là yyyy-MM-dd!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (!kiemTraDinhDangEmail(email)) {
+                JOptionPane.showMessageDialog(null, "Email không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            ThongTinDatPhong ttdp = new ThongTinDatPhong();
+            ThongTinDatPhongDAO ttdpDAO = new ThongTinDatPhongDAO();
+            String ma_khach_hang = ttdpDAO.layMaKhachHangTheoEmail(email);
+
+            if (ma_khach_hang == null) {
+                JOptionPane.showMessageDialog(null, "Email không tồn tại trong hệ thống!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                ttdp.setMa_phong(ma_phong);
+                ttdp.setMa_khach_hang(Integer.parseInt(ma_khach_hang));
+                ttdp.setLoai_phong(loai_phong);
+                ttdp.setNgay_dat_phong(sdf.parse(ngay_dat_phong));
+                ttdp.setTong_tien(new BigDecimal(tong_tien));
+                ttdp.setGhi_chu(ghi_chu);
+                ttdp.setNgay_nhan_phong(sdf.parse(ngay_nhan_phong));
+                ttdp.setNgay_tra_phong(sdf.parse(ngay_tra_phong));
+
+                if (ttdpDAO.update(ttdp)) {
+                    JOptionPane.showMessageDialog(this,
+                            "✅ Sửa đặt phòng thành công!",
+                            "Thành công",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                            "❌ Sửa đặt phòng thất bại! Vui lòng kiểm tra lại.",
+                            "Lỗi",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+                fillTable();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this,
+                        "❌ Lỗi! Vui lòng kiểm tra lại.",
+                        "Lỗi",
+                        JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Chỉ có quản lý mới được sửa");
-            return;
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        if (AuthKhachHang.user != null) {
-        
+        if (AuthKhachHang.user == null) {
+
         } else {
-            JOptionPane.showMessageDialog(this, "Chỉ có khách hàng mới được đặt phòng");
+            JOptionPane.showMessageDialog(this, "Vui lòng gửi yêu cầu hỗ trợ tới Lễ Tân để được hủy đặt phòng. Xin cảm ơn quý khách!");
             return;
         }
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -581,16 +655,24 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ThongTinDatPhongFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ThongTinDatPhongFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ThongTinDatPhongFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ThongTinDatPhongFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ThongTinDatPhongFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ThongTinDatPhongFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ThongTinDatPhongFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ThongTinDatPhongFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>

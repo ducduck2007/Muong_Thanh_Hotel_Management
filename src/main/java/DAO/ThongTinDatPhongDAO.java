@@ -121,7 +121,6 @@ public class ThongTinDatPhongDAO {
 
         try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStmInsert = conn.prepareStatement(insertSQL); PreparedStatement preStmUpdate = conn.prepareStatement(updateSQL)) {
 
-            // Thêm đặt phòng vào bảng thong_tin_dat_phong
             preStmInsert.setString(1, ttdp.getMa_phong());
             preStmInsert.setInt(2, ttdp.getMa_khach_hang());
             preStmInsert.setString(3, ttdp.getLoai_phong());
@@ -132,11 +131,30 @@ public class ThongTinDatPhongDAO {
             preStmInsert.setDate(8, new java.sql.Date(ttdp.getNgay_tra_phong().getTime()));
 
             if (preStmInsert.executeUpdate() > 0) {
-                // Cập nhật trạng thái phòng sau khi đặt thành công
                 preStmUpdate.setString(1, ttdp.getMa_phong());
                 preStmUpdate.executeUpdate();
                 return true;
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean update(ThongTinDatPhong ttdp) {
+        String sql = "UPDATE thong_tin_dat_phong SET ma_phong = ?, ma_khach_hang = ?, loai_phong = ?, ngay_dat_phong = ?, tong_tien = ?, ghi_chu = ?, ngay_nhan_phong = ?, ngay_tra_phong = ? WHERE ma_dat_phong = ?";
+
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStm = conn.prepareStatement(sql)) {
+            preStm.setString(1, ttdp.getMa_phong());
+            preStm.setInt(2, ttdp.getMa_khach_hang());
+            preStm.setString(3, ttdp.getLoai_phong());
+            preStm.setDate(4, (Date) ttdp.getNgay_dat_phong());
+            preStm.setBigDecimal(5, ttdp.getTong_tien());
+            preStm.setString(6, ttdp.getGhi_chu());
+            preStm.setDate(7, (Date) ttdp.getNgay_nhan_phong());
+            preStm.setDate(8, (Date) ttdp.getNgay_tra_phong());
+
+            return preStm.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
         }
