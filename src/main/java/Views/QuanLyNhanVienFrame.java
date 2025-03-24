@@ -79,10 +79,10 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
         tableModel_nv.setRowCount(0);
 
         for (QuanLyNhanVien nv : listNV) {
-            String vai_tro;
+            String vai_tro = null;
             if (nv.getVai_tro() == 1) {
                 vai_tro = "Phục Vụ";
-            } else {
+            } else if(nv.getVai_tro() == 2) {
                 vai_tro = "Lễ Tân";
             }
 

@@ -7,6 +7,8 @@ package Views;
 import DAO.ThongTinDatPhongDAO;
 import Models.ThongTinDatPhong;
 import Models.ThongTinPhong;
+import Services.AuthKhachHang;
+import Services.AuthNhanVien;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
@@ -474,67 +476,71 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String ma_phong = txt_ma_phong.getText().trim();
-        String ngay_dat_phong = txt_ngay_dat_phong.getText().trim();
-        String ngay_nhan_phong = txt_ngay_nhan_phong.getText().trim();
-        String ngay_tra_phong = txt_ngay_tra_phong.getText().trim();
-        String email = txt_email_kh.getText().trim();
-        String tong_tien = txt_tong_tien.getText().trim();
-        String ghi_chu = txt_ghi_chu.getText().trim();
-        String loai_phong = (String) cbo_loai_phong.getSelectedItem();
+        if (AuthKhachHang.user != null) {
+            String ma_phong = txt_ma_phong.getText().trim();
+            String ngay_dat_phong = txt_ngay_dat_phong.getText().trim();
+            String ngay_nhan_phong = txt_ngay_nhan_phong.getText().trim();
+            String ngay_tra_phong = txt_ngay_tra_phong.getText().trim();
+            String email = txt_email_kh.getText().trim();
+            String tong_tien = txt_tong_tien.getText().trim();
+            String ghi_chu = txt_ghi_chu.getText().trim();
+            String loai_phong = (String) cbo_loai_phong.getSelectedItem();
 
-        if (ma_phong.isEmpty() || ngay_nhan_phong.isEmpty()
-                || ngay_tra_phong.isEmpty() || email.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (!kiemTraDinhDangNgay(ngay_nhan_phong) || !kiemTraDinhDangNgay(ngay_tra_phong)) {
-            JOptionPane.showMessageDialog(null, "Định dạng ngày phải là yyyy-MM-dd!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (!kiemTraDinhDangEmail(email)) {
-            JOptionPane.showMessageDialog(null, "Email không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        ThongTinDatPhong ttdp = new ThongTinDatPhong();
-        ThongTinDatPhongDAO ttdpDAO = new ThongTinDatPhongDAO();
-        String ma_khach_hang = ttdpDAO.layMaKhachHangTheoEmail(email);
-
-        if (ma_khach_hang == null) {
-            JOptionPane.showMessageDialog(null, "Email không tồn tại trong hệ thống!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            ttdp.setMa_phong(ma_phong);
-            ttdp.setMa_khach_hang(Integer.parseInt(ma_khach_hang));
-            ttdp.setLoai_phong(loai_phong);
-            ttdp.setNgay_dat_phong(sdf.parse(ngay_dat_phong));
-            ttdp.setTong_tien(new BigDecimal(tong_tien));
-            ttdp.setGhi_chu(ghi_chu);
-            ttdp.setNgay_nhan_phong(sdf.parse(ngay_nhan_phong));
-            ttdp.setNgay_tra_phong(sdf.parse(ngay_tra_phong));
-
-            if (ttdpDAO.insert(ttdp)) {
-                JOptionPane.showMessageDialog(this,
-                        "✅ Đặt phòng thành công!",
-                        "Thành công",
-                        JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this,
-                        "❌ Đặt phòng thất bại! Vui lòng kiểm tra lại.",
-                        "Lỗi",
-                        JOptionPane.ERROR_MESSAGE);
+            if (ma_phong.isEmpty() || ngay_nhan_phong.isEmpty()
+                    || ngay_tra_phong.isEmpty() || email.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-            fillTable();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
+            if (!kiemTraDinhDangNgay(ngay_nhan_phong) || !kiemTraDinhDangNgay(ngay_tra_phong)) {
+                JOptionPane.showMessageDialog(null, "Định dạng ngày phải là yyyy-MM-dd!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (!kiemTraDinhDangEmail(email)) {
+                JOptionPane.showMessageDialog(null, "Email không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            ThongTinDatPhong ttdp = new ThongTinDatPhong();
+            ThongTinDatPhongDAO ttdpDAO = new ThongTinDatPhongDAO();
+            String ma_khach_hang = ttdpDAO.layMaKhachHangTheoEmail(email);
+
+            if (ma_khach_hang == null) {
+                JOptionPane.showMessageDialog(null, "Email không tồn tại trong hệ thống!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                ttdp.setMa_phong(ma_phong);
+                ttdp.setMa_khach_hang(Integer.parseInt(ma_khach_hang));
+                ttdp.setLoai_phong(loai_phong);
+                ttdp.setNgay_dat_phong(sdf.parse(ngay_dat_phong));
+                ttdp.setTong_tien(new BigDecimal(tong_tien));
+                ttdp.setGhi_chu(ghi_chu);
+                ttdp.setNgay_nhan_phong(sdf.parse(ngay_nhan_phong));
+                ttdp.setNgay_tra_phong(sdf.parse(ngay_tra_phong));
+
+                if (ttdpDAO.insert(ttdp)) {
+                    JOptionPane.showMessageDialog(this,
+                            "✅ Đặt phòng thành công!",
+                            "Thành công",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                            "❌ Đặt phòng thất bại! Vui lòng kiểm tra lại.",
+                            "Lỗi",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+                fillTable();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Chỉ có khách hàng mới được đặt phòng");
+            return;
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -543,10 +549,22 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        if (AuthNhanVien.isManager() == 0) {
+            JOptionPane.showMessageDialog(this, "Đcm quang đức");
+        } else {
+            JOptionPane.showMessageDialog(this, "Chỉ có quản lý mới được sửa");
+            return;
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        if (AuthKhachHang.user != null) {
+        
+        } else {
+            JOptionPane.showMessageDialog(this, "Chỉ có khách hàng mới được đặt phòng");
+            return;
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**

@@ -4,7 +4,7 @@
  */
 package Views;
 
-import Services.Auth;
+import Services.AuthNhanVien;
 import Services.AuthKhachHang;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;

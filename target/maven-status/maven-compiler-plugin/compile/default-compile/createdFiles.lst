@@ -27,7 +27,6 @@ Models\HoaDonChiTiet.class
 Views\ThongTinPhongFrame$11.class
 Views\ClientFrame$3.class
 Views\LoginSystem.class
-Services\Auth.class
 Views\QuanLyNhanVienFrame$11.class
 Views\QuanLyNhanVienFrame$3.class
 Views\ThongKeDoanhThuFrame$1.class
@@ -154,5 +153,6 @@ Views\ThongTinPhongFrame$7.class
 DAO\HoaDonDAO.class
 Views\LichLamViecFrame$5.class
 Views\ThietLapGiaFrame$5.class
+Services\AuthNhanVien.class
 Views\DichVuFrame$5.class
 Views\QuanLyNhanVienFrame$8.class

@@ -6,7 +6,7 @@ package Views;
 
 import DAO.HoaDonDAO;
 import Models.HoaDon;
-import Services.Auth;
+import Services.AuthNhanVien;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -84,7 +84,7 @@ public class HoaDonFrame extends javax.swing.JFrame {
             }
         });
 
-        btn1.setText(" In hóa đơn");
+        btn1.setText("Xem chi tiết");
         btn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn1ActionPerformed(evt);
@@ -258,7 +258,7 @@ public class HoaDonFrame extends javax.swing.JFrame {
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
         String ma_khach_hang = txt_ma_kh.getText().trim();
         String ngay_dat_phong = txt_ngay_dp.getText().trim();
-        String ma_nhan_vien = Auth.getMaNhanVien();
+        String ma_nhan_vien = AuthNhanVien.getMaNhanVien();
 
         if (ma_khach_hang.isEmpty()) {
             JOptionPane.showMessageDialog(this, "⚠️ Chọn row muốn in trong table để thực hiện", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
@@ -333,7 +333,7 @@ public class HoaDonFrame extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         try {
-            System.out.println(Auth.getMaNhanVien());
+            System.out.println(AuthNhanVien.getMaNhanVien());
         } catch (Exception e) {
             e.printStackTrace();
         }

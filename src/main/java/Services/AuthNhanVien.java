@@ -10,12 +10,12 @@ import Models.QuanLyNhanVien;
  *
  * @author Admin
  */
-public class Auth {
+public class AuthNhanVien {
 
     public static QuanLyNhanVien user = null;
 
     public static void clear() {
-        Auth.user = null;
+        AuthNhanVien.user = null;
     }
 
     public static int isManager() {
