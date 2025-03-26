@@ -227,6 +227,7 @@ public class ClientFrame extends javax.swing.JFrame {
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
+        this.dispose();
         ChangePasswordFrame cpF = new ChangePasswordFrame();
         cpF.setLocationRelativeTo(null);
         cpF.setVisible(true);
