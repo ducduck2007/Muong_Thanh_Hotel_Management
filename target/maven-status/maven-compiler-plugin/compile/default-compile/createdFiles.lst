@@ -139,6 +139,7 @@ DAO\HoaDonChiTietDAO.class
 Views\HoaDonChiTietFrame.class
 DAO\LoginSystemDAO.class
 Views\ClientFrame$1.class
+Views\ThongTinDatPhongFrame$9.class
 Views\ChangePasswordFrame$2.class
 Views\ThongTinPhongFrame$6.class
 Views\ClientFrame.class

@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -165,6 +166,45 @@ public class ThongTinDatPhongDAO {
         return false;
     }
 
+    public boolean exists(String maDatPhong) {
+        String checkSQL = "SELECT COUNT(*) FROM thong_tin_dat_phong WHERE ma_dat_phong = ?";
+
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement checkStmt = conn.prepareStatement(checkSQL)) {
+
+            checkStmt.setString(1, maDatPhong);
+            ResultSet rs = checkStmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean delete(String maDatPhong) {
+        String deleteSQL = "DELETE FROM thong_tin_dat_phong WHERE ma_dat_phong = ?";
+        String updateSQL = "UPDATE thong_tin_phong SET trang_thai = N'Trống' WHERE ma_phong = ?";
+
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement deleteStmt = conn.prepareStatement(deleteSQL); PreparedStatement updateStmt = conn.prepareStatement(updateSQL)) {
+
+            deleteStmt.setString(1, maDatPhong);
+            if (deleteStmt.executeUpdate() > 0) {
+                updateStmt.setString(1, maDatPhong);
+                updateStmt.executeUpdate();
+                return true;
+            } else {
+                System.out.println("❌ Xoa that bai: " + maDatPhong);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "❌ Hóa đơn đã được in. Không thể hủy đặt phòng!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+//            e.printStackTrace();
+        }
+        return false;
+    }
+
     public String getEmailByMaKhachHang(String maKhachHang) {
         String email = "";
         String sql = "SELECT email FROM khach_hang WHERE ma_khach_hang = ?";
@@ -184,4 +224,19 @@ public class ThongTinDatPhongDAO {
         return email;
     }
 
+    public String selectTheoMaPhong(String maPhong) {
+        String sql = "SELECT loai_phong FROM thong_tin_phong WHERE ma_phong = ?";
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, maPhong);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("loai_phong");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

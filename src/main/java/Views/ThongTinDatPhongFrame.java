@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Date;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -32,6 +34,7 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
      */
     public ThongTinDatPhongFrame() {
         initComponents();
+        addDocumentListener();
         initTable();
         fillTable();
         onLoad();
@@ -153,6 +156,39 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
     private boolean kiemTraDinhDangEmail(String email) {
         String regex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
         return Pattern.matches(regex, email);
+    }
+    
+    private void addDocumentListener() {
+        txt_ma_phong.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateLoaiPhong();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateLoaiPhong();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateLoaiPhong();
+            }
+        });
+    }
+
+    private void updateLoaiPhong() {
+        String maPhong = txt_ma_phong.getText().trim();
+        if (!maPhong.isEmpty()) {
+            ThongTinDatPhongDAO dao = new ThongTinDatPhongDAO();
+            String loaiPhong = dao.selectTheoMaPhong(maPhong);
+
+            if (loaiPhong != null) {
+                cbo_loai_phong.setSelectedItem(loaiPhong);
+            } else {
+                cbo_loai_phong.setSelectedItem("");
+            }
+        }
     }
 
     /**
@@ -563,7 +599,7 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        if (AuthNhanVien.user != null && AuthNhanVien.isManager() == 0) {
+        if (AuthNhanVien.user != null && (AuthNhanVien.isManager() == 0 || AuthNhanVien.isManager() == 2)) {
             String ma_dat_phong = txt_ma_dp.getText().trim();
             String ma_phong = txt_ma_phong.getText().trim();
             String ngay_dat_phong = txt_ngay_dat_phong.getText().trim();
@@ -638,6 +674,30 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         if (AuthKhachHang.user == null) {
+            String ma_dat_phong = txt_ma_dp.getText().trim();
+
+            if (ma_dat_phong.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Vui lòng nhập mã đặt phòng để xóa!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            ThongTinDatPhongDAO ttdpDAO = new ThongTinDatPhongDAO();
+
+            try {
+                if (!ttdpDAO.exists(ma_dat_phong)) {
+                    JOptionPane.showMessageDialog(null, "❌ Mã đặt phòng không tồn tại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                if (ttdpDAO.delete(ma_dat_phong)) {
+                    JOptionPane.showMessageDialog(this, "✅ Hủy phòng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "❌ Hủy phòng thất bại! Vui lòng kiểm tra lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                }
+                fillTable();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         } else {
             JOptionPane.showMessageDialog(this, "Vui lòng gửi yêu cầu hỗ trợ tới Lễ Tân để được hủy đặt phòng. Xin cảm ơn quý khách!");

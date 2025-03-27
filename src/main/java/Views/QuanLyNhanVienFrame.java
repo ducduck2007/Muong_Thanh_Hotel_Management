@@ -6,7 +6,6 @@ package Views;
 
 import DAO.QuanLyNhanVienDAO;
 import Models.QuanLyNhanVien;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
