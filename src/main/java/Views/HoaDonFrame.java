@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  * @author ADMIN
  */
 public class HoaDonFrame extends javax.swing.JFrame {
-
+    
     DefaultTableModel tableModel = new DefaultTableModel();
 
     /**
@@ -26,19 +26,27 @@ public class HoaDonFrame extends javax.swing.JFrame {
         initComponents();
         initTable();
         fillTable();
+        phanQuyen();
     }
-
+    
+    public void phanQuyen() {
+        btnXemChiTiet.setEnabled(false);
+        if (AuthNhanVien.isManager() != 1) {
+            btnXemChiTiet.setEnabled(true);
+        }
+    }
+    
     public void initTable() {
         String[] cols_nv = new String[]{"Mã KH", "Số Điện Thoại", "Tổng Tiền", "Mã phòng", "Ngày ĐP"};
         tableModel.setColumnIdentifiers(cols_nv);
         tbl_hoa_don.setModel(tableModel);
     }
-
+    
     public void fillTable() {
         tableModel.setRowCount(0);
         HoaDonDAO hdDAO = new HoaDonDAO();
         List<HoaDon> list = hdDAO.getData();
-
+        
         for (HoaDon hoaDon : list) {
             tableModel.addRow(new Object[]{
                 hoaDon.getMa_khach_hang(),
@@ -59,7 +67,7 @@ public class HoaDonFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btn1 = new javax.swing.JButton();
+        btnXemChiTiet = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txt1 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -84,10 +92,10 @@ public class HoaDonFrame extends javax.swing.JFrame {
             }
         });
 
-        btn1.setText("Xem chi tiết");
-        btn1.addActionListener(new java.awt.event.ActionListener() {
+        btnXemChiTiet.setText("Xem chi tiết");
+        btnXemChiTiet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn1ActionPerformed(evt);
+                btnXemChiTietActionPerformed(evt);
             }
         });
 
@@ -208,7 +216,7 @@ public class HoaDonFrame extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(btn4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btn1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btnXemChiTiet, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(19, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -225,7 +233,7 @@ public class HoaDonFrame extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btn1)))
+                        .addComponent(btnXemChiTiet)))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
@@ -255,16 +263,16 @@ public class HoaDonFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
+    private void btnXemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemChiTietActionPerformed
         String ma_khach_hang = txt_ma_kh.getText().trim();
         String ngay_dat_phong = txt_ngay_dp.getText().trim();
         String ma_nhan_vien = AuthNhanVien.getMaNhanVien();
-
+        
         if (ma_khach_hang.isEmpty()) {
             JOptionPane.showMessageDialog(this, "⚠️ Chọn row muốn in trong table để thực hiện", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+        
         this.dispose();
         HoaDonChiTietFrame hdctF = new HoaDonChiTietFrame();
         hdctF.setMaKhachHang(ma_khach_hang);
@@ -273,7 +281,7 @@ public class HoaDonFrame extends javax.swing.JFrame {
         hdctF.setLocationRelativeTo(null);
         hdctF.setVisible(true);
 
-    }//GEN-LAST:event_btn1ActionPerformed
+    }//GEN-LAST:event_btnXemChiTietActionPerformed
 
     private void txt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt1ActionPerformed
         // TODO add your handling code here:
@@ -321,7 +329,7 @@ public class HoaDonFrame extends javax.swing.JFrame {
             String tongTien = tbl_hoa_don.getValueAt(row, 2).toString();
             String danhSachPhong = tbl_hoa_don.getValueAt(row, 3).toString();
             String ngayDatPhong = tbl_hoa_don.getValueAt(row, 4).toString();
-
+            
             txt_ma_kh.setText(maKhachHang);
             txt_so_dt.setText(soDienThoai);
             txt_tong_tien.setText(tongTien);
@@ -375,8 +383,8 @@ public class HoaDonFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn1;
     private javax.swing.JButton btn4;
+    private javax.swing.JButton btnXemChiTiet;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

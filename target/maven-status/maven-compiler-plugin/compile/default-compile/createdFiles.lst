@@ -35,10 +35,10 @@ Views\MainFrame.class
 DAO\ThongTinDatPhongDAO.class
 Models\DichVuHoTro.class
 Services\MainRun.class
-Views\LichLamViecFrame$9.class
 Views\XuLyHoTroFrame$2.class
 DAO\DichVuHoTroDAO.class
 Views\ThietLapGiaFrame$9.class
+Models\LichLamViec.class
 Views\HoaDonChiTietFrame$2.class
 Views\MainFrame$2.class
 Views\ThongTinDatPhongFrame.class
@@ -57,6 +57,7 @@ Views\XuLyHoTroFrame.class
 Views\ThongTinDatPhongFrame$1.class
 Views\HoaDonFrame$3.class
 Views\LoginClient$3.class
+DAO\LichLamViecDAO.class
 Views\KhachHangFrame$6.class
 Models\ThongKeDoanhThu.class
 Views\SystemFrame$2.class

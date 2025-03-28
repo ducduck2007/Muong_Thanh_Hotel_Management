@@ -6,6 +6,7 @@ package Views;
 
 import DAO.ThietLapGiaDAO;
 import Models.ThietLapGia;
+import Services.AuthNhanVien;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -26,6 +27,15 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
         initComponents();
         initTable();
         fillTable();
+        phanQuyen();
+    }
+    
+    public void phanQuyen() {
+        btnSua.setEnabled(false);
+        if (AuthNhanVien.isManager() != 1) {
+            btnSua.setEnabled(true);
+                    
+        }
     }
 
     public void initTable() {
@@ -68,7 +78,7 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
         txt_gia_phong = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         txt_ghi_chu = new javax.swing.JTextArea();
-        btn2 = new javax.swing.JButton();
+        btnSua = new javax.swing.JButton();
         btn4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_thiet_lap_gia = new javax.swing.JTable();
@@ -107,10 +117,10 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
         txt_ghi_chu.setRows(5);
         jScrollPane2.setViewportView(txt_ghi_chu);
 
-        btn2.setText("Sửa");
-        btn2.addActionListener(new java.awt.event.ActionListener() {
+        btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn2ActionPerformed(evt);
+                btnSuaActionPerformed(evt);
             }
         });
 
@@ -198,7 +208,7 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btn4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btn2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(btnSua, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -213,7 +223,7 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txt_ma_gia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn2))
+                    .addComponent(btnSua))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -249,7 +259,7 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_gia_phongActionPerformed
 
-    private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
         try {
             String ma_gia = txt_ma_gia.getText().trim();
@@ -323,7 +333,7 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Lỗi hệ thống: " + e.getMessage());
         }
-    }//GEN-LAST:event_btn2ActionPerformed
+    }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4ActionPerformed
         // TODO add your handling code here:
@@ -413,8 +423,8 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn2;
     private javax.swing.JButton btn4;
+    private javax.swing.JButton btnSua;
     private javax.swing.JComboBox<String> cbo_loai_phong;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

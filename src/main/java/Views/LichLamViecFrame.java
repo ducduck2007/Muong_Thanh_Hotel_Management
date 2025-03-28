@@ -4,6 +4,14 @@
  */
 package Views;
 
+import DAO.LichLamViecDAO;
+import Models.LichLamViec;
+import Services.AuthNhanVien;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ADMIN
@@ -15,6 +23,76 @@ public class LichLamViecFrame extends javax.swing.JFrame {
      */
     public LichLamViecFrame() {
         initComponents();
+        initTable();
+        fillTable();
+    }
+    
+    public void phanQuyen() {
+        btnSua.setEnabled(false);
+        if (AuthNhanVien.isManager() != 1) {
+            btnSua.setEnabled(true);
+        }
+    }
+    
+    DefaultTableModel tableModel_lich_lam_viec = new DefaultTableModel();
+    List<LichLamViec> listLLV = new ArrayList<>();
+    
+    public void initTable() {
+        String[] cols = new String[]{"Mã Lịch", "Mã Nhân Viên", "Ngày Làm Việc", "Ca Làm Việc"};
+        tableModel_lich_lam_viec.setColumnIdentifiers(cols);
+        tbl_lich_lam_viec.setModel(tableModel_lich_lam_viec);
+    }
+    
+    public void fillTable() {
+        tableModel_lich_lam_viec.setRowCount(0);
+        LichLamViecDAO llvDAO = new LichLamViecDAO();
+        List<LichLamViec> list = llvDAO.getData();
+        
+        for (LichLamViec lichLamViec : list) {
+            tableModel_lich_lam_viec.addRow(new Object[]{
+                lichLamViec.getMaLich(),
+                lichLamViec.getMaNhanVien(),
+                lichLamViec.getNgayLamViec(),
+                lichLamViec.getCaLamViec()
+            });
+        }
+    }
+    
+    public void update() {
+        String MalichLamViec = txt_ma_lich_lam_viec.getText().trim();
+        String MaNhanVien = txt_ma_nhan_vien.getText().trim();
+        String NgayLamViec = txt_ngay_lam_viec.getText().trim();
+        String CaLamViec = (String) cbo_ca_lam_viec.getSelectedItem();
+        
+        if (MalichLamViec.isEmpty() || MaNhanVien.isEmpty() || NgayLamViec.isEmpty() || CaLamViec.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin.");
+            return;
+        }
+        
+        try {
+            LichLamViec llv = new LichLamViec();
+            LichLamViecDAO llvDAO = new LichLamViecDAO();
+            
+            llv.setMaLich(Integer.parseInt(MalichLamViec));
+            llv.setMaNhanVien(MaNhanVien);
+            llv.setNgayLamViec(NgayLamViec);
+            llv.setCaLamViec(CaLamViec);
+            
+            int choice = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn cập nhật lịch làm việc không?");
+            if (choice == JOptionPane.YES_OPTION) {
+                if (llvDAO.update(llv)) {
+                    JOptionPane.showMessageDialog(this, "Cập nhật lịch làm việc thành công.");
+                    fillTable();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Cập nhật lịch làm việc thất bại.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Yêu cầu đã bị hủy.");
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -26,37 +104,28 @@ public class LichLamViecFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btn1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        txt1 = new javax.swing.JTextField();
+        txt_ma_lich_lam_viec = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        txt2 = new javax.swing.JTextField();
-        txt3 = new javax.swing.JTextField();
-        btn2 = new javax.swing.JButton();
+        txt_ma_nhan_vien = new javax.swing.JTextField();
+        txt_ngay_lam_viec = new javax.swing.JTextField();
+        btnSua = new javax.swing.JButton();
         btn4 = new javax.swing.JButton();
-        btn3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        tbl_lich_lam_viec = new javax.swing.JTable();
+        cbo_ca_lam_viec = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btn1.setText("Thêm");
-        btn1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn1ActionPerformed(evt);
-            }
-        });
-
         jLabel3.setText("Mã lịch làm việc");
 
-        txt1.addActionListener(new java.awt.event.ActionListener() {
+        txt_ma_lich_lam_viec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt1ActionPerformed(evt);
+                txt_ma_lich_lam_viecActionPerformed(evt);
             }
         });
 
@@ -70,22 +139,22 @@ public class LichLamViecFrame extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(51, 0, 255));
         jLabel1.setText("Lịch làm việc");
 
-        txt2.addActionListener(new java.awt.event.ActionListener() {
+        txt_ma_nhan_vien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt2ActionPerformed(evt);
+                txt_ma_nhan_vienActionPerformed(evt);
             }
         });
 
-        txt3.addActionListener(new java.awt.event.ActionListener() {
+        txt_ngay_lam_viec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt3ActionPerformed(evt);
+                txt_ngay_lam_viecActionPerformed(evt);
             }
         });
 
-        btn2.setText("Sửa");
-        btn2.addActionListener(new java.awt.event.ActionListener() {
+        btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn2ActionPerformed(evt);
+                btnSuaActionPerformed(evt);
             }
         });
 
@@ -96,14 +165,7 @@ public class LichLamViecFrame extends javax.swing.JFrame {
             }
         });
 
-        btn3.setText("Xóa");
-        btn3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn3ActionPerformed(evt);
-            }
-        });
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_lich_lam_viec.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -114,9 +176,14 @@ public class LichLamViecFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tbl_lich_lam_viec.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_lich_lam_viecMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbl_lich_lam_viec);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ca 1: 06h00 - 14h00", "Ca 2: 14h00 - 22h00", "Ca 3: 22h00 - 06h00" }));
+        cbo_ca_lam_viec.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ca 1: 06h00 - 14h00", "Ca 2: 14h00 - 22h00", "Ca 3: 22h00 - 06h00" }));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/back2.png"))); // NOI18N
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -132,38 +199,29 @@ public class LichLamViecFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txt1, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
-                            .addComponent(txt2)
-                            .addComponent(txt3))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel5))
+                            .addGap(28, 28, 28)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txt_ma_lich_lam_viec, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
+                                .addComponent(txt_ma_nhan_vien)
+                                .addComponent(txt_ngay_lam_viec))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnSua, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btn4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btn3, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel6)
-                                    .addGap(53, 53, 53)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(31, 31, 31)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(btn2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btn4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(jLabel6)
+                                .addGap(53, 53, 53)
+                                .addComponent(cbo_ca_lam_viec, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(138, 138, 138)))))
                 .addContainerGap(12, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -178,26 +236,23 @@ public class LichLamViecFrame extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn1))
+                    .addComponent(txt_ma_lich_lam_viec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSua))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btn2)))
+                        .addComponent(txt_ma_nhan_vien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn4)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(btn3))
-                .addGap(27, 27, 27)
+                    .addComponent(txt_ngay_lam_viec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btn4)))
-                .addGap(49, 49, 49)
+                    .addComponent(cbo_ca_lam_viec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -207,33 +262,31 @@ public class LichLamViecFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
-        
-    }//GEN-LAST:event_btn1ActionPerformed
-
-    private void txt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt1ActionPerformed
+    private void txt_ma_lich_lam_viecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_ma_lich_lam_viecActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt1ActionPerformed
+    }//GEN-LAST:event_txt_ma_lich_lam_viecActionPerformed
 
-    private void txt2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt2ActionPerformed
+    private void txt_ma_nhan_vienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_ma_nhan_vienActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt2ActionPerformed
+    }//GEN-LAST:event_txt_ma_nhan_vienActionPerformed
 
-    private void txt3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt3ActionPerformed
+    private void txt_ngay_lam_viecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_ngay_lam_viecActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt3ActionPerformed
+    }//GEN-LAST:event_txt_ngay_lam_viecActionPerformed
 
-    private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn2ActionPerformed
+        update();
+    }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4ActionPerformed
         // TODO add your handling code here:
+        txt_ma_lich_lam_viec.setText("");
+        txt_ma_nhan_vien.setText("");
+        txt_ngay_lam_viec.setText("");
+        cbo_ca_lam_viec.setSelectedIndex(0);
+        fillTable();
     }//GEN-LAST:event_btn4ActionPerformed
-
-    private void btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn3ActionPerformed
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         // TODO add your handling code here:
@@ -243,6 +296,22 @@ public class LichLamViecFrame extends javax.swing.JFrame {
         sFrame.setVisible(true);
         return;
     }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void tbl_lich_lam_viecMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_lich_lam_viecMouseClicked
+        // TODO add your handling code here:
+        int row = tbl_lich_lam_viec.getSelectedRow();
+        if (row >= 0) {
+            String maLich = tbl_lich_lam_viec.getValueAt(row, 0).toString();
+            String maNhanVien = tbl_lich_lam_viec.getValueAt(row, 1).toString();
+            String ngayLamViec = tbl_lich_lam_viec.getValueAt(row, 2).toString();
+            String caLamViec = tbl_lich_lam_viec.getValueAt(row, 3).toString();
+            
+            txt_ma_lich_lam_viec.setText(maLich);
+            txt_ma_nhan_vien.setText(maNhanVien);
+            txt_ngay_lam_viec.setText(ngayLamViec);
+            cbo_ca_lam_viec.setSelectedItem(caLamViec);
+        }
+    }//GEN-LAST:event_tbl_lich_lam_viecMouseClicked
 
     /**
      * @param args the command line arguments
@@ -287,11 +356,9 @@ public class LichLamViecFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn1;
-    private javax.swing.JButton btn2;
-    private javax.swing.JButton btn3;
     private javax.swing.JButton btn4;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton btnSua;
+    private javax.swing.JComboBox<String> cbo_ca_lam_viec;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -299,9 +366,9 @@ public class LichLamViecFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField txt1;
-    private javax.swing.JTextField txt2;
-    private javax.swing.JTextField txt3;
+    private javax.swing.JTable tbl_lich_lam_viec;
+    private javax.swing.JTextField txt_ma_lich_lam_viec;
+    private javax.swing.JTextField txt_ma_nhan_vien;
+    private javax.swing.JTextField txt_ngay_lam_viec;
     // End of variables declaration//GEN-END:variables
 }

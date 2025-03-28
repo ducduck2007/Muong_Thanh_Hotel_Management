@@ -96,11 +96,15 @@ public class LienHeKhachHangFrame extends javax.swing.JFrame {
 
     private void btn_xac_nhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xac_nhanActionPerformed
         // TODO add your handling code here:
-        System.out.println("Username: " + username);
-        System.out.println("Password: " + password);
-        System.out.println("Email: " + email);
-
         String so_dien_thoai = txt_so_dien_thoai.getText().trim();
+
+        if (!so_dien_thoai.matches("\\d{10}")) {
+            JOptionPane.showMessageDialog(this,
+                    "⚠️ Số điện thoại phải có đúng 10 chữ số và không được chứa chữ!",
+                    "Lỗi nhập liệu",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         KhachHang kh = new KhachHang();
         KhachHangDAO khDAO = new KhachHangDAO();
@@ -119,13 +123,11 @@ public class LienHeKhachHangFrame extends javax.swing.JFrame {
             LoginClient lgC = new LoginClient();
             lgC.setLocationRelativeTo(null);
             lgC.setVisible(true);
-            return;
         } else {
             JOptionPane.showMessageDialog(this,
                     "❌ Đăng ký tài khoản thất bại! Vui lòng kiểm tra lại.",
                     "Lỗi",
                     JOptionPane.ERROR_MESSAGE);
-            return;
         }
     }//GEN-LAST:event_btn_xac_nhanActionPerformed
 

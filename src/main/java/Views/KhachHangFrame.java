@@ -6,6 +6,7 @@ package Views;
 
 import DAO.KhachHangDAO;
 import Models.KhachHang;
+import Services.AuthNhanVien;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -25,6 +26,18 @@ public class KhachHangFrame extends javax.swing.JFrame {
         initComponents();
         initTable();
         fillTable();
+        phanQuyen();
+    }
+
+    public void phanQuyen() {
+        btnSua.setEnabled(false);
+        btnXoa.setEnabled(false);
+        if (AuthNhanVien.isManager() == 0) {
+            btnSua.setEnabled(true);
+            btnXoa.setEnabled(true);
+        } else if (AuthNhanVien.isManager() == 2) {
+            btnSua.setEnabled(true);
+        }
     }
 
     public void initTable() {
@@ -362,7 +375,7 @@ public class KhachHangFrame extends javax.swing.JFrame {
         txtEmail.setText("");
         txtSdt.setText("");
         txtTimKiem.setText("");
-        
+
         tableModel.setRowCount(0);
         KhachHangDAO khDao = new KhachHangDAO();
         List<KhachHang> list = khDao.findAll();

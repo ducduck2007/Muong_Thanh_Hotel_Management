@@ -30,6 +30,15 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
         initTable();
         fillTable();
         loadCBO();
+        phanQuyen();
+    }
+
+    public void phanQuyen() {
+        if (AuthNhanVien.isManager() != 1) {
+            btnSua.setEnabled(true);
+        } else {
+            btnSua.setEnabled(false);
+        }
     }
 
     public void loadCBO() {
@@ -114,7 +123,7 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
         txt_ghi_chu = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbl_phong = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
+        btnSua = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         cbo_search_loai_phong = new javax.swing.JComboBox<>();
@@ -174,10 +183,10 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tbl_phong);
 
-        jButton2.setText("Sửa");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnSuaActionPerformed(evt);
             }
         });
 
@@ -232,7 +241,7 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
                         .addComponent(txt_gia_tien)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(btnSua)
                         .addGap(18, 18, 18)
                         .addComponent(jButton4)))
                 .addGap(18, 18, 18)
@@ -278,7 +287,7 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
+                    .addComponent(btnSua)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton4)
                         .addComponent(cbo_search_loai_phong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -386,63 +395,58 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
         capNhatTablePhong(danhSachPhong);
     }//GEN-LAST:event_cbo_search_trang_thaiActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        if (AuthNhanVien.isManager() == 2 || AuthNhanVien.isManager() == 0) {
-            try {
-                String ma_phong = txt_ma_phong.getText().trim();
-                String loai_phong = (String) cbo_loai_phong.getSelectedItem();
+        try {
+            String ma_phong = txt_ma_phong.getText().trim();
+            String loai_phong = (String) cbo_loai_phong.getSelectedItem();
 
-                if (!rdo_trong.isSelected() && !rdo_da_duoc_dat.isSelected()) {
-                    JOptionPane.showMessageDialog(this, "⚠️ Vui lòng chọn trạng thái phòng!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-
-                String trang_thai = rdo_trong.isSelected() ? "Trống" : "Đã được đặt";
-
-                String ghi_chu = txt_ghi_chu.getText().trim();
-
-                if (ma_phong.isEmpty() || loai_phong.isEmpty() || ghi_chu.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "⚠️ Vui lòng nhập đầy đủ thông tin!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-
-                ThongTinPhongDAO ttpDAO = new ThongTinPhongDAO();
-
-                if (!ttpDAO.existsMaPhong(ma_phong)) {
-                    JOptionPane.showMessageDialog(this, "⚠️ Mã phòng không tồn tại! Vui lòng nhập mã phòng hợp lệ.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                ThongTinPhong ttp = new ThongTinPhong();
-                ttp.setMa_phong(ma_phong);
-                ttp.setLoai_phong(loai_phong);
-                ttp.setTrang_thai(trang_thai);
-                ttp.setGhi_chu(ghi_chu);
-
-                if (ttpDAO.update(ttp)) {
-                    JOptionPane.showMessageDialog(this,
-                            "✅ Sửa thông tin phòng thành công!",
-                            "Thành công",
-                            JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(this,
-                            "❌ Sửa thông tin phòng thất bại! Vui lòng kiểm tra lại.",
-                            "Lỗi",
-                            JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                fillTable();
-            } catch (Exception e) {
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Lỗi hệ thống: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            if (!rdo_trong.isSelected() && !rdo_da_duoc_dat.isSelected()) {
+                JOptionPane.showMessageDialog(this, "⚠️ Vui lòng chọn trạng thái phòng!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                return;
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Chỉ có lễ tân hoặc quản lý mới có thể sửa", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
+
+            String trang_thai = rdo_trong.isSelected() ? "Trống" : "Đã được đặt";
+
+            String ghi_chu = txt_ghi_chu.getText().trim();
+
+            if (ma_phong.isEmpty() || loai_phong.isEmpty() || ghi_chu.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "⚠️ Vui lòng nhập đầy đủ thông tin!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            ThongTinPhongDAO ttpDAO = new ThongTinPhongDAO();
+
+            if (!ttpDAO.existsMaPhong(ma_phong)) {
+                JOptionPane.showMessageDialog(this, "⚠️ Mã phòng không tồn tại! Vui lòng nhập mã phòng hợp lệ.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            ThongTinPhong ttp = new ThongTinPhong();
+            ttp.setMa_phong(ma_phong);
+            ttp.setLoai_phong(loai_phong);
+            ttp.setTrang_thai(trang_thai);
+            ttp.setGhi_chu(ghi_chu);
+
+            if (ttpDAO.update(ttp)) {
+                JOptionPane.showMessageDialog(this,
+                        "✅ Sửa thông tin phòng thành công!",
+                        "Thành công",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "❌ Sửa thông tin phòng thất bại! Vui lòng kiểm tra lại.",
+                        "Lỗi",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            fillTable();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Lỗi hệ thống: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnSuaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -482,10 +486,10 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btg_status_phong;
+    private javax.swing.JButton btnSua;
     private javax.swing.JComboBox<String> cbo_loai_phong;
     private javax.swing.JComboBox<String> cbo_search_loai_phong;
     private javax.swing.JComboBox<String> cbo_search_trang_thai;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

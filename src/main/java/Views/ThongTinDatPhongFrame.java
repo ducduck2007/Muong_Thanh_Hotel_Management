@@ -38,6 +38,20 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
         initTable();
         fillTable();
         onLoad();
+        phanQuyen();
+    }
+    
+    public void phanQuyen() {
+        btnDat.setEnabled(false);
+        btnHuy.setEnabled(false);
+        btnSua.setEnabled(false);
+        
+        if (AuthKhachHang.user != null) {
+            btnDat.setEnabled(true);
+            btnHuy.setEnabled(true);
+        } else if (AuthNhanVien.isManager() != 1) {
+            btnSua.setEnabled(true);
+        }
     }
 
     public void initTable() {
@@ -157,7 +171,7 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
         String regex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
         return Pattern.matches(regex, email);
     }
-    
+
     private void addDocumentListener() {
         txt_ma_phong.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -223,10 +237,10 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
         txt_email_kh = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
         tbl_ds_phong_dat = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnDat = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnSua = new javax.swing.JButton();
+        btnHuy = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbl_ds_phong_trong = new javax.swing.JTable();
@@ -281,10 +295,10 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(tbl_ds_phong_dat);
 
-        jButton1.setText("Đặt");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnDat.setText("Đặt");
+        btnDat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnDatActionPerformed(evt);
             }
         });
 
@@ -295,17 +309,17 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Sửa");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnSuaActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Hủy đặt phòng");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnHuy.setText("Hủy đặt phòng");
+        btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnHuyActionPerformed(evt);
             }
         });
 
@@ -317,13 +331,13 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnDat)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)
+                        .addComponent(btnSua)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton4)
+                        .addComponent(btnHuy)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -412,10 +426,10 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnDat)
                     .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(btnSua)
+                    .addComponent(btnHuy))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(12, Short.MAX_VALUE))
@@ -518,74 +532,69 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tbl_ds_phong_trongMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnDatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatActionPerformed
         // TODO add your handling code here:
-        if (AuthKhachHang.user != null) {
-            String ma_phong = txt_ma_phong.getText().trim();
-            String ngay_dat_phong = txt_ngay_dat_phong.getText().trim();
-            String ngay_nhan_phong = txt_ngay_nhan_phong.getText().trim();
-            String ngay_tra_phong = txt_ngay_tra_phong.getText().trim();
-            String email = txt_email_kh.getText().trim();
-            String tong_tien = txt_tong_tien.getText().trim();
-            String ghi_chu = txt_ghi_chu.getText().trim();
-            String loai_phong = (String) cbo_loai_phong.getSelectedItem();
+        String ma_phong = txt_ma_phong.getText().trim();
+        String ngay_dat_phong = txt_ngay_dat_phong.getText().trim();
+        String ngay_nhan_phong = txt_ngay_nhan_phong.getText().trim();
+        String ngay_tra_phong = txt_ngay_tra_phong.getText().trim();
+        String email = txt_email_kh.getText().trim();
+        String tong_tien = txt_tong_tien.getText().trim();
+        String ghi_chu = txt_ghi_chu.getText().trim();
+        String loai_phong = (String) cbo_loai_phong.getSelectedItem();
 
-            if (ma_phong.isEmpty() || ngay_nhan_phong.isEmpty()
-                    || ngay_tra_phong.isEmpty() || email.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            if (!kiemTraDinhDangNgay(ngay_nhan_phong) || !kiemTraDinhDangNgay(ngay_tra_phong)) {
-                JOptionPane.showMessageDialog(null, "Định dạng ngày phải là yyyy-MM-dd!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            if (!kiemTraDinhDangEmail(email)) {
-                JOptionPane.showMessageDialog(null, "Email không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            ThongTinDatPhong ttdp = new ThongTinDatPhong();
-            ThongTinDatPhongDAO ttdpDAO = new ThongTinDatPhongDAO();
-            String ma_khach_hang = ttdpDAO.layMaKhachHangTheoEmail(email);
-
-            if (ma_khach_hang == null) {
-                JOptionPane.showMessageDialog(null, "Email không tồn tại trong hệ thống!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            try {
-                ttdp.setMa_phong(ma_phong);
-                ttdp.setMa_khach_hang(Integer.parseInt(ma_khach_hang));
-                ttdp.setLoai_phong(loai_phong);
-                ttdp.setNgay_dat_phong(sdf.parse(ngay_dat_phong));
-                ttdp.setTong_tien(new BigDecimal(tong_tien));
-                ttdp.setGhi_chu(ghi_chu);
-                ttdp.setNgay_nhan_phong(sdf.parse(ngay_nhan_phong));
-                ttdp.setNgay_tra_phong(sdf.parse(ngay_tra_phong));
-
-                if (ttdpDAO.insert(ttdp)) {
-                    JOptionPane.showMessageDialog(this,
-                            "✅ Đặt phòng thành công!",
-                            "Thành công",
-                            JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(this,
-                            "❌ Đặt phòng thất bại! Vui lòng kiểm tra lại.",
-                            "Lỗi",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-                fillTable();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Chỉ có khách hàng mới được đặt phòng");
+        if (ma_phong.isEmpty() || ngay_nhan_phong.isEmpty()
+                || ngay_tra_phong.isEmpty() || email.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return;
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+
+        if (!kiemTraDinhDangNgay(ngay_nhan_phong) || !kiemTraDinhDangNgay(ngay_tra_phong)) {
+            JOptionPane.showMessageDialog(null, "Định dạng ngày phải là yyyy-MM-dd!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!kiemTraDinhDangEmail(email)) {
+            JOptionPane.showMessageDialog(null, "Email không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        ThongTinDatPhong ttdp = new ThongTinDatPhong();
+        ThongTinDatPhongDAO ttdpDAO = new ThongTinDatPhongDAO();
+        String ma_khach_hang = ttdpDAO.layMaKhachHangTheoEmail(email);
+
+        if (ma_khach_hang == null) {
+            JOptionPane.showMessageDialog(null, "Email không tồn tại trong hệ thống!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            ttdp.setMa_phong(ma_phong);
+            ttdp.setMa_khach_hang(Integer.parseInt(ma_khach_hang));
+            ttdp.setLoai_phong(loai_phong);
+            ttdp.setNgay_dat_phong(sdf.parse(ngay_dat_phong));
+            ttdp.setTong_tien(new BigDecimal(tong_tien));
+            ttdp.setGhi_chu(ghi_chu);
+            ttdp.setNgay_nhan_phong(sdf.parse(ngay_nhan_phong));
+            ttdp.setNgay_tra_phong(sdf.parse(ngay_tra_phong));
+
+            if (ttdpDAO.insert(ttdp)) {
+                JOptionPane.showMessageDialog(this,
+                        "✅ Đặt phòng thành công!",
+                        "Thành công",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "❌ Đặt phòng thất bại! Vui lòng kiểm tra lại.",
+                        "Lỗi",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+            fillTable();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnDatActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -597,7 +606,7 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
         txt_ngay_tra_phong.setText("");
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
         if (AuthNhanVien.user != null && (AuthNhanVien.isManager() == 0 || AuthNhanVien.isManager() == 2)) {
             String ma_dat_phong = txt_ma_dp.getText().trim();
@@ -669,9 +678,9 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Chỉ có quản lý mới được sửa");
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnSuaActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         // TODO add your handling code here:
         if (AuthKhachHang.user == null) {
             String ma_dat_phong = txt_ma_dp.getText().trim();
@@ -703,7 +712,7 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng gửi yêu cầu hỗ trợ tới Lễ Tân để được hủy đặt phòng. Xin cảm ơn quý khách!");
             return;
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnHuyActionPerformed
 
     private void tbl_ds_phong_datMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_ds_phong_datMouseClicked
         // TODO add your handling code here:
@@ -786,11 +795,11 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDat;
+    private javax.swing.JButton btnHuy;
+    private javax.swing.JButton btnSua;
     private javax.swing.JComboBox<String> cbo_loai_phong;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

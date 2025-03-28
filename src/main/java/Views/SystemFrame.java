@@ -21,6 +21,7 @@ public class SystemFrame extends javax.swing.JFrame {
      */
     public SystemFrame() {
         initComponents();
+        jLabel18.setEnabled(false);
     }
 
     /**
@@ -375,11 +376,16 @@ public class SystemFrame extends javax.swing.JFrame {
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
         // TODO add your handling code here:
-        this.dispose();
-        ThongKeDoanhThuFrame tkdtF = new ThongKeDoanhThuFrame();
-        tkdtF.setLocationRelativeTo(null);
-        tkdtF.setVisible(true);
-        return;
+        if (AuthNhanVien.isManager() == 0) {
+            this.dispose();
+            ThongKeDoanhThuFrame tkdtF = new ThongKeDoanhThuFrame();
+            tkdtF.setLocationRelativeTo(null);
+            tkdtF.setVisible(true);
+            return;
+        } else {
+            JOptionPane.showMessageDialog(null, "⚠ Bạn không có quyền vào mục này!", "Phân Quyền", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
     }//GEN-LAST:event_jLabel11MouseClicked
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
@@ -419,11 +425,11 @@ public class SystemFrame extends javax.swing.JFrame {
 
     private void jLabel18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel18MouseClicked
         // TODO add your handling code here:
-        this.dispose();
-        HoaDonChiTietFrame hdctFrame = new HoaDonChiTietFrame();
-        hdctFrame.setLocationRelativeTo(null);
-        hdctFrame.setVisible(true);
-        return;
+//        this.dispose();
+//        HoaDonChiTietFrame hdctFrame = new HoaDonChiTietFrame();
+//        hdctFrame.setLocationRelativeTo(null);
+//        hdctFrame.setVisible(true);
+
     }//GEN-LAST:event_jLabel18MouseClicked
 
     private void jLabel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MouseClicked
