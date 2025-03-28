@@ -6,6 +6,7 @@ package Views;
 
 import DAO.ThongTinPhongDAO;
 import Models.ThongTinPhong;
+import Services.AuthNhanVien;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
@@ -141,11 +142,9 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
 
         btg_status_phong.add(rdo_trong);
         rdo_trong.setText("Trống");
-        rdo_trong.setEnabled(false);
 
         btg_status_phong.add(rdo_da_duoc_dat);
         rdo_da_duoc_dat.setText("Đã được đặt");
-        rdo_da_duoc_dat.setEnabled(false);
 
         jLabel4.setText("Giá tiền");
 
@@ -389,54 +388,59 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        try {
-            String ma_phong = txt_ma_phong.getText().trim();
-            String loai_phong = (String) cbo_loai_phong.getSelectedItem();
+        if (AuthNhanVien.isManager() == 2 || AuthNhanVien.isManager() == 0) {
+            try {
+                String ma_phong = txt_ma_phong.getText().trim();
+                String loai_phong = (String) cbo_loai_phong.getSelectedItem();
 
-            if (!rdo_trong.isSelected() && !rdo_da_duoc_dat.isSelected()) {
-                JOptionPane.showMessageDialog(this, "⚠️ Vui lòng chọn trạng thái phòng!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
-                return;
+                if (!rdo_trong.isSelected() && !rdo_da_duoc_dat.isSelected()) {
+                    JOptionPane.showMessageDialog(this, "⚠️ Vui lòng chọn trạng thái phòng!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                String trang_thai = rdo_trong.isSelected() ? "Trống" : "Đã được đặt";
+
+                String ghi_chu = txt_ghi_chu.getText().trim();
+
+                if (ma_phong.isEmpty() || loai_phong.isEmpty() || ghi_chu.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "⚠️ Vui lòng nhập đầy đủ thông tin!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                ThongTinPhongDAO ttpDAO = new ThongTinPhongDAO();
+
+                if (!ttpDAO.existsMaPhong(ma_phong)) {
+                    JOptionPane.showMessageDialog(this, "⚠️ Mã phòng không tồn tại! Vui lòng nhập mã phòng hợp lệ.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                ThongTinPhong ttp = new ThongTinPhong();
+                ttp.setMa_phong(ma_phong);
+                ttp.setLoai_phong(loai_phong);
+                ttp.setTrang_thai(trang_thai);
+                ttp.setGhi_chu(ghi_chu);
+
+                if (ttpDAO.update(ttp)) {
+                    JOptionPane.showMessageDialog(this,
+                            "✅ Sửa thông tin phòng thành công!",
+                            "Thành công",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                            "❌ Sửa thông tin phòng thất bại! Vui lòng kiểm tra lại.",
+                            "Lỗi",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                fillTable();
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Lỗi hệ thống: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
-
-            String trang_thai = rdo_trong.isSelected() ? "Trống" : "Đã được đặt";
-
-            String ghi_chu = txt_ghi_chu.getText().trim();
-
-            if (ma_phong.isEmpty() || loai_phong.isEmpty() || ghi_chu.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "⚠️ Vui lòng nhập đầy đủ thông tin!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-
-            ThongTinPhongDAO ttpDAO = new ThongTinPhongDAO();
-
-            if (!ttpDAO.existsMaPhong(ma_phong)) {
-                JOptionPane.showMessageDialog(this, "⚠️ Mã phòng không tồn tại! Vui lòng nhập mã phòng hợp lệ.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            ThongTinPhong ttp = new ThongTinPhong();
-            ttp.setMa_phong(ma_phong);
-            ttp.setLoai_phong(loai_phong);
-            ttp.setTrang_thai(trang_thai);
-            ttp.setGhi_chu(ghi_chu);
-
-            if (ttpDAO.update(ttp)) {
-                JOptionPane.showMessageDialog(this,
-                        "✅ Sửa thông tin phòng thành công!",
-                        "Thành công",
-                        JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this,
-                        "❌ Sửa thông tin phòng thất bại! Vui lòng kiểm tra lại.",
-                        "Lỗi",
-                        JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            fillTable();
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Lỗi hệ thống: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Chỉ có lễ tân hoặc quản lý mới có thể sửa", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 

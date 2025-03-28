@@ -187,7 +187,6 @@
                   <ComponentRef name="btg_status_phong"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Tr&#x1ed1;ng"/>
-                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JRadioButton" name="rdo_da_duoc_dat">
@@ -196,7 +195,6 @@
                   <ComponentRef name="btg_status_phong"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x110;&#xe3; &#x111;&#x1b0;&#x1ee3;c &#x111;&#x1eb7;t"/>
-                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
