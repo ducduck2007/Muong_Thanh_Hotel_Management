@@ -44,6 +44,13 @@ public class QuenMatKhau extends javax.swing.JFrame {
             return;
         }
 
+        QuenMatKhauDAO qmkDAO = new QuenMatKhauDAO();
+
+        if (!qmkDAO.isEmailExists(toEmail)) {
+            JOptionPane.showMessageDialog(this, "Email không tồn tại trong hệ thống.");
+            return;
+        }
+
         if (!capchaInput.equals(capchaActual)) {
             JOptionPane.showMessageDialog(this, "Mã CAPTCHA sai, vui lòng thử lại!");
             sinhCapchaMoi();
@@ -51,7 +58,6 @@ public class QuenMatKhau extends javax.swing.JFrame {
         }
 
         String newPassword = generateRandomPassword(8);
-        QuenMatKhauDAO qmkDAO = new QuenMatKhauDAO();
 
         boolean isUpdated = qmkDAO.updatePasswordInDatabase(toEmail, newPassword);
         System.out.println("Cập nhật mật khẩu thành công? " + isUpdated); // Debug log

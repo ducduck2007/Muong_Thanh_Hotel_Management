@@ -6,6 +6,7 @@ package DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /**
  *
@@ -30,4 +31,21 @@ public class QuenMatKhauDAO {
             return false;
         }
     }
+
+    public boolean isEmailExists(String email) {
+        String sql = "SELECT COUNT(*) FROM khach_hang WHERE email = ?";
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }
