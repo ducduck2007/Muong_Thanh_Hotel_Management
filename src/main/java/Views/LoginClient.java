@@ -8,15 +8,6 @@ import DAO.KhachHangDAO;
 import Models.KhachHang;
 import Services.AuthKhachHang;
 import javax.swing.JOptionPane;
-import java.util.Properties;
-import javax.mail.Session;
-import javax.mail.Message;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.InternetAddress;
-import javax.mail.MessagingException;
-import javax.mail.Authenticator;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Transport;
 
 /**
  *
@@ -29,77 +20,6 @@ public class LoginClient extends javax.swing.JFrame {
      */
     public LoginClient() {
         initComponents();
-    }
-
-    public void quenMatKhau() {
-        String email = txt_email_dang_nhap.getText().trim();
-
-        // Kiểm tra email có tồn tại không
-        KhachHangDAO khDAO = new KhachHangDAO();
-        KhachHang kh = khDAO.findByEmail(email);
-
-        if (kh == null) {
-            JOptionPane.showMessageDialog(this, "❌ Email không tồn tại trong hệ thống!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Tạo mật khẩu ngẫu nhiên
-        String newPassword = generateRandomPassword(8);
-
-        // Cập nhật mật khẩu mới vào database
-        kh.setMat_khau(newPassword);
-        khDAO.update(kh);
-
-        // Gửi email mật khẩu mới
-        if (sendEmail(email, newPassword)) {
-            JOptionPane.showMessageDialog(this, "✅ Mật khẩu mới đã được gửi vào email!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "❌ Gửi email thất bại! Vui lòng thử lại sau.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-// Hàm tạo mật khẩu ngẫu nhiên (8 ký tự chữ và số)
-    private String generateRandomPassword(int length) {
-        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        StringBuilder password = new StringBuilder();
-        Random random = new Random();
-        for (int i = 0; i < length; i++) {
-            password.append(characters.charAt(random.nextInt(characters.length())));
-        }
-        return password.toString();
-    }
-
-// Hàm gửi email
-    private boolean sendEmail(String toEmail, String newPassword) {
-        final String fromEmail = "your-email@gmail.com"; // Thay bằng email thật
-        final String appPassword = "your-app-password"; // Mật khẩu ứng dụng
-
-        Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-
-        Session session = Session.getInstance(props, new Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(fromEmail, appPassword);
-            }
-        });
-
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(fromEmail));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
-            message.setSubject("🔑 Cấp lại mật khẩu mới");
-            message.setText("Xin chào,\n\nMật khẩu mới của bạn là: " + newPassword
-                    + "\n\nVui lòng đổi mật khẩu sau khi đăng nhập.\n\nTrân trọng!");
-
-            Transport.send(message);
-            return true;
-        } catch (MessagingException e) {
-            e.printStackTrace();
-            return false;
-        }
     }
 
     /**
@@ -444,7 +364,11 @@ public class LoginClient extends javax.swing.JFrame {
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
         // TODO add your handling code here:
-        quenMatKhau();
+        this.dispose();
+        QuenMatKhau qmk = new QuenMatKhau();
+        qmk.setLocationRelativeTo(null);
+        qmk.setVisible(true);
+        return;
     }//GEN-LAST:event_jLabel12MouseClicked
 
     /**
