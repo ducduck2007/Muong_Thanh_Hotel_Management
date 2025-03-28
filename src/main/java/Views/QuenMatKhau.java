@@ -84,15 +84,15 @@ public class QuenMatKhau extends javax.swing.JFrame {
             message.setFrom(new InternetAddress(fromEmail));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
             message.setReplyTo(InternetAddress.parse("support@yourdomain.com"));
-            message.setSubject("Password Reset - HotelApp");
+            message.setSubject("Password Reset - Muong Thanh Hotel");
 
             String emailContent = "Hello,\n\n"
-                    + "You have requested to reset your password for your HotelApp account.\n\n"
+                    + "You have requested to reset your password for your Muong Thanh Hotel account.\n\n"
                     + "Your new password is: " + newPassword + "\n"
                     + "Please log in and change your password immediately to secure your account.\n\n"
                     + "If you did not request a password reset, please ignore this email.\n\n"
                     + "Best regards,\n"
-                    + "HotelApp Support Team";
+                    + "Muong Thanh Hotel Support Team";
 
             message.setText(emailContent);
 
