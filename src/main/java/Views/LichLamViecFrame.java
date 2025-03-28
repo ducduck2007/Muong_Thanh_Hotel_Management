@@ -26,58 +26,60 @@ public class LichLamViecFrame extends javax.swing.JFrame {
         initTable();
         fillTable();
     }
-    
+
     public void phanQuyen() {
         btnSua.setEnabled(false);
         if (AuthNhanVien.isManager() != 1) {
             btnSua.setEnabled(true);
         }
     }
-    
+
     DefaultTableModel tableModel_lich_lam_viec = new DefaultTableModel();
     List<LichLamViec> listLLV = new ArrayList<>();
-    
+
     public void initTable() {
-        String[] cols = new String[]{"Mã Lịch", "Mã Nhân Viên", "Ngày Làm Việc", "Ca Làm Việc"};
+        String[] cols = new String[]{"Mã Lịch", "Mã Nhân Viên", "Tên Nhân Viên", "Vai Trò", "Ngày Làm Việc", "Ca Làm Việc"};
         tableModel_lich_lam_viec.setColumnIdentifiers(cols);
         tbl_lich_lam_viec.setModel(tableModel_lich_lam_viec);
     }
-    
+
     public void fillTable() {
         tableModel_lich_lam_viec.setRowCount(0);
         LichLamViecDAO llvDAO = new LichLamViecDAO();
         List<LichLamViec> list = llvDAO.getData();
-        
+
         for (LichLamViec lichLamViec : list) {
             tableModel_lich_lam_viec.addRow(new Object[]{
                 lichLamViec.getMaLich(),
                 lichLamViec.getMaNhanVien(),
+                lichLamViec.getTenNhanVien(),
+                lichLamViec.getVaiTro(),
                 lichLamViec.getNgayLamViec(),
                 lichLamViec.getCaLamViec()
             });
         }
     }
-    
+
     public void update() {
         String MalichLamViec = txt_ma_lich_lam_viec.getText().trim();
         String MaNhanVien = txt_ma_nhan_vien.getText().trim();
         String NgayLamViec = txt_ngay_lam_viec.getText().trim();
         String CaLamViec = (String) cbo_ca_lam_viec.getSelectedItem();
-        
+
         if (MalichLamViec.isEmpty() || MaNhanVien.isEmpty() || NgayLamViec.isEmpty() || CaLamViec.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin.");
             return;
         }
-        
+
         try {
             LichLamViec llv = new LichLamViec();
             LichLamViecDAO llvDAO = new LichLamViecDAO();
-            
+
             llv.setMaLich(Integer.parseInt(MalichLamViec));
             llv.setMaNhanVien(MaNhanVien);
             llv.setNgayLamViec(NgayLamViec);
             llv.setCaLamViec(CaLamViec);
-            
+
             int choice = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn cập nhật lịch làm việc không?");
             if (choice == JOptionPane.YES_OPTION) {
                 if (llvDAO.update(llv)) {
@@ -89,7 +91,7 @@ public class LichLamViecFrame extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "Yêu cầu đã bị hủy.");
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -305,7 +307,7 @@ public class LichLamViecFrame extends javax.swing.JFrame {
             String maNhanVien = tbl_lich_lam_viec.getValueAt(row, 1).toString();
             String ngayLamViec = tbl_lich_lam_viec.getValueAt(row, 2).toString();
             String caLamViec = tbl_lich_lam_viec.getValueAt(row, 3).toString();
-            
+
             txt_ma_lich_lam_viec.setText(maLich);
             txt_ma_nhan_vien.setText(maNhanVien);
             txt_ngay_lam_viec.setText(ngayLamViec);

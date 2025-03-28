@@ -19,7 +19,10 @@ import javax.swing.JOptionPane;
 public class LichLamViecDAO {
 
     public List<LichLamViec> getData() {
-        String sql = "SELECT * FROM lich_lam_viec";
+        String sql = "SELECT llv.ma_lich, llv.ma_nhan_vien, nv.ten_nhan_vien, nv.vai_tro, llv.ngay_lam_viec, llv.ca_lam_viec "
+                + "FROM lich_lam_viec llv "
+                + "JOIN nhan_vien nv ON llv.ma_nhan_vien = nv.ma_nhan_vien";
+
         List<LichLamViec> list = new ArrayList<>();
 
         try {
@@ -31,6 +34,8 @@ public class LichLamViecDAO {
                 LichLamViec llv = new LichLamViec();
                 llv.setMaLich(rs.getInt("ma_lich"));
                 llv.setMaNhanVien(rs.getString("ma_nhan_vien"));
+                llv.setTenNhanVien(rs.getString("ten_nhan_vien"));
+                llv.setVaiTro(rs.getString("vai_tro"));
                 llv.setNgayLamViec(rs.getString("ngay_lam_viec"));
                 llv.setCaLamViec(rs.getString("ca_lam_viec"));
                 list.add(llv);
