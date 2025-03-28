@@ -77,46 +77,53 @@
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jScrollPane4" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="jLabel8" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                                          <Component id="txt_ma_dp" alignment="0" min="-2" pref="435" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jLabel1" min="-2" pref="120" max="-2" attributes="0"/>
-                                          <Component id="txt_ma_phong" alignment="0" pref="435" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="1" attributes="0">
+                                                  <Component id="jLabel8" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                                                  <Component id="txt_ma_dp" alignment="0" min="-2" pref="435" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="jLabel1" min="-2" pref="120" max="-2" attributes="0"/>
+                                                  <Component id="txt_ma_phong" alignment="0" pref="435" max="32767" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="jLabel2" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                                                  <Component id="cbo_loai_phong" alignment="0" pref="435" max="32767" attributes="0"/>
+                                                  <Component id="txt_tong_tien" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="jLabel4" alignment="0" min="-2" pref="233" max="-2" attributes="0"/>
+                                                  <Component id="jLabel6" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                                                  <Component id="jdc_ngay_nhan_phong" alignment="0" max="32767" attributes="0"/>
+                                              </Group>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                          <Component id="jLabel5" alignment="0" min="-2" pref="215" max="-2" attributes="0"/>
+                                                          <Component id="jLabel10" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                                                          <Component id="txt_email_kh" alignment="0" pref="435" max="32767" attributes="0"/>
+                                                          <Component id="jdc_ngay_tra_phong" alignment="0" max="32767" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                                      <Component id="jLabel3" min="-2" pref="120" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="jdc_ngay_dat_phong" min="-2" pref="435" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
                                       </Group>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="jLabel2" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                                              <Component id="cbo_loai_phong" alignment="0" pref="435" max="32767" attributes="0"/>
-                                              <Component id="txt_ngay_nhan_phong" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="txt_tong_tien" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jLabel4" alignment="0" min="-2" pref="233" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Component id="jLabel6" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txt_ngay_dat_phong" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txt_ngay_tra_phong" alignment="0" max="32767" attributes="0"/>
-                                          <Group type="102" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel3" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                                                  <Component id="jLabel5" alignment="0" min="-2" pref="215" max="-2" attributes="0"/>
-                                                  <Component id="jLabel10" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                                                  <Component id="txt_email_kh" alignment="0" min="-2" pref="435" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                          </Group>
-                                      </Group>
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
@@ -129,52 +136,46 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="txt_ma_dp" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="txt_ma_phong" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="cbo_loai_phong" min="-2" max="-2" attributes="0"/>
+                          <Component id="jdc_ngay_dat_phong" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Group type="102" alignment="1" attributes="0">
-                                                      <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="txt_ma_dp" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="102" alignment="1" attributes="0">
-                                                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="txt_ma_phong" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="cbo_loai_phong" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="txt_ngay_dat_phong" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txt_ngay_nhan_phong" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txt_ngay_tra_phong" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jdc_ngay_nhan_phong" min="-2" max="-2" attributes="0"/>
+                          <Component id="jdc_ngay_tra_phong" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txt_tong_tien" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txt_email_kh" min="-2" max="-2" attributes="0"/>
@@ -231,24 +232,15 @@
                 <Property name="text" type="java.lang.String" value="Ng&#xe0;y &#x111;&#x1eb7;t ph&#xf2;ng"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txt_ngay_dat_phong">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ng&#xe0;y nh&#x1ead;n ph&#xf2;ng (yyyy-MM-DD)"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txt_ngay_nhan_phong">
-            </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ng&#xe0;y tr&#x1ea3; ph&#xf2;ng (yyyy-MM-dd)"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txt_ngay_tra_phong">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
@@ -349,6 +341,12 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHuyActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="com.toedter.calendar.JDateChooser" name="jdc_ngay_nhan_phong">
+            </Component>
+            <Component class="com.toedter.calendar.JDateChooser" name="jdc_ngay_tra_phong">
+            </Component>
+            <Component class="com.toedter.calendar.JDateChooser" name="jdc_ngay_dat_phong">
             </Component>
           </SubComponents>
         </Container>

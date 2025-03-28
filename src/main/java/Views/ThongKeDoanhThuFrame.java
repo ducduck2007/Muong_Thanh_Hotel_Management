@@ -6,8 +6,10 @@ package Views;
 
 import DAO.ThongKeDoanhThuDAO;
 import Models.ThongKeDoanhThu;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -74,13 +76,13 @@ public class ThongKeDoanhThuFrame extends javax.swing.JFrame {
         tbl_doanh_thu = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txt_tu_ngay = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txt_den_ngay = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         txt_total_dt = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        jdc_tu_ngay = new com.toedter.calendar.JDateChooser();
+        jdc_den_ngay = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -137,12 +139,12 @@ public class ThongKeDoanhThuFrame extends javax.swing.JFrame {
                         .addGap(23, 23, 23)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(txt_tu_ngay, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
+                            .addComponent(jdc_tu_ngay, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txt_den_ngay, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jdc_den_ngay, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton1)
                                 .addGap(18, 18, 18)
@@ -165,18 +167,20 @@ public class ThongKeDoanhThuFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(jLabel3)
-                        .addGap(28, 28, 28))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jdc_tu_ngay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(13, 13, 13)
+                        .addComponent(jLabel4)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_tu_ngay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel4)
+                            .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txt_den_ngay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jButton1)
-                                    .addComponent(jButton2))))))
+                                    .addComponent(jButton2)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addComponent(jdc_den_ngay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -202,23 +206,21 @@ public class ThongKeDoanhThuFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String from = txt_tu_ngay.getText().trim();
-        String to = txt_den_ngay.getText().trim();
+        Date from = jdc_tu_ngay.getDate();
+        Date to = jdc_den_ngay.getDate();
 
-        if (from.isEmpty() || to.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ ngày!", "Lỗi", JOptionPane.WARNING_MESSAGE);
+        if (from == null || to == null) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày!", "Lỗi", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        String datePattern = "\\d{4}-\\d{2}-\\d{2}";
-        if (!from.matches(datePattern) || !to.matches(datePattern)) {
-            JOptionPane.showMessageDialog(this, "Định dạng ngày không hợp lệ! Vui lòng nhập theo yyyy-MM-dd.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String fromDateStr = sdf.format(from);
+        String toDateStr = sdf.format(to);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate fromDate = LocalDate.parse(from, formatter);
-        LocalDate toDate = LocalDate.parse(to, formatter);
+        LocalDate fromDate = LocalDate.parse(fromDateStr, formatter);
+        LocalDate toDate = LocalDate.parse(toDateStr, formatter);
 
         tableModel.setRowCount(0);
 
@@ -301,9 +303,9 @@ public class ThongKeDoanhThuFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private com.toedter.calendar.JDateChooser jdc_den_ngay;
+    private com.toedter.calendar.JDateChooser jdc_tu_ngay;
     private javax.swing.JTable tbl_doanh_thu;
-    private javax.swing.JTextField txt_den_ngay;
     private javax.swing.JTextField txt_total_dt;
-    private javax.swing.JTextField txt_tu_ngay;
     // End of variables declaration//GEN-END:variables
 }
