@@ -228,19 +228,15 @@ public class LoginSystem extends javax.swing.JFrame {
         if (isValid) {
             System.out.println("login done");
             AuthNhanVien.user = nv;
-            System.out.println(AuthNhanVien.isManager());
-            System.out.println(AuthNhanVien.getMaNhanVien());
             SystemFrame sf = new SystemFrame();
             sf.setVisible(true);
             sf.setLocationRelativeTo(null);
             this.dispose();
-            return;
         } else {
             JOptionPane.showMessageDialog(this,
                     "⚠ Vui lòng kiểm tra lại!\nEmail hoặc mật khẩu không đúng.",
                     "Lỗi đăng nhập",
                     JOptionPane.ERROR_MESSAGE);
-            return;
         }
     }//GEN-LAST:event_btn_loginActionPerformed
 

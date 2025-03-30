@@ -229,7 +229,6 @@ public class QuanLyNhanVienDAO {
     public String getMatKhauByMaQL(String maQuanLy) {
         String sql = "SELECT mat_khau FROM nhan_vien WHERE ma_quan_ly = ?";
         try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStm = conn.prepareStatement(sql)) {
-
             preStm.setString(1, maQuanLy);
             ResultSet rs = preStm.executeQuery();
 
@@ -239,7 +238,6 @@ public class QuanLyNhanVienDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "";
+        return null;
     }
-
 }

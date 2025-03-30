@@ -281,6 +281,15 @@ public class KhachHangFrame extends javax.swing.JFrame {
 
         KhachHang kh = new KhachHang();
         KhachHangDAO khDao = new KhachHangDAO();
+        
+        if (khDao.checkEmailKHExitsts(txtEmail.getText().trim())) {
+                JOptionPane.showMessageDialog(this,
+                        "⚠️ Email đã tồn tại! Vui lòng nhập email khác.",
+                        "Lỗi nhập liệu",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        
         int maKhachHang = Integer.parseInt(txtMaKhachHang.getText());
         kh.setMa_khach_hang(maKhachHang);
         kh.setTen_khach_hang(txtTenKhachHang.getText());

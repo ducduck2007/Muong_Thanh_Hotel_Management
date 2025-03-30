@@ -8,6 +8,7 @@ import Models.QuanLyNhanVien;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -16,28 +17,29 @@ import java.sql.ResultSet;
 public class LoginSystemDAO {
 
     public boolean checkLogin(String email, String password) {
-        String sql = "SELECT * FROM nhan_vien WHERE email = ? AND mat_khau = ?";
-        try (Connection conn = DataProvider.dataConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+        String sql = "SELECT mat_khau FROM nhan_vien WHERE email = ?";
 
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, email);
-            ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
 
-            return rs.next();
+            if (rs.next()) {
+                String hashedPassword = rs.getString("mat_khau");
+                return BCrypt.checkpw(password, hashedPassword);
+            }
+            return false;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
-    
-    public QuanLyNhanVien findByEmail(String email){
-        String sql = "select * from nhan_vien where email = ?";
-        try {
-            Connection con = DataProvider.dataConnection();
-            PreparedStatement pps = con.prepareCall(sql);
+
+    public QuanLyNhanVien findByEmail(String email) {
+        String sql = "SELECT * FROM nhan_vien WHERE email = ?";
+        try (Connection con = DataProvider.dataConnection(); PreparedStatement pps = con.prepareStatement(sql)) {
             pps.setString(1, email);
             ResultSet rs = pps.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 QuanLyNhanVien nv = new QuanLyNhanVien();
                 nv.setMa_nhan_vien(rs.getString("ma_nhan_vien"));
                 nv.setTen_nhan_vien(rs.getString("ten_nhan_vien"));

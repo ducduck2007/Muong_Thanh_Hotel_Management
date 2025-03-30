@@ -17,6 +17,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -37,7 +38,7 @@ public class QuenMatKhau extends javax.swing.JFrame {
         String capchaInput = txt_capcha_input.getText().trim();
         String capchaActual = txt_capcha.getText().trim();
         String fromEmail = "ducdqth04091@fpt.edu.vn";
-        String password = "ojuf cebt srix ptzn";
+        String password = "aoni wshf dabv qnte";
 
         if (toEmail.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập email.");
@@ -58,8 +59,9 @@ public class QuenMatKhau extends javax.swing.JFrame {
         }
 
         String newPassword = generateRandomPassword(8);
+        String hashedPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
 
-        boolean isUpdated = qmkDAO.updatePasswordInDatabase(toEmail, newPassword);
+        boolean isUpdated = qmkDAO.updatePasswordInDatabase(toEmail, hashedPassword);
         System.out.println("Cập nhật mật khẩu thành công? " + isUpdated); // Debug log
 
         if (!isUpdated) {

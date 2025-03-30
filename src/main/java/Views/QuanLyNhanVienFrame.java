@@ -9,6 +9,7 @@ import Models.QuanLyNhanVien;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -81,7 +82,7 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
             String vai_tro = null;
             if (nv.getVai_tro() == 1) {
                 vai_tro = "Phục Vụ";
-            } else if(nv.getVai_tro() == 2) {
+            } else if (nv.getVai_tro() == 2) {
                 vai_tro = "Lễ Tân";
             }
 
@@ -475,7 +476,7 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
             String ten_nhan_vien = txt_ten_nv.getText().trim();
             String email = txt_email_nv.getText().trim();
             char[] passwordChars = txt_password_nv.getPassword();
-            String mat_khau = new String(passwordChars);
+            String mat_khau = BCrypt.hashpw(new String(passwordChars), BCrypt.gensalt(12));
             String vaiTro = (String) cbo_vai_tro.getSelectedItem();
             System.out.println(vaiTro);
             int vai_tro;
@@ -583,7 +584,7 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
             String ten_nhan_vien = txt_ten_nv.getText().trim();
             String email = txt_email_nv.getText().trim();
             char[] passwordChars = txt_password_nv.getPassword();
-            String mat_khau = new String(passwordChars);
+            String mat_khau = BCrypt.hashpw(new String(passwordChars), BCrypt.gensalt(12));
             String vaiTro = (String) cbo_vai_tro.getSelectedItem();
             int vai_tro;
 
@@ -617,6 +618,14 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
 
             QuanLyNhanVienDAO qlnvDAO = new QuanLyNhanVienDAO();
             QuanLyNhanVien qlnv = new QuanLyNhanVien();
+
+            if (qlnvDAO.checkEmailNVExitsts(email)) {
+                JOptionPane.showMessageDialog(this,
+                        "⚠️ Email đã tồn tại! Vui lòng nhập email khác.",
+                        "Lỗi nhập liệu",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             qlnv.setMa_nhan_vien(ma_nhan_vien);
             qlnv.setTen_nhan_vien(ten_nhan_vien);
@@ -729,7 +738,7 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
             String ten_quan_ly = txt_ten_ql.getText().trim();
             String email = txt_email_ql.getText().trim();
             char[] passwordChars = txt_password_ql.getPassword();
-            String mat_khau = new String(passwordChars);
+            String mat_khau = BCrypt.hashpw(new String(passwordChars), BCrypt.gensalt(12));
             String ghi_chu = txt_ghi_chu_ql.getText().trim();
 
             if (ma_quan_ly.isEmpty() || ten_quan_ly.isEmpty() || email.isEmpty() || mat_khau.isEmpty()) {
@@ -748,10 +757,17 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
             }
 
             QuanLyNhanVienDAO qlnvDAO = new QuanLyNhanVienDAO();
+            if (qlnvDAO.checkEmailNVExitsts(email)) {
+                JOptionPane.showMessageDialog(this,
+                        "⚠️ Email đã tồn tại! Vui lòng nhập email khác.",
+                        "Lỗi nhập liệu",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             String matKhauHienTai = qlnvDAO.getMatKhauByMaQL(ma_quan_ly);
 
-            if (!matKhauHienTai.equals(mat_khau)) {
+            if (matKhauHienTai == null || !BCrypt.checkpw(new String(passwordChars), matKhauHienTai)) {
                 JOptionPane.showMessageDialog(this, "❌ Mật khẩu không đúng! Vui lòng nhập lại đúng mật khẩu để sửa.", "Lỗi", JOptionPane.ERROR_MESSAGE);
                 return;
             }

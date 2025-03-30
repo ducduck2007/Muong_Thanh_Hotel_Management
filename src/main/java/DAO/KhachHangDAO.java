@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -52,28 +53,30 @@ public class KhachHangDAO {
     }
 
     public boolean checkLogin(String email, String password) {
-        String sql = "SELECT * FROM khach_hang WHERE email = ? AND mat_khau = ?";
+        String sql = "SELECT mat_khau FROM khach_hang WHERE email = ?";
         try (Connection conn = DataProvider.dataConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, email);
-            ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
 
-            return rs.next();
+            if (rs.next()) {
+                String storedHashedPassword = rs.getString("mat_khau");
+                return BCrypt.checkpw(password, storedHashedPassword);
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
+        return false;
     }
-    
-    public KhachHang findByEmail(String email){
+
+    public KhachHang findByEmail(String email) {
         String sql = "select * from khach_hang where email = ?";
         try {
             Connection con = DataProvider.dataConnection();
             PreparedStatement pps = con.prepareCall(sql);
             pps.setString(1, email);
             ResultSet rs = pps.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 KhachHang kh = new KhachHang();
                 kh.setMa_khach_hang(rs.getInt("ma_khach_hang"));
                 kh.setTen_khach_hang(rs.getString("ten_khach_hang"));
@@ -87,15 +90,15 @@ public class KhachHangDAO {
         }
         return null;
     }
-    
-    public List<KhachHang> findAll(){
+
+    public List<KhachHang> findAll() {
         String sql = "select * from khach_hang";
         try {
             Connection con = DataProvider.dataConnection();
             PreparedStatement pps = con.prepareCall(sql);
             ResultSet rs = pps.executeQuery();
             List<KhachHang> list = new ArrayList<>();
-            while(rs.next()){
+            while (rs.next()) {
                 KhachHang kh = new KhachHang();
                 kh.setMa_khach_hang(rs.getInt("ma_khach_hang"));
                 kh.setTen_khach_hang(rs.getString("ten_khach_hang"));
@@ -110,15 +113,15 @@ public class KhachHangDAO {
         }
         return null;
     }
-    
-    public KhachHang findById(int maKhachhang){
+
+    public KhachHang findById(int maKhachhang) {
         String sql = "select * from khach_hang where ma_khach_hang = ?";
         try {
             Connection con = DataProvider.dataConnection();
             PreparedStatement pps = con.prepareCall(sql);
             pps.setInt(1, maKhachhang);
             ResultSet rs = pps.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 KhachHang kh = new KhachHang();
                 kh.setMa_khach_hang(rs.getInt("ma_khach_hang"));
                 kh.setTen_khach_hang(rs.getString("ten_khach_hang"));
@@ -132,8 +135,8 @@ public class KhachHangDAO {
         }
         return null;
     }
-    
-    public List<KhachHang> findByTen(String tenKhachHang){
+
+    public List<KhachHang> findByTen(String tenKhachHang) {
         String sql = "select * from khach_hang where ten_khach_hang like '%'+?+'%'";
         try {
             Connection con = DataProvider.dataConnection();
@@ -141,7 +144,7 @@ public class KhachHangDAO {
             pps.setString(1, tenKhachHang);
             ResultSet rs = pps.executeQuery();
             List<KhachHang> list = new ArrayList<>();
-            while(rs.next()){
+            while (rs.next()) {
                 KhachHang kh = new KhachHang();
                 kh.setMa_khach_hang(rs.getInt("ma_khach_hang"));
                 kh.setTen_khach_hang(rs.getString("ten_khach_hang"));
@@ -156,8 +159,8 @@ public class KhachHangDAO {
         }
         return null;
     }
-    
-    public boolean update(KhachHang kh){
+
+    public boolean update(KhachHang kh) {
         String sql = "update khach_hang set ten_khach_hang = ?, email = ?, so_dien_thoai = ? where ma_khach_hang = ?";
         try {
             Connection con = DataProvider.dataConnection();
@@ -172,8 +175,8 @@ public class KhachHangDAO {
         }
         return false;
     }
-    
-    public boolean delete(int maKhachHang){
+
+    public boolean delete(int maKhachHang) {
         String sql = "delete from khach_hang where ma_khach_hang = ?";
         try {
             Connection con = DataProvider.dataConnection();

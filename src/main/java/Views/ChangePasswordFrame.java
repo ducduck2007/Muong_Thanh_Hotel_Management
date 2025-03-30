@@ -9,6 +9,7 @@ import Models.ChangePassword;
 import Services.AuthKhachHang;
 import Services.AuthNhanVien;
 import javax.swing.JOptionPane;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -159,7 +160,8 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
 
             ChangePasswordDAO cpDAO = new ChangePasswordDAO();
 
-            if (!cpDAO.checkOldPasswordKH(emailKH, mkKHcuStr)) {
+            String matKhauHienTai = cpDAO.getMatKhauKH(emailKH);
+            if (!BCrypt.checkpw(mkKHcuStr, matKhauHienTai)) {
                 JOptionPane.showMessageDialog(this,
                         "❌ Mật khẩu cũ không đúng!",
                         "Lỗi",
@@ -175,9 +177,12 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
                 return;
             }
 
+            String matKhauMớiDaMãHóa = BCrypt.hashpw(mkKHmoiStr, BCrypt.gensalt(12));
+
             ChangePassword cp = new ChangePassword();
             cp.setEmailKH(emailKH);
-            cp.setMkKH(mkKHmoiStr);
+            cp.setMkKH(matKhauMớiDaMãHóa);
+
             if (cpDAO.updateMKKH(cp)) {
                 JOptionPane.showMessageDialog(this,
                         "✅ Đổi mật khẩu thành công!",
@@ -216,7 +221,8 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
 
             ChangePasswordDAO cpDAO = new ChangePasswordDAO();
 
-            if (!cpDAO.checkOldPasswordNV(emailKH, mkKHcuStr)) {
+            String matKhauHienTai = cpDAO.getMatKhauNV(emailKH);
+            if (!BCrypt.checkpw(mkKHcuStr, matKhauHienTai)) {
                 JOptionPane.showMessageDialog(this,
                         "❌ Mật khẩu cũ không đúng!",
                         "Lỗi",
@@ -232,10 +238,12 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
                 return;
             }
 
+            String matKhauMớiDaMãHóa = BCrypt.hashpw(mkKHmoiStr, BCrypt.gensalt(12));
+
             ChangePassword cp = new ChangePassword();
             cp.setEmailNV(emailKH);
-            cp.setMkNV(mkKHmoiStr);
-            
+            cp.setMkNV(matKhauMớiDaMãHóa);
+
             if (cpDAO.updateMKNV(cp)) {
                 JOptionPane.showMessageDialog(this,
                         "✅ Đổi mật khẩu thành công!",

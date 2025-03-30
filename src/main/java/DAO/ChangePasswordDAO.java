@@ -8,6 +8,7 @@ import Models.ChangePassword;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -79,19 +80,21 @@ public class ChangePasswordDAO {
     }
 
     public boolean checkOldPasswordKH(String email, String oldPassword) {
-        String sql = "SELECT 1 FROM khach_hang WHERE email = ? AND mat_khau = ?";
+        String sql = "SELECT mat_khau FROM khach_hang WHERE email = ?";
         try (Connection conn = DataProvider.dataConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, email);
-            ps.setString(2, oldPassword);
             try (ResultSet rs = ps.executeQuery()) {
-                return rs.next();
+                if (rs.next()) {
+                    String hashedPassword = rs.getString("mat_khau");
+                    return BCrypt.checkpw(oldPassword, hashedPassword);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
-    
+
     public boolean updateMKNV(ChangePassword cp) {
         String sql = "UPDATE nhan_vien SET mat_khau = ? WHERE email = ?";
 
@@ -108,17 +111,53 @@ public class ChangePasswordDAO {
     }
 
     public boolean checkOldPasswordNV(String email, String oldPassword) {
-        String sql = "SELECT 1 FROM nhan_vien WHERE email = ? AND mat_khau = ?";
+        String sql = "SELECT mat_khau FROM nhan_vien WHERE email = ?";
         try (Connection conn = DataProvider.dataConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, email);
-            ps.setString(2, oldPassword);
             try (ResultSet rs = ps.executeQuery()) {
-                return rs.next();
+                if (rs.next()) {
+                    String hashedPassword = rs.getString("mat_khau");
+                    return BCrypt.checkpw(oldPassword, hashedPassword);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public String getMatKhauKH(String email) {
+        String matKhau = null;
+        String sql = "SELECT mat_khau FROM khach_hang WHERE email = ?";
+
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, email);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    matKhau = rs.getString("mat_khau");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return matKhau;
+    }
+
+    public String getMatKhauNV(String email) {
+        String matKhau = null;
+        String sql = "SELECT mat_khau FROM nhan_vien WHERE email = ?";
+
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, email);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    matKhau = rs.getString("mat_khau");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return matKhau;
     }
 
 }

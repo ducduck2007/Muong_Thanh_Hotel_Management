@@ -7,6 +7,7 @@ package Views;
 import DAO.KhachHangDAO;
 import Models.KhachHang;
 import javax.swing.JOptionPane;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -106,12 +107,14 @@ public class LienHeKhachHangFrame extends javax.swing.JFrame {
             return;
         }
 
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+
         KhachHang kh = new KhachHang();
         KhachHangDAO khDAO = new KhachHangDAO();
 
         kh.setTen_khach_hang(username);
         kh.setEmail(email);
-        kh.setMat_khau(password);
+        kh.setMat_khau(hashedPassword);
         kh.setSo_dien_thoai(so_dien_thoai);
 
         if (khDAO.insertKH(kh)) {

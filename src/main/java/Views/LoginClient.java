@@ -345,20 +345,18 @@ public class LoginClient extends javax.swing.JFrame {
         KhachHang kh = khDAO.findByEmail(email);
 
         if (isValid) {
-            System.out.println("login done");
+            System.out.println("Login successful");
             AuthKhachHang.user = kh;
             System.out.println(AuthKhachHang.maKhachHang());
             this.dispose();
             ClientFrame cliFrame = new ClientFrame();
             cliFrame.setLocationRelativeTo(null);
             cliFrame.setVisible(true);
-            return;
         } else {
             JOptionPane.showMessageDialog(this,
                     "⚠ Vui lòng kiểm tra lại!\nEmail hoặc mật khẩu không đúng.",
                     "Lỗi đăng nhập",
                     JOptionPane.ERROR_MESSAGE);
-            return;
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

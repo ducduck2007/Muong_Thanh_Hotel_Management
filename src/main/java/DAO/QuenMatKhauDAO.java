@@ -18,7 +18,6 @@ public class QuenMatKhauDAO {
         String sql = "UPDATE khach_hang SET mat_khau = ? WHERE email = ?";
 
         try (Connection conn = DataProvider.dataConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setString(1, newPassword);
             stmt.setString(2, email);
 
