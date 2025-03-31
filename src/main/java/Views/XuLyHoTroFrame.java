@@ -144,6 +144,11 @@ public class XuLyHoTroFrame extends javax.swing.JFrame {
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
         // TODO add your handling code here:
+        if(txtMaDichVu.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã dịch vụ","Cảnh cáo",JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
         int maDichVu = Integer.parseInt(txtMaDichVu.getText());
         String trangThai = (String) cboTrangThai.getSelectedItem();
 
