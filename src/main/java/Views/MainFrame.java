@@ -80,7 +80,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        LoginClient mcF = new LoginClient();
+        FormDangKyNew mcF = new FormDangKyNew();
         mcF.setLocationRelativeTo(null);
         mcF.setVisible(true);
         return;

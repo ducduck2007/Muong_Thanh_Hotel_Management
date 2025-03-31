@@ -201,7 +201,7 @@ public class ClientFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
         AuthKhachHang.clear();
-        LoginClient lCli = new LoginClient();
+        FormDangKyNew lCli = new FormDangKyNew();
         lCli.setLocationRelativeTo(null);
         lCli.setVisible(true);
         return;
