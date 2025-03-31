@@ -344,16 +344,11 @@ public class SystemFrame extends javax.swing.JFrame {
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
         // TODO add your handling code here:
-        if (AuthNhanVien.isManager() == 1 || AuthNhanVien.isManager() == 2) {
-            JOptionPane.showMessageDialog(this, "Bạn không có quyền để truy cập");
-            return;
-        } else {
-            this.dispose();
-            QuanLyNhanVienFrame qlnvFrame = new QuanLyNhanVienFrame();
-            qlnvFrame.setLocationRelativeTo(null);
-            qlnvFrame.setVisible(true);
-            return;
-        }
+        this.dispose();
+        QuanLyNhanVienFrame qlnvFrame = new QuanLyNhanVienFrame();
+        qlnvFrame.setLocationRelativeTo(null);
+        qlnvFrame.setVisible(true);
+        return;
     }//GEN-LAST:event_jLabel8MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
@@ -390,20 +385,30 @@ public class SystemFrame extends javax.swing.JFrame {
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
         // TODO add your handling code here:
-        this.dispose();
-        XuLyHoTroFrame xlht = new XuLyHoTroFrame();
-        xlht.setLocationRelativeTo(null);
-        xlht.setVisible(true);
-        return;
+        if (AuthNhanVien.isManager() != 1) {
+            this.dispose();
+            XuLyHoTroFrame xlht = new XuLyHoTroFrame();
+            xlht.setLocationRelativeTo(null);
+            xlht.setVisible(true);
+            return;
+        } else {
+            JOptionPane.showMessageDialog(null, "⚠ Bạn không có quyền vào mục này!", "Phân Quyền", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
     }//GEN-LAST:event_jLabel12MouseClicked
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
         // TODO add your handling code here:
-        this.dispose();
-        ThietLapGiaFrame tlgFrame = new ThietLapGiaFrame();
-        tlgFrame.setLocationRelativeTo(null);
-        tlgFrame.setVisible(true);
-        return;
+        if (AuthNhanVien.isManager() == 0) {
+            this.dispose();
+            ThietLapGiaFrame tlgFrame = new ThietLapGiaFrame();
+            tlgFrame.setLocationRelativeTo(null);
+            tlgFrame.setVisible(true);
+            return;
+        } else {
+            JOptionPane.showMessageDialog(null, "⚠ Bạn không có quyền vào mục này!", "Phân Quyền", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
     }//GEN-LAST:event_jLabel15MouseClicked
 
     private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
@@ -417,10 +422,15 @@ public class SystemFrame extends javax.swing.JFrame {
 
     private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
         // TODO add your handling code here:
-        HoaDonFrame hdFrame = new HoaDonFrame();
-        hdFrame.setLocationRelativeTo(null);
-        hdFrame.setVisible(true);
-        return;
+        if (AuthNhanVien.isManager() != 1) {
+            HoaDonFrame hdFrame = new HoaDonFrame();
+            hdFrame.setLocationRelativeTo(null);
+            hdFrame.setVisible(true);
+            return;
+        } else {
+            JOptionPane.showMessageDialog(null, "⚠ Bạn không có quyền vào mục này!", "Phân Quyền", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
     }//GEN-LAST:event_jLabel17MouseClicked
 
     private void jLabel18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel18MouseClicked
@@ -434,11 +444,16 @@ public class SystemFrame extends javax.swing.JFrame {
 
     private void jLabel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MouseClicked
         // TODO add your handling code here:
-        this.dispose();
-        KhachHangFrame khFrame = new KhachHangFrame();
-        khFrame.setLocationRelativeTo(null);
-        khFrame.setVisible(true);
-        return;
+        if (AuthNhanVien.isManager() != 1) {
+            this.dispose();
+            KhachHangFrame khFrame = new KhachHangFrame();
+            khFrame.setLocationRelativeTo(null);
+            khFrame.setVisible(true);
+            return;
+        } else {
+            JOptionPane.showMessageDialog(null, "⚠ Bạn không có quyền vào mục này!", "Phân Quyền", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
     }//GEN-LAST:event_jLabel19MouseClicked
 
     private void jLabel20MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel20MouseClicked
