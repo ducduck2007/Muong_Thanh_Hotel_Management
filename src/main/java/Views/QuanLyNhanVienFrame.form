@@ -491,7 +491,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>
-                <Property name="text" type="java.lang.String" value="M&#xe3; qu&#x1ea3;n l&#xfd;"/>
+                <Property name="text" type="java.lang.String" value="Management Code"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txt_ma_ql">
@@ -501,26 +501,26 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel9">
               <Properties>
-                <Property name="text" type="java.lang.String" value="T&#xea;n qu&#x1ea3;n l&#xfd;"/>
+                <Property name="text" type="java.lang.String" value="Manager Name"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txt_ten_ql">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel10">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Email"/>
+                <Property name="text" type="java.lang.String" value="Gmail"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txt_email_ql">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel11">
               <Properties>
-                <Property name="text" type="java.lang.String" value="M&#x1ead;t kh&#x1ea9;u"/>
+                <Property name="text" type="java.lang.String" value="Password"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel13">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Ghi ch&#xfa;"/>
+                <Property name="text" type="java.lang.String" value="Note"/>
               </Properties>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane3">
@@ -564,7 +564,7 @@
             </Container>
             <Component class="javax.swing.JButton" name="jButton5">
               <Properties>
-                <Property name="text" type="java.lang.String" value="S&#x1eed;a"/>
+                <Property name="text" type="java.lang.String" value="Update"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>

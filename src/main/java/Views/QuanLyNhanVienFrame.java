@@ -354,17 +354,17 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("PERSONNEL MANAGEMENT", jPanel1);
 
-        jLabel8.setText("Mã quản lý");
+        jLabel8.setText("Management Code");
 
         txt_ma_ql.setEditable(false);
 
-        jLabel9.setText("Tên quản lý");
+        jLabel9.setText("Manager Name");
 
-        jLabel10.setText("Email");
+        jLabel10.setText("Gmail");
 
-        jLabel11.setText("Mật khẩu");
+        jLabel11.setText("Password");
 
-        jLabel13.setText("Ghi chú");
+        jLabel13.setText("Note");
 
         txt_ghi_chu_ql.setColumns(20);
         txt_ghi_chu_ql.setRows(5);
@@ -388,7 +388,7 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(tbl_ql);
 
-        jButton5.setText("Sửa");
+        jButton5.setText("Update");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
