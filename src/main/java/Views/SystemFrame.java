@@ -423,6 +423,7 @@ public class SystemFrame extends javax.swing.JFrame {
     private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
         // TODO add your handling code here:
         if (AuthNhanVien.isManager() != 1) {
+            this.dispose();
             HoaDonFrame hdFrame = new HoaDonFrame();
             hdFrame.setLocationRelativeTo(null);
             hdFrame.setVisible(true);

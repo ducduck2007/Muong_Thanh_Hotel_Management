@@ -51,12 +51,12 @@ public class LienHeKhachHangFrame extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Phone number");
+        jLabel2.setText("Số điện thoại");
 
         txt_so_dien_thoai.setPreferredSize(new java.awt.Dimension(64, 30));
 
         btn_xac_nhan.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btn_xac_nhan.setText("Confirm");
+        btn_xac_nhan.setText("Xác nhận");
         btn_xac_nhan.setPreferredSize(new java.awt.Dimension(80, 30));
         btn_xac_nhan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,9 +65,9 @@ public class LienHeKhachHangFrame extends javax.swing.JFrame {
         });
 
         jLabel8.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel8.setFont(new java.awt.Font("Snap ITC", 0, 24)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Let us know your contact information");
+        jLabel8.setText("Hãy cho chúng tôi biết thông tin liên lạc của bạn");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

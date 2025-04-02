@@ -29,12 +29,12 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
         fillTable();
         phanQuyen();
     }
-    
+
     public void phanQuyen() {
         btnSua.setEnabled(false);
         if (AuthNhanVien.isManager() != 1) {
             btnSua.setEnabled(true);
-                    
+
         }
     }
 
@@ -90,7 +90,7 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel3.setText("Price code");
+        jLabel3.setText("Mã thiết lập");
 
         txt_ma_gia.setPreferredSize(new java.awt.Dimension(64, 30));
         txt_ma_gia.addActionListener(new java.awt.event.ActionListener() {
@@ -100,13 +100,13 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel4.setText("Type room");
+        jLabel4.setText("Loại phòng");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel5.setText("Price room");
+        jLabel5.setText("Giá phòng");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel6.setText("Note");
+        jLabel6.setText("Ghi chú");
 
         txt_gia_phong.setPreferredSize(new java.awt.Dimension(64, 30));
         txt_gia_phong.addActionListener(new java.awt.event.ActionListener() {
@@ -120,7 +120,7 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
         jScrollPane2.setViewportView(txt_ghi_chu);
 
         btnSua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnSua.setText("Update");
+        btnSua.setText("Cập nhật");
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSuaActionPerformed(evt);
@@ -128,7 +128,7 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
         });
 
         btn4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btn4.setText("Reset");
+        btn4.setText("Làm mới");
         btn4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn4ActionPerformed(evt);
@@ -163,7 +163,7 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
         });
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel7.setText("Duration");
+        jLabel7.setText("Thời lượng");
 
         txt_thoi_luong.setEditable(false);
         txt_thoi_luong.setPreferredSize(new java.awt.Dimension(64, 30));
@@ -174,9 +174,9 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
         });
 
         jLabel8.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel8.setFont(new java.awt.Font("Snap ITC", 0, 24)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Set rooms money");
+        jLabel8.setText("Thiết lập giá phòng");
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quay_lai.png"))); // NOI18N
@@ -283,7 +283,7 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "⚠️ Mã giá phải là một số nguyên hợp lệ!", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            
+
             int thoiLuong;
             try {
                 thoiLuong = Integer.parseInt(thoi_luong);
@@ -308,6 +308,11 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
 
             if (!tlgDAO.existsMaGia(maGia)) {
                 JOptionPane.showMessageDialog(this, "⚠️ Mã giá không tồn tại! Vui lòng nhập mã giá hợp lệ.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            int choice = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn cập nhật thiết lập giá phòng không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+            if (choice != JOptionPane.YES_OPTION) {
                 return;
             }
 

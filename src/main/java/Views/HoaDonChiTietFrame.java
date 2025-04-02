@@ -145,7 +145,7 @@ public class HoaDonChiTietFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tbl_hdct);
 
         btnLoad.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        btnLoad.setText("Load");
+        btnLoad.setText("Xem");
         btnLoad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoadActionPerformed(evt);
@@ -189,7 +189,7 @@ public class HoaDonChiTietFrame extends javax.swing.JFrame {
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jTabbedPane1.addTab("LIST", jPanel2);
+        jTabbedPane1.addTab("DANH SÁCH", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

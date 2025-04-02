@@ -105,7 +105,7 @@ public class KhachHangFrame extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tblKhachHang);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel1.setText("Customer name");
+        jLabel1.setText("Tên khách hàng");
 
         txtTenKhachHang.setPreferredSize(new java.awt.Dimension(64, 30));
 
@@ -113,7 +113,7 @@ public class KhachHangFrame extends javax.swing.JFrame {
         jLabel2.setText("Gmail");
 
         btnSua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnSua.setText("Update");
+        btnSua.setText("Cập nhật");
         btnSua.setPreferredSize(new java.awt.Dimension(72, 30));
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,7 +122,7 @@ public class KhachHangFrame extends javax.swing.JFrame {
         });
 
         btnXoa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnXoa.setText("Del");
+        btnXoa.setText("Xóa");
         btnXoa.setPreferredSize(new java.awt.Dimension(72, 30));
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,7 +131,7 @@ public class KhachHangFrame extends javax.swing.JFrame {
         });
 
         btnReset.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnReset.setText("Reset");
+        btnReset.setText("Làm mới");
         btnReset.setMinimumSize(new java.awt.Dimension(72, 30));
         btnReset.setPreferredSize(new java.awt.Dimension(72, 30));
         btnReset.addActionListener(new java.awt.event.ActionListener() {
@@ -143,22 +143,22 @@ public class KhachHangFrame extends javax.swing.JFrame {
         txtEmail.setPreferredSize(new java.awt.Dimension(64, 30));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel3.setText("Phone number");
+        jLabel3.setText("Số điện thoại");
 
         txtSdt.setPreferredSize(new java.awt.Dimension(64, 30));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel4.setText("Customer code");
+        jLabel4.setText("Mã khách hàng");
 
         txtMaKhachHang.setPreferredSize(new java.awt.Dimension(64, 30));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel5.setText("Search for customers by name");
+        jLabel5.setText("Tìm kiếm khách hàng theo tên");
 
         txtTimKiem.setPreferredSize(new java.awt.Dimension(64, 30));
 
         btnTimKiem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnTimKiem.setText("Search");
+        btnTimKiem.setText("Tìm kiếm");
         btnTimKiem.setPreferredSize(new java.awt.Dimension(80, 30));
         btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -250,7 +250,7 @@ public class KhachHangFrame extends javax.swing.JFrame {
                 .addContainerGap(45, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("CLIENT", jPanel1);
+        jTabbedPane1.addTab("DANH SÁCH KHÁCH HÀNG", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -280,6 +280,8 @@ public class KhachHangFrame extends javax.swing.JFrame {
         }
         if (txtTenKhachHang.getText().equals("")) {
             sb.append("Xin nhập tên khách hàng\n");
+        } else if (!txtTenKhachHang.getText().matches("[a-zA-Z\\s]+")) {
+            sb.append("Tên khách hàng không được chứa số\n");
         }
         if (txtEmail.getText().equals("")) {
             sb.append("Xin nhập email khách hàng\n");
@@ -302,15 +304,15 @@ public class KhachHangFrame extends javax.swing.JFrame {
 
         KhachHang kh = new KhachHang();
         KhachHangDAO khDao = new KhachHangDAO();
-        
+
         if (khDao.checkEmailKHExitsts(txtEmail.getText().trim())) {
-                JOptionPane.showMessageDialog(this,
-                        "⚠️ Email đã tồn tại! Vui lòng nhập email khác.",
-                        "Lỗi nhập liệu",
-                        JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-        
+            JOptionPane.showMessageDialog(this,
+                    "⚠️ Email đã tồn tại! Vui lòng nhập email khác.",
+                    "Lỗi nhập liệu",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         int maKhachHang = Integer.parseInt(txtMaKhachHang.getText());
         kh.setMa_khach_hang(maKhachHang);
         kh.setTen_khach_hang(txtTenKhachHang.getText());

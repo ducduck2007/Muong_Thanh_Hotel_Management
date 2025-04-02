@@ -93,7 +93,7 @@ public class HoaDonFrame extends javax.swing.JFrame {
         });
 
         btnXemChiTiet.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnXemChiTiet.setText("See details");
+        btnXemChiTiet.setText("Xem chi tiết");
         btnXemChiTiet.setPreferredSize(new java.awt.Dimension(93, 30));
         btnXemChiTiet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,7 +102,7 @@ public class HoaDonFrame extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel3.setText("Bill code");
+        jLabel3.setText("Mã hóa đơn");
 
         txt1.setEditable(false);
         txt1.setPreferredSize(new java.awt.Dimension(64, 30));
@@ -113,13 +113,13 @@ public class HoaDonFrame extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel4.setText("Customer code");
+        jLabel4.setText("Mã khách hàng");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel5.setText("Total money");
+        jLabel5.setText("Tổng tiền");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel6.setText("Phone number");
+        jLabel6.setText("Số điện thoại");
 
         txt_ma_kh.setEditable(false);
         txt_ma_kh.setPreferredSize(new java.awt.Dimension(64, 30));
@@ -138,7 +138,7 @@ public class HoaDonFrame extends javax.swing.JFrame {
         });
 
         btn4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btn4.setText("Reset");
+        btn4.setText("Làm mới");
         btn4.setPreferredSize(new java.awt.Dimension(72, 30));
         btn4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -173,7 +173,7 @@ public class HoaDonFrame extends javax.swing.JFrame {
         });
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel7.setText("Room code");
+        jLabel7.setText("Mã phòng");
 
         txt_ma_phong.setEditable(false);
         txt_ma_phong.setPreferredSize(new java.awt.Dimension(64, 30));
@@ -184,9 +184,9 @@ public class HoaDonFrame extends javax.swing.JFrame {
         });
 
         jLabel8.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel8.setFont(new java.awt.Font("Snap ITC", 0, 24)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Bill");
+        jLabel8.setText("Hóa đơn");
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quay_lai.png"))); // NOI18N
@@ -225,7 +225,7 @@ public class HoaDonFrame extends javax.swing.JFrame {
                                     .addComponent(jLabel7))
                                 .addGap(110, 110, 110)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txt_tong_tien, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
+                                    .addComponent(txt_tong_tien, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
                                     .addComponent(txt_so_dt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txt_ma_phong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -120,7 +120,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="16" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="From date"/>
+        <Property name="text" type="java.lang.String" value="T&#x1eeb; ng&#xe0;y"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
@@ -128,7 +128,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="16" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="By date"/>
+        <Property name="text" type="java.lang.String" value="&#x110;&#x1ebf;n ng&#xe0;y"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
@@ -136,7 +136,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="12" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Search"/>
+        <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
@@ -147,7 +147,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="12" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="See details"/>
+        <Property name="text" type="java.lang.String" value="Xem chi ti&#x1ebf;t"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
@@ -165,7 +165,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="16" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Total revenue"/>
+        <Property name="text" type="java.lang.String" value="T&#x1ed5;ng doanh thu"/>
       </Properties>
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="jdc_tu_ngay">

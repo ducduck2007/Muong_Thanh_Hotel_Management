@@ -124,7 +124,7 @@ public class LichLamViecFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel3.setText("Work schedule code");
+        jLabel3.setText("Mã lịch làm việc");
 
         txt_ma_lich_lam_viec.setPreferredSize(new java.awt.Dimension(64, 30));
         txt_ma_lich_lam_viec.addActionListener(new java.awt.event.ActionListener() {
@@ -134,13 +134,13 @@ public class LichLamViecFrame extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel4.setText("Employee code");
+        jLabel4.setText("Mã nhân viên");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel5.setText("Workday");
+        jLabel5.setText("Ngày làm việc");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel6.setText("Shift");
+        jLabel6.setText("Ca làm việc");
 
         txt_ma_nhan_vien.setPreferredSize(new java.awt.Dimension(64, 30));
         txt_ma_nhan_vien.addActionListener(new java.awt.event.ActionListener() {
@@ -157,7 +157,7 @@ public class LichLamViecFrame extends javax.swing.JFrame {
         });
 
         btnSua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnSua.setText("Update");
+        btnSua.setText("Cập nhật");
         btnSua.setPreferredSize(new java.awt.Dimension(72, 30));
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,7 +166,7 @@ public class LichLamViecFrame extends javax.swing.JFrame {
         });
 
         btn4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btn4.setText("Reset");
+        btn4.setText("Làm mới");
         btn4.setPreferredSize(new java.awt.Dimension(72, 30));
         btn4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,9 +196,9 @@ public class LichLamViecFrame extends javax.swing.JFrame {
         cbo_ca_lam_viec.setPreferredSize(new java.awt.Dimension(136, 30));
 
         jLabel8.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel8.setFont(new java.awt.Font("Snap ITC", 0, 24)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Work schedule");
+        jLabel8.setText("Lịch làm việc");
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quay_lai.png"))); // NOI18N

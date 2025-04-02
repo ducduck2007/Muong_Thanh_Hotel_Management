@@ -100,13 +100,13 @@ public class ThongKeDoanhThuFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tbl_doanh_thu);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel3.setText("From date");
+        jLabel3.setText("Từ ngày");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel4.setText("By date");
+        jLabel4.setText("Đến ngày");
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setText("Search");
+        jButton1.setText("Tìm kiếm");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -114,7 +114,7 @@ public class ThongKeDoanhThuFrame extends javax.swing.JFrame {
         });
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton2.setText("See details");
+        jButton2.setText("Xem chi tiết");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -124,7 +124,7 @@ public class ThongKeDoanhThuFrame extends javax.swing.JFrame {
         txt_total_dt.setPreferredSize(new java.awt.Dimension(64, 30));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel5.setText("Total revenue");
+        jLabel5.setText("Tổng doanh thu");
 
         jdc_tu_ngay.setPreferredSize(new java.awt.Dimension(88, 30));
 

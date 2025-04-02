@@ -74,7 +74,7 @@ public class DichVuFrame extends javax.swing.JFrame {
         });
 
         btnGui.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnGui.setText("Send");
+        btnGui.setText("Gửi");
         btnGui.setPreferredSize(new java.awt.Dimension(72, 30));
         btnGui.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,7 +83,7 @@ public class DichVuFrame extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel3.setText("Service code");
+        jLabel3.setText("Mã dịch vụ");
 
         txtMaDichVu.setEditable(false);
         txtMaDichVu.setPreferredSize(new java.awt.Dimension(64, 30));
@@ -94,13 +94,13 @@ public class DichVuFrame extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel4.setText("Service name");
+        jLabel4.setText("Tên dịch vụ");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel5.setText("Customer code");
+        jLabel5.setText("Mã khách hàng");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel6.setText("Content");
+        jLabel6.setText("Nội dung");
 
         txtTenDichVu.setPreferredSize(new java.awt.Dimension(64, 30));
         txtTenDichVu.addActionListener(new java.awt.event.ActionListener() {
@@ -122,7 +122,7 @@ public class DichVuFrame extends javax.swing.JFrame {
         jScrollPane2.setViewportView(txtaNoiDung);
 
         btnReset.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnReset.setText("Reset");
+        btnReset.setText("Làm mới");
         btnReset.setPreferredSize(new java.awt.Dimension(72, 30));
         btnReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,9 +149,9 @@ public class DichVuFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblDichVu);
 
         jLabel7.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel7.setFont(new java.awt.Font("Snap ITC", 0, 24)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Support Services");
+        jLabel7.setText("Dịch vụ & Hỗ trợ");
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quay_lai.png"))); // NOI18N
@@ -200,14 +200,13 @@ public class DichVuFrame extends javax.swing.JFrame {
                     .addComponent(txtMaDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGui, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnReset, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                        .addGap(18, 18, 18))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtTenDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(3, 3, 3)))
-                .addGap(18, 18, 18)
+                        .addComponent(jLabel4)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtMaKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
@@ -218,8 +217,8 @@ public class DichVuFrame extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         pack();

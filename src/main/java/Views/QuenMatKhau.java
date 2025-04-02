@@ -162,12 +162,12 @@ public class QuenMatKhau extends javax.swing.JFrame {
         jLabel1.setText("Gmail");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel2.setText("Captcha code");
+        jLabel2.setText("Mã capcha");
 
         txt_capcha.setEditable(false);
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setText("Confirm");
+        jButton1.setText("Xác nhận");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -175,9 +175,9 @@ public class QuenMatKhau extends javax.swing.JFrame {
         });
 
         jLabel6.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel6.setFont(new java.awt.Font("Snap ITC", 0, 24)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Forgot password?");
+        jLabel6.setText("Quên mật khẩu?");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

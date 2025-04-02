@@ -245,12 +245,12 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel1.setText("Room code");
+        jLabel1.setText("Mã phòng");
 
         txt_ma_phong.setPreferredSize(new java.awt.Dimension(64, 30));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel2.setText("Type room");
+        jLabel2.setText("Loại phòng");
 
         cbo_loai_phong.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Phòng thường", "Phòng VIP", "Phòng đặc biệt" }));
         cbo_loai_phong.setEnabled(false);
@@ -258,34 +258,34 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
         cbo_loai_phong.setPreferredSize(new java.awt.Dimension(114, 30));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel3.setText("Booking date");
+        jLabel3.setText("Ngày đặt phòng");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel4.setText("Check-in date");
+        jLabel4.setText("Ngày nhận phòng");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel5.setText("Check-out date");
+        jLabel5.setText("Ngày trả phòng");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel6.setText("Total money");
+        jLabel6.setText("Tổng tiền");
 
         txt_tong_tien.setEditable(false);
         txt_tong_tien.setPreferredSize(new java.awt.Dimension(64, 30));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel7.setText("Note");
+        jLabel7.setText("Ghi chú");
 
         txt_ghi_chu.setColumns(20);
         txt_ghi_chu.setRows(5);
         jScrollPane1.setViewportView(txt_ghi_chu);
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel8.setText("Booking code");
+        jLabel8.setText("Mã đặt phòng");
 
         txt_ma_dp.setPreferredSize(new java.awt.Dimension(64, 30));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel10.setText("Gmail Customer");
+        jLabel10.setText("Gmail khách hàng");
 
         txt_email_kh.setPreferredSize(new java.awt.Dimension(64, 30));
 
@@ -308,7 +308,7 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
         jScrollPane4.setViewportView(tbl_ds_phong_dat);
 
         btnDat.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnDat.setText("Book a room");
+        btnDat.setText("Đặt phòng");
         btnDat.setPreferredSize(new java.awt.Dimension(72, 30));
         btnDat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -317,7 +317,7 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
         });
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton2.setText("Reset");
+        jButton2.setText("Làm mới");
         jButton2.setPreferredSize(new java.awt.Dimension(72, 30));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -326,7 +326,7 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
         });
 
         btnSua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnSua.setText("Update");
+        btnSua.setText("Cập nhật");
         btnSua.setPreferredSize(new java.awt.Dimension(72, 30));
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -335,7 +335,7 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
         });
 
         btnHuy.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnHuy.setText("Cancel booking");
+        btnHuy.setText("Hủy đặt phòng");
         btnHuy.setPreferredSize(new java.awt.Dimension(110, 30));
         btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -397,9 +397,9 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnDat, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -410,12 +410,10 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel8)
@@ -456,17 +454,18 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnDat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(132, 132, 132))
         );
 
-        jTabbedPane1.addTab("BOOK A ROOM", jPanel1);
+        jTabbedPane1.addTab("ĐẶT PHÒNG", jPanel1);
 
         tbl_ds_phong_trong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -503,7 +502,7 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
                 .addGap(20, 20, 20))
         );
 
-        jTabbedPane1.addTab("AVAILABILITY LIST", jPanel3);
+        jTabbedPane1.addTab("DANH SÁCH PHÒNG TRỐNG", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -560,6 +559,11 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
 
         if (ma_khach_hang == null) {
             JOptionPane.showMessageDialog(null, "Email không tồn tại trong hệ thống!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int choice = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn đặt phòng không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+        if (choice != JOptionPane.YES_OPTION) {
             return;
         }
 
@@ -634,6 +638,11 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
                 return;
             }
 
+            int choice = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn sửa đặt phòng không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+            if (choice != JOptionPane.YES_OPTION) {
+                return;
+            }
+
             try {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -686,6 +695,11 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
             try {
                 if (!ttdpDAO.exists(ma_dat_phong)) {
                     JOptionPane.showMessageDialog(null, "❌ Mã đặt phòng không tồn tại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                int choice = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn hủy đặt phòng không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+                if (choice != JOptionPane.YES_OPTION) {
                     return;
                 }
 
@@ -747,11 +761,19 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
         // TODO add your handling code here:
-        this.dispose();
-        SystemFrame sFrame = new SystemFrame();
-        sFrame.setLocationRelativeTo(null);
-        sFrame.setVisible(true);
-        return;
+        if (AuthKhachHang.user == null) {
+            this.dispose();
+            SystemFrame sFrame = new SystemFrame();
+            sFrame.setLocationRelativeTo(null);
+            sFrame.setVisible(true);
+            return;
+        } else {
+            this.dispose();
+            ClientFrame sFrame = new ClientFrame();
+            sFrame.setLocationRelativeTo(null);
+            sFrame.setVisible(true);
+            return;
+        }
     }//GEN-LAST:event_jLabel9MouseClicked
 
     /**

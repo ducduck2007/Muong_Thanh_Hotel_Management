@@ -62,9 +62,9 @@ public class FormDangKyNew extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(560, 430));
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel2.setFont(new java.awt.Font("Snap ITC", 0, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("LOGIN");
+        jLabel2.setText("ĐĂNG NHẬP");
 
         txt_email_dang_nhap.setPreferredSize(new java.awt.Dimension(71, 30));
 
@@ -72,10 +72,10 @@ public class FormDangKyNew extends javax.swing.JFrame {
         jLabel4.setText("Gmail");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel5.setText("Password");
+        jLabel5.setText("Mật khẩu");
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setText("Login");
+        jButton1.setText("Đăng nhập");
         jButton1.setPreferredSize(new java.awt.Dimension(75, 30));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,7 +84,7 @@ public class FormDangKyNew extends javax.swing.JFrame {
         });
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel11.setText("Forgot password?");
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quen_mat_khau.png"))); // NOI18N
         jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel11MouseClicked(evt);
@@ -125,21 +125,21 @@ public class FormDangKyNew extends javax.swing.JFrame {
                 .addComponent(jLabel11)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 95, Short.MAX_VALUE))
+                .addGap(0, 97, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("LOGIN", jPanel1);
+        jTabbedPane1.addTab("ĐĂNG NHẬP", jPanel1);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255, 80));
         jPanel2.setPreferredSize(new java.awt.Dimension(560, 430));
 
         jLabel6.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel6.setFont(new java.awt.Font("Snap ITC", 0, 24)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("REGISTER");
+        jLabel6.setText("ĐĂNG KÝ");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel7.setText("Username");
+        jLabel7.setText("Tên người dùng");
 
         txt_username.setPreferredSize(new java.awt.Dimension(71, 30));
 
@@ -149,10 +149,10 @@ public class FormDangKyNew extends javax.swing.JFrame {
         jLabel8.setText("Gmail");
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel9.setText("Password");
+        jLabel9.setText("Mật khẩu");
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton2.setText("Register");
+        jButton2.setText("Đăng ký");
         jButton2.setPreferredSize(new java.awt.Dimension(75, 30));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -200,7 +200,7 @@ public class FormDangKyNew extends javax.swing.JFrame {
                 .addGap(0, 61, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("REGISTER", jPanel2);
+        jTabbedPane1.addTab("ĐĂNG KÝ", jPanel2);
 
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 120, 560, 480));
 

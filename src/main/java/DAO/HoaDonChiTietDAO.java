@@ -81,28 +81,51 @@ public class HoaDonChiTietDAO {
     }
 
     public void insertHoaDonChiTiet(HoaDonChiTiet hoaDon) {
+        String checkServiceSql = "SELECT ten_dich_vu, ma_dich_vu FROM dich_vu_ho_tro WHERE ma_dich_vu = ?";
+        String checkEmptyServiceSql = "SELECT COUNT(*) FROM dich_vu_ho_tro";
+        String insertDefaultServiceSql = "INSERT INTO dich_vu_ho_tro (ten_dich_vu) VALUES ('Không có')";
+        String getLastServiceIdSql = "SELECT TOP 1 ma_dich_vu FROM dich_vu_ho_tro ORDER BY ma_dich_vu DESC";
         String checkSql = "SELECT COUNT(*) FROM hoa_don_chi_tiet WHERE ma_khach_hang = ? AND ten_khach_hang = ? AND ma_phong = ? "
-                + "AND ma_dat_phong = ? AND ma_nhan_vien = ? AND ma_dich_vu = ? AND ten_dich_vu = ? AND loai_phong = ? "
+                + "AND ma_dat_phong = ? AND ma_nhan_vien = ? AND ma_dich_vu = ? AND loai_phong = ? "
                 + "AND tong_tien = ? AND ngay_dat_phong = ? AND ngay_nhan_phong = ? AND ngay_tra_phong = ?";
 
         String insertSql = "INSERT INTO hoa_don_chi_tiet (ma_khach_hang, ten_khach_hang, ma_phong, ma_dat_phong, ma_nhan_vien, "
                 + "ma_dich_vu, ten_dich_vu, loai_phong, tong_tien, ngay_dat_phong, ngay_nhan_phong, ngay_tra_phong) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection conn = DataProvider.dataConnection(); PreparedStatement checkStmt = conn.prepareStatement(checkSql); PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement checkEmptyServiceStmt = conn.prepareStatement(checkEmptyServiceSql); PreparedStatement insertDefaultServiceStmt = conn.prepareStatement(insertDefaultServiceSql); PreparedStatement getLastServiceIdStmt = conn.prepareStatement(getLastServiceIdSql); PreparedStatement checkServiceStmt = conn.prepareStatement(checkServiceSql); PreparedStatement checkStmt = conn.prepareStatement(checkSql); PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
+
+            ResultSet emptyServiceRs = checkEmptyServiceStmt.executeQuery();
+            if (emptyServiceRs.next() && emptyServiceRs.getInt(1) == 0) {
+                insertDefaultServiceStmt.executeUpdate();
+            }
+
+            int maDichVu = 0;
+            String tenDichVu = "Không sử dụng dịch vụ";
+
+            checkServiceStmt.setInt(1, hoaDon.getMa_dich_vu());
+            ResultSet serviceRs = checkServiceStmt.executeQuery();
+            if (serviceRs.next()) {
+                tenDichVu = serviceRs.getString("ten_dich_vu");
+                maDichVu = serviceRs.getInt("ma_dich_vu");
+            } else {
+                ResultSet lastServiceIdRs = getLastServiceIdStmt.executeQuery();
+                if (lastServiceIdRs.next()) {
+                    maDichVu = lastServiceIdRs.getInt("ma_dich_vu");
+                }
+            }
 
             checkStmt.setInt(1, hoaDon.getMa_khach_hang());
             checkStmt.setString(2, hoaDon.getTen_khach_hang());
             checkStmt.setString(3, hoaDon.getMa_phong());
             checkStmt.setInt(4, hoaDon.getMa_dat_phong());
             checkStmt.setString(5, hoaDon.getMa_nhan_vien());
-            checkStmt.setInt(6, hoaDon.getMa_dich_vu());
-            checkStmt.setString(7, hoaDon.getTen_dich_vu());
-            checkStmt.setString(8, hoaDon.getLoai_phong());
-            checkStmt.setBigDecimal(9, hoaDon.getTong_tien());
-            checkStmt.setDate(10, new java.sql.Date(hoaDon.getNgay_dat_phong().getTime()));
-            checkStmt.setDate(11, new java.sql.Date(hoaDon.getNgay_nhan_phong().getTime()));
-            checkStmt.setDate(12, new java.sql.Date(hoaDon.getNgay_tra_phong().getTime()));
+            checkStmt.setInt(6, maDichVu);
+            checkStmt.setString(7, hoaDon.getLoai_phong());
+            checkStmt.setBigDecimal(8, hoaDon.getTong_tien());
+            checkStmt.setDate(9, new java.sql.Date(hoaDon.getNgay_dat_phong().getTime()));
+            checkStmt.setDate(10, new java.sql.Date(hoaDon.getNgay_nhan_phong().getTime()));
+            checkStmt.setDate(11, new java.sql.Date(hoaDon.getNgay_tra_phong().getTime()));
 
             ResultSet rs = checkStmt.executeQuery();
             if (rs.next() && rs.getInt(1) > 0) {
@@ -115,8 +138,8 @@ public class HoaDonChiTietDAO {
             insertStmt.setString(3, hoaDon.getMa_phong());
             insertStmt.setInt(4, hoaDon.getMa_dat_phong());
             insertStmt.setString(5, hoaDon.getMa_nhan_vien());
-            insertStmt.setInt(6, hoaDon.getMa_dich_vu());
-            insertStmt.setString(7, hoaDon.getTen_dich_vu());
+            insertStmt.setInt(6, maDichVu);
+            insertStmt.setString(7, tenDichVu);
             insertStmt.setString(8, hoaDon.getLoai_phong());
             insertStmt.setBigDecimal(9, hoaDon.getTong_tien());
             insertStmt.setDate(10, new java.sql.Date(hoaDon.getNgay_dat_phong().getTime()));

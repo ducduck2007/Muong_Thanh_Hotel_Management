@@ -25,10 +25,7 @@ public class LichLamViecDAO {
 
         List<LichLamViec> list = new ArrayList<>();
 
-        try {
-            Connection conn = DataProvider.dataConnection();
-            PreparedStatement preStm = conn.prepareStatement(sql);
-            ResultSet rs = preStm.executeQuery();
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStm = conn.prepareStatement(sql); ResultSet rs = preStm.executeQuery()) {
 
             while (rs.next()) {
                 LichLamViec llv = new LichLamViec();
@@ -48,9 +45,8 @@ public class LichLamViecDAO {
 
     public boolean existsMaLich(int maLich) {
         String sql = "SELECT COUNT(*) FROM lich_lam_viec WHERE ma_lich = ?";
-        try {
-            Connection conn = DataProvider.dataConnection();
-            PreparedStatement preStm = conn.prepareStatement(sql);
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStm = conn.prepareStatement(sql)) {
+
             preStm.setInt(1, maLich);
             ResultSet rs = preStm.executeQuery();
             if (rs.next()) {
@@ -64,9 +60,8 @@ public class LichLamViecDAO {
 
     public boolean existsMaNhanVien(String maNhanVien) {
         String sql = "SELECT COUNT(*) FROM nhan_vien WHERE ma_nhan_vien = ?";
-        try {
-            Connection conn = DataProvider.dataConnection();
-            PreparedStatement preStm = conn.prepareStatement(sql);
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStm = conn.prepareStatement(sql)) {
+
             preStm.setString(1, maNhanVien);
             ResultSet rs = preStm.executeQuery();
             if (rs.next()) {
@@ -90,9 +85,7 @@ public class LichLamViecDAO {
         }
 
         String sql = "UPDATE lich_lam_viec SET ma_nhan_vien = ?, ngay_lam_viec = ?, ca_lam_viec = ? WHERE ma_lich = ?";
-        try {
-            Connection conn = DataProvider.dataConnection();
-            PreparedStatement preStm = conn.prepareStatement(sql);
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStm = conn.prepareStatement(sql)) {
 
             preStm.setString(1, llv.getMaNhanVien());
             preStm.setString(2, llv.getNgayLamViec());
@@ -105,5 +98,4 @@ public class LichLamViecDAO {
         }
         return false;
     }
-
 }

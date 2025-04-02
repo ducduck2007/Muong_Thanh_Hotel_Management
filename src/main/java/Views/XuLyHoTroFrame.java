@@ -79,7 +79,7 @@ public class XuLyHoTroFrame extends javax.swing.JFrame {
         cboTrangThai.setPreferredSize(new java.awt.Dimension(89, 30));
 
         btnCapNhat.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnCapNhat.setText("Update");
+        btnCapNhat.setText("Cập nhật");
         btnCapNhat.setPreferredSize(new java.awt.Dimension(78, 30));
         btnCapNhat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,12 +90,12 @@ public class XuLyHoTroFrame extends javax.swing.JFrame {
         txtMaDichVu.setPreferredSize(new java.awt.Dimension(64, 30));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel1.setText("Service code");
+        jLabel1.setText("Mã dịch vụ");
 
         jLabel8.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel8.setFont(new java.awt.Font("Snap ITC", 0, 24)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Customer support request statistics");
+        jLabel8.setText("Thống kê yêu cầu hỗ trợ khách hàng");
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quay_lai.png"))); // NOI18N

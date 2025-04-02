@@ -63,13 +63,13 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
         jLabel2.setText("Gmail");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel3.setText("Old password");
+        jLabel3.setText("Mật khẩu cũ");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel4.setText("New Password");
+        jLabel4.setText("Mật khẩu mới");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel5.setText("Confirm new password");
+        jLabel5.setText("Xác nhận mật khẩu mới");
 
         txt_email.setEditable(false);
         txt_email.setPreferredSize(new java.awt.Dimension(64, 30));
@@ -81,7 +81,7 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
         txt_xac_nhan_mk_moi.setPreferredSize(new java.awt.Dimension(64, 30));
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setText("Confirm");
+        jButton1.setText("Xác nhận");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -89,9 +89,9 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
         });
 
         jLabel6.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel6.setFont(new java.awt.Font("Snap ITC", 0, 24)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("CHANGE PASSWORD");
+        jLabel6.setText("Đổi mật khẩu");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

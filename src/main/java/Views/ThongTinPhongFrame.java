@@ -137,12 +137,12 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel1.setText("Room code");
+        jLabel1.setText("Mã phòng");
 
         txt_ma_phong.setPreferredSize(new java.awt.Dimension(64, 30));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel2.setText("Type room");
+        jLabel2.setText("Loại phòng");
 
         cbo_loai_phong.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Phòng thường", "Phòng VIP", "Phòng đặc biệt" }));
         cbo_loai_phong.setPreferredSize(new java.awt.Dimension(114, 30));
@@ -153,7 +153,7 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel3.setText("Room status");
+        jLabel3.setText("Trạng thái phòng");
 
         btg_status_phong.add(rdo_trong);
         rdo_trong.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -164,13 +164,13 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
         rdo_da_duoc_dat.setText("Đã được đặt");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel4.setText("Price room");
+        jLabel4.setText("Giá phòng");
 
         txt_gia_tien.setEditable(false);
         txt_gia_tien.setPreferredSize(new java.awt.Dimension(64, 30));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel5.setText("Note");
+        jLabel5.setText("Ghi chú");
 
         txt_ghi_chu.setColumns(20);
         txt_ghi_chu.setRows(5);
@@ -195,7 +195,7 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tbl_phong);
 
         btnSua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnSua.setText("Update");
+        btnSua.setText("Cập nhật");
         btnSua.setPreferredSize(new java.awt.Dimension(72, 30));
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,7 +204,7 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
         });
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton4.setText("Reset");
+        jButton4.setText("Làm mới");
         jButton4.setPreferredSize(new java.awt.Dimension(72, 30));
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -212,7 +212,7 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
             }
         });
 
-        cbo_search_loai_phong.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Select room type --", "Phòng thường", "Phòng VIP", "Phòng đặc biệt" }));
+        cbo_search_loai_phong.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Tìm theo loại phòng --", "Phòng thường", "Phòng VIP", "Phòng đặc biệt" }));
         cbo_search_loai_phong.setMinimumSize(new java.awt.Dimension(149, 30));
         cbo_search_loai_phong.setPreferredSize(new java.awt.Dimension(149, 30));
         cbo_search_loai_phong.addActionListener(new java.awt.event.ActionListener() {
@@ -221,7 +221,7 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
             }
         });
 
-        cbo_search_trang_thai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Select status --", "Trống", "Đã được đặt" }));
+        cbo_search_trang_thai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Tìm theo trạng thái phòng --", "Trống", "Đã được đặt" }));
         cbo_search_trang_thai.setPreferredSize(new java.awt.Dimension(143, 30));
         cbo_search_trang_thai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -247,7 +247,7 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1071, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(1115, 1115, 1115))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -265,17 +265,17 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
                                 .addComponent(txt_gia_tien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(cbo_search_loai_phong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)
-                                .addComponent(cbo_search_trang_thai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(44, 44, 44))
+                                .addComponent(cbo_search_loai_phong, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cbo_search_trang_thai, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(44, 44, 44))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -309,15 +309,15 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cbo_search_loai_phong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cbo_search_trang_thai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(52, 52, 52)
+                        .addComponent(cbo_search_trang_thai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(53, 53, 53)
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(78, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Danh sách phòng", jPanel1);
+        jTabbedPane1.addTab("QUẢN LÝ PHÒNG", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -418,7 +418,6 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
             }
 
             String trang_thai = rdo_trong.isSelected() ? "Trống" : "Đã được đặt";
-
             String ghi_chu = txt_ghi_chu.getText().trim();
 
             if (ma_phong.isEmpty() || loai_phong.isEmpty() || ghi_chu.isEmpty()) {
@@ -430,6 +429,11 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
 
             if (!ttpDAO.existsMaPhong(ma_phong)) {
                 JOptionPane.showMessageDialog(this, "⚠️ Mã phòng không tồn tại! Vui lòng nhập mã phòng hợp lệ.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            int choice = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn sửa thông tin phòng không?", "Xác nhận", JOptionPane.YES_NO_CANCEL_OPTION);
+            if (choice != JOptionPane.YES_OPTION) {
                 return;
             }
 

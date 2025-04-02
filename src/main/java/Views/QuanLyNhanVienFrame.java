@@ -150,12 +150,12 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel1.setText("Employee code");
+        jLabel1.setText("Mã nhân viên");
 
         txt_ma_nv.setPreferredSize(new java.awt.Dimension(64, 30));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel2.setText("Employee Name");
+        jLabel2.setText("Tên nhân viên");
 
         txt_ten_nv.setPreferredSize(new java.awt.Dimension(64, 30));
 
@@ -165,24 +165,24 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
         txt_email_nv.setPreferredSize(new java.awt.Dimension(64, 30));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel4.setText("Password");
+        jLabel4.setText("Mật khẩu");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel5.setText("Role");
+        jLabel5.setText("Chức vụ");
 
         cbo_vai_tro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Phục Vụ", "Lễ Tân" }));
         cbo_vai_tro.setMinimumSize(new java.awt.Dimension(78, 30));
         cbo_vai_tro.setPreferredSize(new java.awt.Dimension(78, 30));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel6.setText("Note");
+        jLabel6.setText("Ghi chú");
 
         txt_ghi_chu_nv.setColumns(20);
         txt_ghi_chu_nv.setRows(5);
         jScrollPane1.setViewportView(txt_ghi_chu_nv);
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setText("Add");
+        jButton1.setText("Thêm");
         jButton1.setPreferredSize(new java.awt.Dimension(72, 30));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -191,7 +191,7 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
         });
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton2.setText("Update");
+        jButton2.setText("Cập nhật");
         jButton2.setPreferredSize(new java.awt.Dimension(72, 30));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -200,7 +200,7 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
         });
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton3.setText("Del");
+        jButton3.setText("Xóa");
         jButton3.setPreferredSize(new java.awt.Dimension(72, 30));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -209,7 +209,7 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
         });
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton4.setText("Reset");
+        jButton4.setText("Làm mới");
         jButton4.setPreferredSize(new java.awt.Dimension(72, 30));
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -220,12 +220,12 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
         txt_password_nv.setPreferredSize(new java.awt.Dimension(64, 30));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel14.setText("Search by employee name");
+        jLabel14.setText("Tìm kiếm nhân viên theo tên");
 
         txt_search_ten_nv.setPreferredSize(new java.awt.Dimension(64, 30));
 
         btn_search_name_nv.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btn_search_name_nv.setText("Search");
+        btn_search_name_nv.setText("Tìm kiếm");
         btn_search_name_nv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_search_name_nvActionPerformed(evt);
@@ -352,7 +352,7 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
                 .addContainerGap(56, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("PERSONNEL MANAGEMENT", jPanel1);
+        jTabbedPane1.addTab("QUẢN LÝ NHÂN VIÊN", jPanel1);
 
         jLabel8.setText("Management Code");
 
@@ -499,15 +499,14 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
             char[] passwordChars = txt_password_nv.getPassword();
             String mat_khau = BCrypt.hashpw(new String(passwordChars), BCrypt.gensalt(12));
             String vaiTro = (String) cbo_vai_tro.getSelectedItem();
-            System.out.println(vaiTro);
-            int vai_tro;
 
+            int vai_tro;
             if (vaiTro != null && vaiTro.toLowerCase().contains("phục")) {
                 vai_tro = 1;
             } else {
                 vai_tro = 2;
             }
-            System.out.println(vai_tro);
+
             String ghi_chu = txt_ghi_chu_nv.getText().trim();
 
             if (ma_nhan_vien.isEmpty() || ten_nhan_vien.isEmpty() || email.isEmpty() || mat_khau.isEmpty()) {
@@ -547,8 +546,12 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
                 return;
             }
 
-            QuanLyNhanVien qlnv = new QuanLyNhanVien();
+            int choice = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thêm nhân viên này không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+            if (choice != JOptionPane.YES_OPTION) {
+                return;
+            }
 
+            QuanLyNhanVien qlnv = new QuanLyNhanVien();
             qlnv.setMa_nhan_vien(ma_nhan_vien);
             qlnv.setTen_nhan_vien(ten_nhan_vien);
             qlnv.setEmail(email);
@@ -616,7 +619,13 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
             }
 
             QuanLyNhanVienDAO qlnvDAO = new QuanLyNhanVienDAO();
-            QuanLyNhanVien qlnv = new QuanLyNhanVien();
+            if (!qlnvDAO.checkMaNhanVienExists(ma_nhan_vien)) {
+                JOptionPane.showMessageDialog(this,
+                        "⚠️ Mã nhân viên không tồn tại! Vui lòng nhập mã khác.",
+                        "Lỗi nhập liệu",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             if (qlnvDAO.checkEmailNVExitsts(email)) {
                 JOptionPane.showMessageDialog(this,
@@ -626,6 +635,12 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
                 return;
             }
 
+            int choice = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn cập nhật nhân viên này không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+            if (choice != JOptionPane.YES_OPTION) {
+                return;
+            }
+
+            QuanLyNhanVien qlnv = new QuanLyNhanVien();
             qlnv.setMa_nhan_vien(ma_nhan_vien);
             qlnv.setTen_nhan_vien(ten_nhan_vien);
             qlnv.setEmail(email);
@@ -668,9 +683,22 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
                 return;
             }
 
-            QuanLyNhanVienDAO qlnvDAO = new QuanLyNhanVienDAO();
-            QuanLyNhanVien qlnv = new QuanLyNhanVien();
+            int choice = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa nhân viên này không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+            if (choice != JOptionPane.YES_OPTION) {
+                return;
+            }
 
+            QuanLyNhanVienDAO qlnvDAO = new QuanLyNhanVienDAO();
+
+            if (!qlnvDAO.checkMaNhanVienExists(ma_nhan_vien)) {
+                JOptionPane.showMessageDialog(this,
+                        "⚠️ Mã nhân viên không tồn tại! Vui lòng nhập mã khác.",
+                        "Lỗi nhập liệu",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            QuanLyNhanVien qlnv = new QuanLyNhanVien();
             qlnv.setMa_nhan_vien(ma_nhan_vien);
 
             if (qlnvDAO.deleteNV(qlnv)) {
