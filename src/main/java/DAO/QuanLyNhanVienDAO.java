@@ -167,15 +167,14 @@ public class QuanLyNhanVienDAO {
     }
 
     public boolean updateQL(QuanLyNhanVien qlnv) {
-        String sql = "UPDATE nhan_vien SET ten_nhan_vien = ?, email = ?, mat_khau = ?, ghi_chu = ? WHERE ma_quan_ly = ?";
+        String sql = "UPDATE nhan_vien SET ten_nhan_vien = ?, email = ?, ghi_chu = ? WHERE ma_quan_ly = ?";
 
         try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStm = conn.prepareStatement(sql)) {
 
             preStm.setString(1, qlnv.getTen_nhan_vien());
             preStm.setString(2, qlnv.getEmail());
-            preStm.setString(3, qlnv.getMat_khau());
-            preStm.setString(4, qlnv.getGhi_chu() != null ? qlnv.getGhi_chu() : "");
-            preStm.setString(5, qlnv.getMa_quan_ly());
+            preStm.setString(3, qlnv.getGhi_chu() != null ? qlnv.getGhi_chu() : "");
+            preStm.setString(4, qlnv.getMa_quan_ly());
 
             return preStm.executeUpdate() > 0;
         } catch (Exception e) {

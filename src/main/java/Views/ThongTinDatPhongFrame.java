@@ -51,6 +51,7 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
             btnHuy.setEnabled(true);
         } else if (AuthNhanVien.isManager() != 1) {
             btnSua.setEnabled(true);
+            btnHuy.setEnabled(true);
         }
     }
 
@@ -682,7 +683,7 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         // TODO add your handling code here:
-        if (AuthKhachHang.user == null) {
+        if (AuthNhanVien.isManager() == 0 || AuthNhanVien.isManager() == 2) {
             String ma_dat_phong = txt_ma_dp.getText().trim();
 
             if (ma_dat_phong.isEmpty()) {

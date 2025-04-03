@@ -75,11 +75,11 @@ public class ThongTinPhongDAO {
 
         List<String> params = new ArrayList<>();
 
-        if (!loaiPhong.equals("-- Chọn loại phòng --")) {
+        if (!loaiPhong.equals("-- Tìm theo loại phòng --")) {
             sql += " AND TRIM(a.loai_phong) = TRIM(?)";
             params.add(loaiPhong);
         }
-        if (!trangThai.equals("-- Chọn trạng thái --")) {
+        if (!trangThai.equals("-- Tìm theo trạng thái phòng --")) {
             sql += " AND TRIM(a.trang_thai) = TRIM(?)";
             params.add(trangThai);
         }

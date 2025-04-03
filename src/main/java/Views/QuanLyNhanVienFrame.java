@@ -8,6 +8,7 @@ import DAO.QuanLyNhanVienDAO;
 import Models.QuanLyNhanVien;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.table.DefaultTableModel;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -165,7 +166,7 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
         txt_email_nv.setPreferredSize(new java.awt.Dimension(64, 30));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel4.setText("Mật khẩu");
+        jLabel4.setText(" Mật khẩu (để trống sẽ giữ nguyên mật khẩu cũ)");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel5.setText("Chức vụ");
@@ -280,7 +281,6 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
@@ -291,7 +291,8 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
                                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
                                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(58, 58, 58)))
                     .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
@@ -354,17 +355,17 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("QUẢN LÝ NHÂN VIÊN", jPanel1);
 
-        jLabel8.setText("Management Code");
+        jLabel8.setText("Mã quản lý");
 
         txt_ma_ql.setEditable(false);
 
-        jLabel9.setText("Manager Name");
+        jLabel9.setText("Tên quản lý");
 
         jLabel10.setText("Gmail");
 
-        jLabel11.setText("Password");
+        jLabel11.setText("Mật khẩu");
 
-        jLabel13.setText("Note");
+        jLabel13.setText("Ghi chú");
 
         txt_ghi_chu_ql.setColumns(20);
         txt_ghi_chu_ql.setRows(5);
@@ -388,14 +389,16 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(tbl_ql);
 
-        jButton5.setText("Update");
+        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton5.setText("Cập nhật");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
 
-        jButton6.setText("Reset");
+        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton6.setText("Làm mới");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -418,21 +421,18 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1185, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(txt_ma_ql, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
-                                        .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txt_email_ql, javax.swing.GroupLayout.Alignment.LEADING)))
-                                .addGap(65, 65, 65)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_ma_ql, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
+                                    .addComponent(txt_email_ql))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txt_ten_ql)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(txt_password_ql)))
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txt_password_ql, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
+                                        .addComponent(txt_ten_ql, javax.swing.GroupLayout.Alignment.TRAILING))))
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -453,14 +453,13 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txt_ten_ql, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txt_email_ql, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_password_ql, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
                     .addComponent(jLabel11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_email_ql, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_password_ql, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -474,7 +473,7 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
                 .addContainerGap(193, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("MANAGEMENT LIST", jPanel3);
+        jTabbedPane1.addTab("QUẢN LÝ ", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -586,7 +585,7 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
             String ten_nhan_vien = txt_ten_nv.getText().trim();
             String email = txt_email_nv.getText().trim();
             char[] passwordChars = txt_password_nv.getPassword();
-            String mat_khau = BCrypt.hashpw(new String(passwordChars), BCrypt.gensalt(12));
+            String mat_khau_moi = new String(passwordChars);
             String vaiTro = (String) cbo_vai_tro.getSelectedItem();
             int vai_tro;
 
@@ -598,7 +597,7 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
 
             String ghi_chu = txt_ghi_chu_nv.getText().trim();
 
-            if (ma_nhan_vien.isEmpty() || ten_nhan_vien.isEmpty() || email.isEmpty() || mat_khau.isEmpty()) {
+            if (ma_nhan_vien.isEmpty() || ten_nhan_vien.isEmpty() || email.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "⚠️ Vui lòng nhập đầy đủ thông tin!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
                 return;
             }
@@ -620,20 +619,36 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
 
             QuanLyNhanVienDAO qlnvDAO = new QuanLyNhanVienDAO();
             if (!qlnvDAO.checkMaNhanVienExists(ma_nhan_vien)) {
-                JOptionPane.showMessageDialog(this,
-                        "⚠️ Mã nhân viên không tồn tại! Vui lòng nhập mã khác.",
-                        "Lỗi nhập liệu",
-                        JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "⚠️ Mã nhân viên không tồn tại! Vui lòng nhập mã khác.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            if (qlnvDAO.checkEmailNVExitsts(email)) {
-                JOptionPane.showMessageDialog(this,
-                        "⚠️ Email đã tồn tại! Vui lòng nhập email khác.",
-                        "Lỗi nhập liệu",
-                        JOptionPane.ERROR_MESSAGE);
+            if (!qlnvDAO.checkEmailNVExitsts(email)) {
+                JOptionPane.showMessageDialog(this, "⚠️ Email không tồn tại! Vui lòng nhập lại email.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+
+            JPasswordField passwordField = new JPasswordField();
+            int option = JOptionPane.showConfirmDialog(this, passwordField, "🔑 Nhập mật khẩu hiện tại để xác nhận", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+            if (option != JOptionPane.OK_OPTION) {
+                return;
+            }
+
+            String mat_khau_nhap_cu = new String(passwordField.getPassword()).trim();
+            if (mat_khau_nhap_cu.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "⚠️ Bạn chưa nhập mật khẩu cũ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            String mat_khau_cu = qlnvDAO.getMatKhauByMaNV(ma_nhan_vien);
+
+            if (!BCrypt.checkpw(mat_khau_nhap_cu, mat_khau_cu)) {
+                JOptionPane.showMessageDialog(this, "❌ Mật khẩu cũ không đúng!", "Lỗi xác thực", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            String mat_khau = mat_khau_moi.isEmpty() ? mat_khau_cu : BCrypt.hashpw(mat_khau_moi, BCrypt.gensalt(12));
 
             int choice = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn cập nhật nhân viên này không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
             if (choice != JOptionPane.YES_OPTION) {
@@ -649,15 +664,9 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
             qlnv.setGhi_chu(ghi_chu);
 
             if (qlnvDAO.updateNV(qlnv)) {
-                JOptionPane.showMessageDialog(this,
-                        "✅ Nhân viên đã được cập nhật thành công!",
-                        "Thành công",
-                        JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "✅ Nhân viên đã được cập nhật thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(this,
-                        "❌ Cập nhật nhân viên thất bại! Vui lòng kiểm tra lại.",
-                        "Lỗi",
-                        JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "❌ Cập nhật nhân viên thất bại! Vui lòng kiểm tra lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -765,10 +774,9 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
             String ten_quan_ly = txt_ten_ql.getText().trim();
             String email = txt_email_ql.getText().trim();
             char[] passwordChars = txt_password_ql.getPassword();
-            String mat_khau = BCrypt.hashpw(new String(passwordChars), BCrypt.gensalt(12));
             String ghi_chu = txt_ghi_chu_ql.getText().trim();
 
-            if (ma_quan_ly.isEmpty() || ten_quan_ly.isEmpty() || email.isEmpty() || mat_khau.isEmpty()) {
+            if (ma_quan_ly.isEmpty() || ten_quan_ly.isEmpty() || email.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "⚠️ Vui lòng nhập đầy đủ thông tin!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
                 return;
             }
@@ -784,9 +792,9 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
             }
 
             QuanLyNhanVienDAO qlnvDAO = new QuanLyNhanVienDAO();
-            if (qlnvDAO.checkEmailNVExitsts(email)) {
+            if (!qlnvDAO.checkEmailNVExitsts(email)) {
                 JOptionPane.showMessageDialog(this,
-                        "⚠️ Email đã tồn tại! Vui lòng nhập email khác.",
+                        "⚠️ Email không tồn tại! Vui lòng nhập lại emial.",
                         "Lỗi nhập liệu",
                         JOptionPane.ERROR_MESSAGE);
                 return;
@@ -803,7 +811,6 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
             qlnv.setMa_quan_ly(ma_quan_ly);
             qlnv.setTen_nhan_vien(ten_quan_ly);
             qlnv.setEmail(email);
-            qlnv.setMat_khau(mat_khau);
             qlnv.setGhi_chu(ghi_chu);
 
             if (qlnvDAO.updateQL(qlnv)) {
@@ -832,6 +839,20 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
 
     private void tbl_nvMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_nvMouseClicked
         // TODO add your handling code here:
+        int row = tbl_nv.getSelectedRow();
+        if (row >= 0) {
+            String maNhanVien = tbl_nv.getValueAt(row, 0).toString();
+            String tenNhanVien = tbl_nv.getValueAt(row, 1).toString();
+            String gmail = tbl_nv.getValueAt(row, 2).toString();
+            String chucVu = tbl_nv.getValueAt(row, 3).toString();
+            String ghiChu = tbl_nv.getValueAt(row, 4).toString();
+
+            txt_ma_nv.setText(maNhanVien);
+            txt_ten_nv.setText(tenNhanVien);
+            txt_email_nv.setText(gmail);
+            cbo_vai_tro.setSelectedItem(chucVu);
+            txt_ghi_chu_nv.setText(ghiChu);
+        }
     }//GEN-LAST:event_tbl_nvMouseClicked
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
