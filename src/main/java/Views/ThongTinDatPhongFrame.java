@@ -39,6 +39,12 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
         fillTable();
         onLoad();
         phanQuyen();
+
+        int maKhachHang = AuthKhachHang.maKhachHang();
+        ThongTinDatPhongDAO emailDAO = new ThongTinDatPhongDAO();
+        String email = emailDAO.getEmailByMaKhachHang(maKhachHang);
+        txt_email_kh.setText(email);
+
     }
 
     public void phanQuyen() {
@@ -683,7 +689,7 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         // TODO add your handling code here:
-        if (AuthNhanVien.isManager() == 0 || AuthNhanVien.isManager() == 2) {
+        if ((AuthNhanVien.user == null || AuthNhanVien.isManager() != 1) && AuthKhachHang.user == null) {
             String ma_dat_phong = txt_ma_dp.getText().trim();
 
             if (ma_dat_phong.isEmpty()) {
@@ -726,7 +732,7 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
         if (row >= 0) {
             String maDatPhong = tbl_ds_phong_dat.getValueAt(row, 0).toString();
             String maPhong = tbl_ds_phong_dat.getValueAt(row, 1).toString();
-            String maKhachHang = tbl_ds_phong_dat.getValueAt(row, 2).toString();
+            int maKhachHang = Integer.parseInt(tbl_ds_phong_dat.getValueAt(row, 2).toString());
             String loaiPhong = tbl_ds_phong_dat.getValueAt(row, 3).toString();
             String ngayDatPhong = tbl_ds_phong_dat.getValueAt(row, 4).toString();
             String tongTien = tbl_ds_phong_dat.getValueAt(row, 5).toString();

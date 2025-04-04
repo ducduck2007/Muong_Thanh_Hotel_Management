@@ -205,13 +205,13 @@ public class ThongTinDatPhongDAO {
         return false;
     }
 
-    public String getEmailByMaKhachHang(String maKhachHang) {
+    public String getEmailByMaKhachHang(int maKhachHang) {
         String email = "";
         String sql = "SELECT email FROM khach_hang WHERE ma_khach_hang = ?";
 
         try (Connection conn = DataProvider.dataConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setString(1, maKhachHang);
+            ps.setInt(1, maKhachHang);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     email = rs.getString("email");
