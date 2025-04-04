@@ -280,7 +280,7 @@ public class KhachHangFrame extends javax.swing.JFrame {
         }
         if (txtTenKhachHang.getText().equals("")) {
             sb.append("Xin nhập tên khách hàng\n");
-        } else if (!txtTenKhachHang.getText().matches("[a-zA-Z\\s]+")) {
+        } else if (txtTenKhachHang.getText().matches(".*\\d.*")) {
             sb.append("Tên khách hàng không được chứa số\n");
         }
         if (txtEmail.getText().equals("")) {

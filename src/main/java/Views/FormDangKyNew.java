@@ -292,6 +292,10 @@ public class FormDangKyNew extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
+        if(txt_username.getText().matches(".*\\d.*")){
+            JOptionPane.showMessageDialog(this, "Tên khách hàng không được chứa số","Lỗi",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         KhachHangDAO khDAO = new KhachHangDAO();
         if (khDAO.checkEmailKHExitsts(email)) {
