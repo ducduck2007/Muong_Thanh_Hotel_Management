@@ -49,11 +49,18 @@ public class LichLamViecFrame extends javax.swing.JFrame {
         List<LichLamViec> list = llvDAO.getData();
 
         for (LichLamViec lichLamViec : list) {
+            String vaiTro = null;
+            if (lichLamViec.getVaiTro() == 1) {
+                vaiTro = "Phục Vụ";
+            }
+            if (lichLamViec.getVaiTro() == 2) {
+                vaiTro = "Lễ Tân";
+            }
             tableModel_lich_lam_viec.addRow(new Object[]{
                 lichLamViec.getMaLich(),
                 lichLamViec.getMaNhanVien(),
                 lichLamViec.getTenNhanVien(),
-                lichLamViec.getVaiTro(),
+                vaiTro,
                 lichLamViec.getNgayLamViec(),
                 lichLamViec.getCaLamViec()
             });
@@ -68,6 +75,10 @@ public class LichLamViecFrame extends javax.swing.JFrame {
 
         if (MalichLamViec.isEmpty() || MaNhanVien.isEmpty() || NgayLamViec.isEmpty() || CaLamViec.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin.");
+            return;
+        }
+        if (!MaNhanVien.matches("^NV\\d{3}$")) {
+            JOptionPane.showMessageDialog(this, "⚠️ Mã nhân viên phải có định dạng 'NV+3 số' (VD: NV015, NV123)", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -306,8 +317,8 @@ public class LichLamViecFrame extends javax.swing.JFrame {
         if (row >= 0) {
             String maLich = tbl_lich_lam_viec.getValueAt(row, 0).toString();
             String maNhanVien = tbl_lich_lam_viec.getValueAt(row, 1).toString();
-            String ngayLamViec = tbl_lich_lam_viec.getValueAt(row, 2).toString();
-            String caLamViec = tbl_lich_lam_viec.getValueAt(row, 3).toString();
+            String ngayLamViec = tbl_lich_lam_viec.getValueAt(row, 4).toString();
+            String caLamViec = tbl_lich_lam_viec.getValueAt(row, 5).toString();
 
             txt_ma_lich_lam_viec.setText(maLich);
             txt_ma_nhan_vien.setText(maNhanVien);

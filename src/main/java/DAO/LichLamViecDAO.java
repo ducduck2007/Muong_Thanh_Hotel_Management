@@ -32,7 +32,7 @@ public class LichLamViecDAO {
                 llv.setMaLich(rs.getInt("ma_lich"));
                 llv.setMaNhanVien(rs.getString("ma_nhan_vien"));
                 llv.setTenNhanVien(rs.getString("ten_nhan_vien"));
-                llv.setVaiTro(rs.getString("vai_tro"));
+                llv.setVaiTro(rs.getInt("vai_tro"));
                 llv.setNgayLamViec(rs.getString("ngay_lam_viec"));
                 llv.setCaLamViec(rs.getString("ca_lam_viec"));
                 list.add(llv);

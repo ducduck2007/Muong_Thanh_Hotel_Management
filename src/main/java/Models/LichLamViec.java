@@ -15,12 +15,12 @@ public class LichLamViec {
     private String NgayLamViec;
     private String CaLamViec;
     private String tenNhanVien;
-    private String vaiTro;
+    private int vaiTro;
 
     public LichLamViec() {
     }
 
-    public LichLamViec(int MaLich, String MaNhanVien, String NgayLamViec, String CaLamViec, String tenNhanVien, String vaiTro) {
+    public LichLamViec(int MaLich, String MaNhanVien, String NgayLamViec, String CaLamViec, String tenNhanVien, int vaiTro) {
         this.MaLich = MaLich;
         this.MaNhanVien = MaNhanVien;
         this.NgayLamViec = NgayLamViec;
@@ -69,12 +69,14 @@ public class LichLamViec {
         this.tenNhanVien = tenNhanVien;
     }
 
-    public String getVaiTro() {
+    public int getVaiTro() {
         return vaiTro;
     }
 
-    public void setVaiTro(String vaiTro) {
+    public void setVaiTro(int vaiTro) {
         this.vaiTro = vaiTro;
     }
+
+    
 
 }
