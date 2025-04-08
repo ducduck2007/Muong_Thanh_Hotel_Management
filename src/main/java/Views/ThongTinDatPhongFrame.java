@@ -39,12 +39,6 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
         fillTable();
         onLoad();
         phanQuyen();
-
-        int maKhachHang = AuthKhachHang.maKhachHang();
-        ThongTinDatPhongDAO emailDAO = new ThongTinDatPhongDAO();
-        String email = emailDAO.getEmailByMaKhachHang(maKhachHang);
-        txt_email_kh.setText(email);
-
     }
 
     public void phanQuyen() {
@@ -250,6 +244,11 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
         tbl_ds_phong_trong = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel1.setText("Mã phòng");
@@ -782,6 +781,18 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
             return;
         }
     }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        try {
+            int maKhachHang = AuthKhachHang.maKhachHang();
+            ThongTinDatPhongDAO emailDAO = new ThongTinDatPhongDAO();
+            String email = emailDAO.getEmailByMaKhachHang(maKhachHang);
+            txt_email_kh.setText(email);
+        } catch (Exception e) {
+            
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

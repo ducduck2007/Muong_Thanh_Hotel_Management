@@ -155,6 +155,7 @@ Views\LienHeKhachHangFrame$1.class
 Models\ThongTinPhong.class
 Views\XuLyHoTroFrame$3.class
 Views\HoaDonFrame$4.class
+Views\ThongTinDatPhongFrame$10.class
 Views\LienHeKhachHangFrame.class
 Views\HoaDonFrame$10.class
 DAO\QuanLyNhanVienDAO.class
