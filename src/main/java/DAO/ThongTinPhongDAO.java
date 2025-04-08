@@ -124,6 +124,19 @@ public class ThongTinPhongDAO {
         return false;
     }
 
+    public boolean updateNgayTraPhongVeMacDinh(String maPhong) {
+        String sql = "UPDATE thong_tin_dat_phong SET ngay_tra_phong = '1900-01-01' WHERE ma_phong = ?";
+
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStm = conn.prepareStatement(sql)) {
+            preStm.setString(1, maPhong);
+            return preStm.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public boolean existsMaPhong(String maPhong) {
         String sql = "SELECT COUNT(*) FROM thong_tin_phong WHERE ma_phong = ?";
 

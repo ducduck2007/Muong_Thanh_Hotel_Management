@@ -444,6 +444,10 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
             ttp.setGhi_chu(ghi_chu);
 
             if (ttpDAO.update(ttp)) {
+                if (trang_thai.equals("Trống")) {
+                    ttpDAO.updateNgayTraPhongVeMacDinh(ma_phong);
+                }
+
                 JOptionPane.showMessageDialog(this,
                         "✅ Sửa thông tin phòng thành công!",
                         "Thành công",

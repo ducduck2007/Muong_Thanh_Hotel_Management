@@ -31,7 +31,7 @@ public class HoaDonChiTietFrame extends javax.swing.JFrame {
     }
 
     public void initTable() {
-        String[] cols_nv = new String[]{"Mã KH", "Tên KH", "Mã Phòng", "Mã ĐP", "Mã NV", "Mã DV", "Tên DV", "Loại Phòng", "Tổng Tiền", "Ngày ĐP", "Ngày NP", "Ngày TP"};
+        String[] cols_nv = new String[]{"Mã KH", "Tên KH", "Mã Phòng", "Mã ĐP", "Mã NV", "Tên DV", "Loại Phòng", "Tổng Tiền", "Ngày ĐP", "Ngày NP", "Ngày TP"};
         tableModel.setColumnIdentifiers(cols_nv);
         tbl_hdct.setModel(tableModel);
     }
@@ -48,7 +48,6 @@ public class HoaDonChiTietFrame extends javax.swing.JFrame {
                 hoaDonChiTiet.getMa_phong(),
                 hoaDonChiTiet.getMa_dat_phong(),
                 hoaDonChiTiet.getMa_nhan_vien(),
-                hoaDonChiTiet.getMa_dich_vu(),
                 hoaDonChiTiet.getTen_dich_vu(),
                 hoaDonChiTiet.getLoai_phong(),
                 hoaDonChiTiet.getTong_tien(),
@@ -145,7 +144,7 @@ public class HoaDonChiTietFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tbl_hdct);
 
         btnLoad.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        btnLoad.setText("Xem");
+        btnLoad.setText("Cập nhật");
         btnLoad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoadActionPerformed(evt);
@@ -213,7 +212,7 @@ public class HoaDonChiTietFrame extends javax.swing.JFrame {
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
         // TODO add your handling code here:
         this.dispose();
-        SystemFrame sFrame = new SystemFrame();
+        HoaDonFrame sFrame = new HoaDonFrame();
         sFrame.setLocationRelativeTo(null);
         sFrame.setVisible(true);
         return;

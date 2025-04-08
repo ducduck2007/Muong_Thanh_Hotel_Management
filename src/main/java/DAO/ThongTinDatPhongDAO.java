@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
 public class ThongTinDatPhongDAO {
 
     public List<ThongTinDatPhong> getDataPD() {
-        String sql = "SELECT * FROM thong_tin_dat_phong";
+        String sql = "SELECT * FROM thong_tin_dat_phong WHERE ngay_tra_phong > '1900-01-01'";
         List<ThongTinDatPhong> list = new ArrayList<>();
 
         try {
@@ -184,23 +184,35 @@ public class ThongTinDatPhongDAO {
     }
 
     public boolean delete(String maDatPhong) {
+        String selectSQL = "SELECT ma_phong FROM thong_tin_dat_phong WHERE ma_dat_phong = ?";
         String deleteSQL = "DELETE FROM thong_tin_dat_phong WHERE ma_dat_phong = ?";
         String updateSQL = "UPDATE thong_tin_phong SET trang_thai = N'Trống' WHERE ma_phong = ?";
 
-        try (Connection conn = DataProvider.dataConnection(); PreparedStatement deleteStmt = conn.prepareStatement(deleteSQL); PreparedStatement updateStmt = conn.prepareStatement(updateSQL)) {
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement selectStmt = conn.prepareStatement(selectSQL); PreparedStatement deleteStmt = conn.prepareStatement(deleteSQL); PreparedStatement updateStmt = conn.prepareStatement(updateSQL)) {
+
+            String maPhong = null;
+            selectStmt.setString(1, maDatPhong);
+            ResultSet rs = selectStmt.executeQuery();
+            if (rs.next()) {
+                maPhong = rs.getString("ma_phong");
+            }
+
+            if (maPhong == null) {
+                JOptionPane.showMessageDialog(null, "❌ Không tìm thấy mã phòng tương ứng!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
 
             deleteStmt.setString(1, maDatPhong);
             if (deleteStmt.executeUpdate() > 0) {
-                updateStmt.setString(1, maDatPhong);
+                updateStmt.setString(1, maPhong);
                 updateStmt.executeUpdate();
                 return true;
             } else {
-                System.out.println("❌ Xoa that bai: " + maDatPhong);
+                System.out.println("❌ Xóa thất bại: " + maDatPhong);
             }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "❌ Hóa đơn đã được in. Không thể hủy đặt phòng!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-//            e.printStackTrace();
         }
         return false;
     }

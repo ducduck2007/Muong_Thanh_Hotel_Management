@@ -590,6 +590,10 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
                         "✅ Đặt phòng thành công!",
                         "Thành công",
                         JOptionPane.INFORMATION_MESSAGE);
+                txt_ghi_chu.setText("");
+                txt_ma_dp.setText("");
+                txt_ma_phong.setText("");
+                jdc_ngay_tra_phong.setDate(null);
             } else {
                 JOptionPane.showMessageDialog(this,
                         "❌ Đặt phòng thất bại! Vui lòng kiểm tra lại.",
@@ -790,7 +794,7 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
             String email = emailDAO.getEmailByMaKhachHang(maKhachHang);
             txt_email_kh.setText(email);
         } catch (Exception e) {
-            
+
         }
     }//GEN-LAST:event_formWindowOpened
 
