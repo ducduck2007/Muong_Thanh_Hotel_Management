@@ -4,7 +4,12 @@
  */
 package Views;
 
+import DAO.LichLamViecDAO;
+import Models.LichLamViec;
 import Services.AuthNhanVien;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
@@ -47,6 +52,11 @@ public class SystemFrame extends javax.swing.JFrame {
         lbl_img = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         pn_menu.setBackground(new java.awt.Color(204, 204, 204));
         pn_menu.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -438,6 +448,42 @@ public class SystemFrame extends javax.swing.JFrame {
         cpFrame.setVisible(true);
         return;
     }//GEN-LAST:event_jLabel20MouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        Date d = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH");
+        int timeInt = Integer.parseInt(sdf.format(d));
+        System.out.println(timeInt);
+        
+        LichLamViecDAO lvDao = new LichLamViecDAO();
+        List<LichLamViec> list = lvDao.getData();
+        for (LichLamViec lichLamViec : list) {
+            if (AuthNhanVien.getMaNhanVien().equals(lichLamViec.getMaNhanVien())) {
+                if(lichLamViec.getCaLamViec().equals("Ca 1: 06h00 - 14h00") && timeInt >= 6 && timeInt < 14){
+                    JOptionPane.showMessageDialog(this, "Bạn không được truy cập vì chưa đến giờ làm việc của bạn");
+                    this.dispose();
+                    LoginSystem lsFrame = new LoginSystem();
+                    lsFrame.setLocationRelativeTo(null);
+                    lsFrame.setVisible(true);
+                }
+                if(lichLamViec.getCaLamViec().equals("Ca 2: 14h00 - 22h00") && timeInt >= 14 && timeInt < 22){
+                    JOptionPane.showMessageDialog(this, "Bạn không được truy cập vì chưa đến giờ làm việc của bạn");
+                    this.dispose();
+                    LoginSystem lsFrame = new LoginSystem();
+                    lsFrame.setLocationRelativeTo(null);
+                    lsFrame.setVisible(true);
+                }
+                if(lichLamViec.getCaLamViec().equals("Ca 3: 22h00 - 06h00") && timeInt >= 22 || timeInt < 6){
+                    JOptionPane.showMessageDialog(this, "Bạn không được truy cập vì chưa đến giờ làm việc của bạn");
+                    this.dispose();
+                    LoginSystem lsFrame = new LoginSystem();
+                    lsFrame.setLocationRelativeTo(null);
+                    lsFrame.setVisible(true);
+                }
+            }
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
