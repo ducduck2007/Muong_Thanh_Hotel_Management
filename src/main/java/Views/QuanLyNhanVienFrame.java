@@ -6,6 +6,7 @@ package Views;
 
 import DAO.QuanLyNhanVienDAO;
 import Models.QuanLyNhanVien;
+import Services.CaLamViecCheck;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -28,6 +29,7 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
         initComponents();
         initTable();
         fillTable();
+        CaLamViecCheck.checkGioLamViec();
     }
 
     public void initTable() {

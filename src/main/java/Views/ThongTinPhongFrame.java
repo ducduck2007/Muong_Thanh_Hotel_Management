@@ -7,6 +7,7 @@ package Views;
 import DAO.ThongTinPhongDAO;
 import Models.ThongTinPhong;
 import Services.AuthNhanVien;
+import Services.CaLamViecCheck;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
@@ -31,6 +32,7 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
         fillTable();
         loadCBO();
         phanQuyen();
+        CaLamViecCheck.checkGioLamViec();
     }
 
     public void phanQuyen() {

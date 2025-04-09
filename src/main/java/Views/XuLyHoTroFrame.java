@@ -6,6 +6,7 @@ package Views;
 
 import DAO.DichVuHoTroDAO;
 import Models.DichVuHoTro;
+import Services.CaLamViecCheck;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -25,6 +26,7 @@ public class XuLyHoTroFrame extends javax.swing.JFrame {
         initComponents();
         initTable();
         fillTable();
+        CaLamViecCheck.checkGioLamViec();
     }
 
     public void initTable() {

@@ -7,6 +7,7 @@ package Views;
 import DAO.LichLamViecDAO;
 import Models.LichLamViec;
 import Services.AuthNhanVien;
+import Services.CaLamViecCheck;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -25,6 +26,7 @@ public class LichLamViecFrame extends javax.swing.JFrame {
         initComponents();
         initTable();
         fillTable();
+        CaLamViecCheck.checkGioLamViec();
     }
 
     public void phanQuyen() {

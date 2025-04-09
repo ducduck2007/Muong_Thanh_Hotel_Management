@@ -98,4 +98,25 @@ public class LichLamViecDAO {
         }
         return false;
     }
+    
+    public LichLamViec findByMaNV(String maNV){
+        String sql = "select * from lich_lam_viec where ma_nhan_vien = ?";
+        try {
+            Connection con = DataProvider.dataConnection();
+            PreparedStatement pps = con.prepareCall(sql);
+            pps.setString(1, maNV);
+            ResultSet rs = pps.executeQuery();
+            if(rs.next()){
+                LichLamViec lv = new LichLamViec();
+                lv.setMaLich(rs.getInt("ma_lich"));
+                lv.setMaNhanVien(rs.getString("ma_nhan_vien"));
+                lv.setNgayLamViec(rs.getString("ngay_lam_viec"));
+                lv.setCaLamViec(rs.getString("ca_lam_viec"));
+                return lv;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

@@ -7,6 +7,7 @@ package Views;
 import DAO.LichLamViecDAO;
 import Models.LichLamViec;
 import Services.AuthNhanVien;
+import Services.CaLamViecCheck;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -26,7 +27,10 @@ public class SystemFrame extends javax.swing.JFrame {
      */
     public SystemFrame() {
         initComponents();
+        CaLamViecCheck.checkGioLamViec();
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -353,7 +357,7 @@ public class SystemFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
-        // TODO add your handling code here:
+        // TODO add your handling code here:s
         this.dispose();
         ThongTinDatPhongFrame ttdpF = new ThongTinDatPhongFrame();
         ttdpF.setLocationRelativeTo(null);
@@ -452,29 +456,27 @@ public class SystemFrame extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         Date d = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("HH");
+        SimpleDateFormat sdf = new SimpleDateFormat("HHmm");
         int timeInt = Integer.parseInt(sdf.format(d));
         System.out.println(timeInt);
-        
+
         LichLamViecDAO lvDao = new LichLamViecDAO();
         List<LichLamViec> list = lvDao.getData();
         for (LichLamViec lichLamViec : list) {
             if (AuthNhanVien.getMaNhanVien().equals(lichLamViec.getMaNhanVien())) {
-                if(lichLamViec.getCaLamViec().equals("Ca 1: 06h00 - 14h00") && timeInt >= 6 && timeInt < 14){
+                if (lichLamViec.getCaLamViec().equals("Ca 1: 06h00 - 14h00") && (timeInt < 600 || timeInt >= 1400)) {
                     JOptionPane.showMessageDialog(this, "Bạn không được truy cập vì chưa đến giờ làm việc của bạn");
                     this.dispose();
                     LoginSystem lsFrame = new LoginSystem();
                     lsFrame.setLocationRelativeTo(null);
                     lsFrame.setVisible(true);
-                }
-                if(lichLamViec.getCaLamViec().equals("Ca 2: 14h00 - 22h00") && timeInt >= 14 && timeInt < 22){
+                } else if (lichLamViec.getCaLamViec().equals("Ca 2: 14h00 - 22h00") && (timeInt < 1400 || timeInt >= 2200)) {
                     JOptionPane.showMessageDialog(this, "Bạn không được truy cập vì chưa đến giờ làm việc của bạn");
                     this.dispose();
                     LoginSystem lsFrame = new LoginSystem();
                     lsFrame.setLocationRelativeTo(null);
                     lsFrame.setVisible(true);
-                }
-                if(lichLamViec.getCaLamViec().equals("Ca 3: 22h00 - 06h00") && timeInt >= 22 || timeInt < 6){
+                } else if (lichLamViec.getCaLamViec().equals("Ca 3: 22h00 - 06h00") && !(timeInt >= 2200 || timeInt < 600)) {
                     JOptionPane.showMessageDialog(this, "Bạn không được truy cập vì chưa đến giờ làm việc của bạn");
                     this.dispose();
                     LoginSystem lsFrame = new LoginSystem();

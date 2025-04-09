@@ -6,6 +6,7 @@ package Views;
 
 import DAO.ThongKeDoanhThuDAO;
 import Models.ThongKeDoanhThu;
+import Services.CaLamViecCheck;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -29,6 +30,7 @@ public class ThongKeDoanhThuFrame extends javax.swing.JFrame {
         initComponents();
         initTable();
         fillTable();
+        CaLamViecCheck.checkGioLamViec();
     }
 
     public void initTable() {

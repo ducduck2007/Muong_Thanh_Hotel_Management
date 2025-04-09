@@ -7,6 +7,7 @@ package Views;
 import DAO.ThietLapGiaDAO;
 import Models.ThietLapGia;
 import Services.AuthNhanVien;
+import Services.CaLamViecCheck;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -28,6 +29,7 @@ public class ThietLapGiaFrame extends javax.swing.JFrame {
         initTable();
         fillTable();
         phanQuyen();
+        CaLamViecCheck.checkGioLamViec();
     }
 
     public void phanQuyen() {

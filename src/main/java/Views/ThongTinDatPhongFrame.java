@@ -9,6 +9,7 @@ import Models.ThongTinDatPhong;
 import Models.ThongTinPhong;
 import Services.AuthKhachHang;
 import Services.AuthNhanVien;
+import Services.CaLamViecCheck;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -39,6 +40,7 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
         fillTable();
         onLoad();
         phanQuyen();
+        CaLamViecCheck.checkGioLamViec();
     }
 
     public void phanQuyen() {

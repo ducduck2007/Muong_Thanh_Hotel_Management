@@ -25,6 +25,7 @@ E:\Codes\Muong_Thanh_Hotel_Management\src\main\java\Models\ThongTinDatPhong.java
 E:\Codes\Muong_Thanh_Hotel_Management\src\main\java\Models\ThongTinPhong.java
 E:\Codes\Muong_Thanh_Hotel_Management\src\main\java\Services\AuthKhachHang.java
 E:\Codes\Muong_Thanh_Hotel_Management\src\main\java\Services\AuthNhanVien.java
+E:\Codes\Muong_Thanh_Hotel_Management\src\main\java\Services\CaLamViecCheck.java
 E:\Codes\Muong_Thanh_Hotel_Management\src\main\java\Services\MainRun.java
 E:\Codes\Muong_Thanh_Hotel_Management\src\main\java\Views\ChangePasswordFrame.java
 E:\Codes\Muong_Thanh_Hotel_Management\src\main\java\Views\ChiTietDoanhThuFrame.java

@@ -7,6 +7,7 @@ package Views;
 import DAO.HoaDonDAO;
 import Models.HoaDon;
 import Services.AuthNhanVien;
+import Services.CaLamViecCheck;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -27,6 +28,7 @@ public class HoaDonFrame extends javax.swing.JFrame {
         initTable();
         fillTable();
         phanQuyen();
+        CaLamViecCheck.checkGioLamViec();
     }
     
     public void phanQuyen() {
