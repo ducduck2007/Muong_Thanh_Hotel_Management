@@ -72,6 +72,10 @@
                                           <Component id="rdo_trong" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="rdo_da_duoc_dat" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="rdo_da_duoc_dat1" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="rdo_da_duoc_dat2" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="jLabel2" min="-2" pref="92" max="-2" attributes="0"/>
                                       <Component id="jLabel1" min="-2" pref="92" max="-2" attributes="0"/>
@@ -122,6 +126,8 @@
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="rdo_trong" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="rdo_da_duoc_dat" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rdo_da_duoc_dat1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rdo_da_duoc_dat2" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
@@ -398,6 +404,28 @@
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel9MouseClicked"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="rdo_da_duoc_dat1">
+              <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="btg_status_phong"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="&#x110;ang d&#x1ecd;n d&#x1eb9;p"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="rdo_da_duoc_dat2">
+              <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="btg_status_phong"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="B&#x1ea3;o tr&#xec;"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

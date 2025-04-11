@@ -130,6 +130,8 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
         cbo_search_loai_phong = new javax.swing.JComboBox<>();
         cbo_search_trang_thai = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
+        rdo_da_duoc_dat1 = new javax.swing.JRadioButton();
+        rdo_da_duoc_dat2 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -240,6 +242,14 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
             }
         });
 
+        btg_status_phong.add(rdo_da_duoc_dat1);
+        rdo_da_duoc_dat1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        rdo_da_duoc_dat1.setText("Đang dọn dẹp");
+
+        btg_status_phong.add(rdo_da_duoc_dat2);
+        rdo_da_duoc_dat2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        rdo_da_duoc_dat2.setText("Bảo trì");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -258,7 +268,11 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(rdo_trong)
                                     .addGap(18, 18, 18)
-                                    .addComponent(rdo_da_duoc_dat))
+                                    .addComponent(rdo_da_duoc_dat)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(rdo_da_duoc_dat1)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(rdo_da_duoc_dat2))
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel3)
@@ -298,7 +312,9 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(rdo_trong)
-                            .addComponent(rdo_da_duoc_dat))
+                            .addComponent(rdo_da_duoc_dat)
+                            .addComponent(rdo_da_duoc_dat1)
+                            .addComponent(rdo_da_duoc_dat2))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -532,6 +548,8 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JRadioButton rdo_da_duoc_dat;
+    private javax.swing.JRadioButton rdo_da_duoc_dat1;
+    private javax.swing.JRadioButton rdo_da_duoc_dat2;
     private javax.swing.JRadioButton rdo_trong;
     private javax.swing.JTable tbl_phong;
     private javax.swing.JTextArea txt_ghi_chu;
