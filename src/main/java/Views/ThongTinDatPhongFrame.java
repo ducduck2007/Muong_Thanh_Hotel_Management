@@ -602,6 +602,11 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbl_ds_phong_dat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_ds_phong_datMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tbl_ds_phong_dat);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -849,17 +854,17 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
 
     private void tbl_ds_phong_dat_oldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_ds_phong_dat_oldMouseClicked
         // TODO add your handling code here:
-        int row = tbl_ds_phong_dat.getSelectedRow();
+        int row = tbl_ds_phong_dat_old.getSelectedRow();
         if (row >= 0) {
-            String maDatPhong = tbl_ds_phong_dat.getValueAt(row, 0).toString();
-            String maPhong = tbl_ds_phong_dat.getValueAt(row, 1).toString();
-            int maKhachHang = Integer.parseInt(tbl_ds_phong_dat.getValueAt(row, 2).toString());
-            String loaiPhong = tbl_ds_phong_dat.getValueAt(row, 3).toString();
-            String ngayDatPhong = tbl_ds_phong_dat.getValueAt(row, 4).toString();
-            String tongTien = tbl_ds_phong_dat.getValueAt(row, 5).toString();
-            String ngayNhanPhong = tbl_ds_phong_dat.getValueAt(row, 6).toString();
-            String ngayTraPhong = tbl_ds_phong_dat.getValueAt(row, 7).toString();
-            String ghiChu = tbl_ds_phong_dat.getValueAt(row, 8).toString();
+            String maDatPhong = tbl_ds_phong_dat_old.getValueAt(row, 0).toString();
+            String maPhong = tbl_ds_phong_dat_old.getValueAt(row, 1).toString();
+            int maKhachHang = Integer.parseInt(tbl_ds_phong_dat_old.getValueAt(row, 2).toString());
+            String loaiPhong = tbl_ds_phong_dat_old.getValueAt(row, 3).toString();
+            String ngayDatPhong = tbl_ds_phong_dat_old.getValueAt(row, 4).toString();
+            String tongTien = tbl_ds_phong_dat_old.getValueAt(row, 5).toString();
+            String ngayNhanPhong = tbl_ds_phong_dat_old.getValueAt(row, 6).toString();
+            String ngayTraPhong = tbl_ds_phong_dat_old.getValueAt(row, 7).toString();
+            String ghiChu = tbl_ds_phong_dat_old.getValueAt(row, 8).toString();
 
             ThongTinDatPhongDAO thongTinDatPhongDAO = new ThongTinDatPhongDAO();
             String emailKhachHang = thongTinDatPhongDAO.getEmailByMaKhachHang(maKhachHang);
@@ -918,7 +923,83 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
 
     private void tbl_ds_phong_dat_newMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_ds_phong_dat_newMouseClicked
         // TODO add your handling code here:
+        int row = tbl_ds_phong_dat_new.getSelectedRow();
+        if (row >= 0) {
+            String maDatPhong = tbl_ds_phong_dat_new.getValueAt(row, 0).toString();
+            String maPhong = tbl_ds_phong_dat_new.getValueAt(row, 1).toString();
+            int maKhachHang = Integer.parseInt(tbl_ds_phong_dat_new.getValueAt(row, 2).toString());
+            String loaiPhong = tbl_ds_phong_dat_new.getValueAt(row, 3).toString();
+            String ngayDatPhong = tbl_ds_phong_dat_new.getValueAt(row, 4).toString();
+            String tongTien = tbl_ds_phong_dat_new.getValueAt(row, 5).toString();
+            String ngayNhanPhong = tbl_ds_phong_dat_new.getValueAt(row, 6).toString();
+            String ngayTraPhong = tbl_ds_phong_dat_new.getValueAt(row, 7).toString();
+            String ghiChu = tbl_ds_phong_dat_new.getValueAt(row, 8).toString();
+
+            ThongTinDatPhongDAO thongTinDatPhongDAO = new ThongTinDatPhongDAO();
+            String emailKhachHang = thongTinDatPhongDAO.getEmailByMaKhachHang(maKhachHang);
+
+            txt_email_kh.setText(emailKhachHang);
+            txt_ma_dp.setText(maDatPhong);
+            txt_ma_phong.setText(maPhong);
+            cbo_loai_phong.setSelectedItem(loaiPhong);
+            txt_tong_tien.setText(tongTien);
+            txt_ghi_chu.setText(ghiChu);
+
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Date dateNhanPhong = sdf.parse(ngayNhanPhong);
+                Date dateTraPhong = sdf.parse(ngayTraPhong);
+                Date dateDatPhong = sdf.parse(ngayDatPhong);
+
+                jdc_ngay_nhan_phong.setDate(dateNhanPhong);
+                jdc_ngay_tra_phong.setDate(dateTraPhong);
+                jdc_ngay_dat_phong.setDate(dateDatPhong);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Lỗi định dạng ngày!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_tbl_ds_phong_dat_newMouseClicked
+
+    private void tbl_ds_phong_datMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_ds_phong_datMouseClicked
+        // TODO add your handling code here:
+        int row = tbl_ds_phong_dat.getSelectedRow();
+        if (row >= 0) {
+            String maDatPhong = tbl_ds_phong_dat.getValueAt(row, 0).toString();
+            String maPhong = tbl_ds_phong_dat.getValueAt(row, 1).toString();
+            int maKhachHang = Integer.parseInt(tbl_ds_phong_dat.getValueAt(row, 2).toString());
+            String loaiPhong = tbl_ds_phong_dat.getValueAt(row, 3).toString();
+            String ngayDatPhong = tbl_ds_phong_dat.getValueAt(row, 4).toString();
+            String tongTien = tbl_ds_phong_dat.getValueAt(row, 5).toString();
+            String ngayNhanPhong = tbl_ds_phong_dat.getValueAt(row, 6).toString();
+            String ngayTraPhong = tbl_ds_phong_dat.getValueAt(row, 7).toString();
+            String ghiChu = tbl_ds_phong_dat.getValueAt(row, 8).toString();
+
+            ThongTinDatPhongDAO thongTinDatPhongDAO = new ThongTinDatPhongDAO();
+            String emailKhachHang = thongTinDatPhongDAO.getEmailByMaKhachHang(maKhachHang);
+
+            txt_email_kh.setText(emailKhachHang);
+            txt_ma_dp.setText(maDatPhong);
+            txt_ma_phong.setText(maPhong);
+            cbo_loai_phong.setSelectedItem(loaiPhong);
+            txt_tong_tien.setText(tongTien);
+            txt_ghi_chu.setText(ghiChu);
+
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Date dateNhanPhong = sdf.parse(ngayNhanPhong);
+                Date dateTraPhong = sdf.parse(ngayTraPhong);
+                Date dateDatPhong = sdf.parse(ngayDatPhong);
+
+                jdc_ngay_nhan_phong.setDate(dateNhanPhong);
+                jdc_ngay_tra_phong.setDate(dateTraPhong);
+                jdc_ngay_dat_phong.setDate(dateDatPhong);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Lỗi định dạng ngày!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_tbl_ds_phong_datMouseClicked
 
     /**
      * @param args the command line arguments
