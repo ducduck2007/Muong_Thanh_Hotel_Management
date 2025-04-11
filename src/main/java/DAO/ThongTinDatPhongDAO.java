@@ -6,7 +6,6 @@ package DAO;
 
 import Models.ThongTinDatPhong;
 import Models.ThongTinPhong;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.ArrayList;
 import java.sql.Connection;
@@ -250,5 +249,47 @@ public class ThongTinDatPhongDAO {
             e.printStackTrace();
         }
         return null;
+    }
+    
+    public ThongTinDatPhong findById(int ma_dat_phong){
+        String sql = "select * from thong_tin_dat_phong where ma_dat_phong = ?";
+        try {
+            Connection con = DataProvider.dataConnection();
+            PreparedStatement pps = con.prepareCall(sql);
+            pps.setInt(1, ma_dat_phong);
+            ResultSet rs = pps.executeQuery();
+            if(rs.next()){
+                ThongTinDatPhong ttdp = new ThongTinDatPhong();
+                ttdp.setMa_dat_phong(rs.getInt("ma_dat_phong"));
+                ttdp.setMa_phong(rs.getString("ma_phong"));
+                ttdp.setMa_khach_hang(rs.getInt("ma_khach_hang"));
+                ttdp.setLoai_phong(rs.getString("loai_phong"));
+                ttdp.setNgay_dat_phong(rs.getDate("ngay_dat_phong"));
+                ttdp.setTong_tien(rs.getBigDecimal("tong_tien"));
+                ttdp.setGhi_chu(rs.getString("ghi_chu"));
+                ttdp.setNgay_nhan_phong(rs.getDate("ngay_nhan_phong"));
+                ttdp.setNgay_tra_phong(rs.getDate("ngay_tra_phong"));
+                return ttdp;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public int getMaDP(){
+        String sql = "select MAX(ma_dat_phong) from thong_tin_dat_phong";
+        try {
+            Connection con = DataProvider.dataConnection();
+            PreparedStatement pps = con.prepareCall(sql);
+            ResultSet rs = pps.executeQuery();
+            if(rs.next()){
+                int maDP = rs.getInt(1);
+                return maDP;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

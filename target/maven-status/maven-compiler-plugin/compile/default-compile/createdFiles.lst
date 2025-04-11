@@ -165,6 +165,7 @@ DAO\QuanLyNhanVienDAO.class
 Views\SystemFrame$12.class
 Views\FormDangKyNew$4.class
 Views\QuanLyNhanVienFrame$1.class
+Views\ThongTinDatPhongFrame$11.class
 Views\HoaDonFrame$6.class
 Views\HoaDonChiTietFrame.class
 DAO\LoginSystemDAO.class
