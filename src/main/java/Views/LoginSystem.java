@@ -109,8 +109,12 @@ public class LoginSystem extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Email");
 
+        txt_email.setText("quangduc@gmail.com");
+
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Mật khẩu");
+
+        txt_mat_khau.setText("123456");
 
         btn_login.setText("ĐĂNG NHẬP");
         btn_login.addActionListener(new java.awt.event.ActionListener() {

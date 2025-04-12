@@ -6,6 +6,8 @@ package DAO;
 
 import Models.ThongTinDatPhong;
 import Models.ThongTinPhong;
+import Services.AuthKhachHang;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.ArrayList;
 import java.sql.Connection;
@@ -21,14 +23,25 @@ import javax.swing.JOptionPane;
 public class ThongTinDatPhongDAO {
 
     public List<ThongTinDatPhong> getDataPD() {
-        String sql = "SELECT * FROM thong_tin_dat_phong WHERE ngay_tra_phong > '1900-01-01'";
         List<ThongTinDatPhong> list = new ArrayList<>();
+        String sql;
+        boolean locTheoKhachHang = AuthKhachHang.user != null;
+
+        if (locTheoKhachHang) {
+            sql = "SELECT * FROM thong_tin_dat_phong WHERE ngay_tra_phong > '1900-01-01' AND type = 1 AND ma_khach_hang = ?";
+        } else {
+            sql = "SELECT * FROM thong_tin_dat_phong WHERE ngay_tra_phong > '1900-01-01' AND type = 1";
+        }
 
         try {
             Connection conn = DataProvider.dataConnection();
             PreparedStatement preStm = conn.prepareStatement(sql);
-            ResultSet rs = preStm.executeQuery();
 
+            if (locTheoKhachHang) {
+                preStm.setInt(1, AuthKhachHang.maKhachHang());
+            }
+
+            ResultSet rs = preStm.executeQuery();
             while (rs.next()) {
                 ThongTinDatPhong ttdp = new ThongTinDatPhong();
                 ttdp.setMa_dat_phong(rs.getInt("ma_dat_phong"));
@@ -42,6 +55,51 @@ public class ThongTinDatPhongDAO {
                 ttdp.setNgay_tra_phong(rs.getDate("ngay_tra_phong"));
                 list.add(ttdp);
             }
+
+            rs.close();
+            preStm.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    public List<ThongTinDatPhong> getDataPDOld() {
+        List<ThongTinDatPhong> list = new ArrayList<>();
+        String sql;
+        boolean locTheoKhachHang = AuthKhachHang.user != null;
+
+        if (locTheoKhachHang) {
+            sql = "SELECT * FROM thong_tin_dat_phong WHERE ngay_tra_phong > '1900-01-01' AND type = 2 AND ma_khach_hang = ?";
+        } else {
+            sql = "SELECT * FROM thong_tin_dat_phong WHERE ngay_tra_phong > '1900-01-01' AND type = 2";
+        }
+
+        try {
+            Connection conn = DataProvider.dataConnection();
+            PreparedStatement preStm = conn.prepareStatement(sql);
+
+            if (locTheoKhachHang) {
+                preStm.setInt(1, AuthKhachHang.maKhachHang());
+            }
+
+            ResultSet rs = preStm.executeQuery();
+            while (rs.next()) {
+                ThongTinDatPhong ttdp = new ThongTinDatPhong();
+                ttdp.setMa_dat_phong(rs.getInt("ma_dat_phong"));
+                ttdp.setMa_phong(rs.getString("ma_phong"));
+                ttdp.setMa_khach_hang(rs.getInt("ma_khach_hang"));
+                ttdp.setLoai_phong(rs.getString("loai_phong"));
+                ttdp.setNgay_dat_phong(rs.getDate("ngay_dat_phong"));
+                ttdp.setTong_tien(rs.getBigDecimal("tong_tien"));
+                ttdp.setGhi_chu(rs.getString("ghi_chu"));
+                ttdp.setNgay_nhan_phong(rs.getDate("ngay_nhan_phong"));
+                ttdp.setNgay_tra_phong(rs.getDate("ngay_tra_phong"));
+                list.add(ttdp);
+            }
+
             rs.close();
             preStm.close();
             conn.close();
@@ -116,7 +174,7 @@ public class ThongTinDatPhongDAO {
     }
 
     public boolean insert(ThongTinDatPhong ttdp) {
-        String insertSQL = "INSERT INTO thong_tin_dat_phong (ma_phong, ma_khach_hang, loai_phong, ngay_dat_phong, tong_tien, ghi_chu, ngay_nhan_phong, ngay_tra_phong) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String insertSQL = "INSERT INTO thong_tin_dat_phong (ma_phong, ma_khach_hang, loai_phong, ngay_dat_phong, tong_tien, ghi_chu, ngay_nhan_phong, ngay_tra_phong, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String updateSQL = "UPDATE thong_tin_phong SET trang_thai = N'Đã được đặt' WHERE ma_phong = ?";
 
         try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStmInsert = conn.prepareStatement(insertSQL); PreparedStatement preStmUpdate = conn.prepareStatement(updateSQL)) {
@@ -129,6 +187,7 @@ public class ThongTinDatPhongDAO {
             preStmInsert.setString(6, ttdp.getGhi_chu());
             preStmInsert.setDate(7, new java.sql.Date(ttdp.getNgay_nhan_phong().getTime()));
             preStmInsert.setDate(8, new java.sql.Date(ttdp.getNgay_tra_phong().getTime()));
+            preStmInsert.setInt(9, 1); // type = 1 (đặt phòng)
 
             if (preStmInsert.executeUpdate() > 0) {
                 preStmUpdate.setString(1, ttdp.getMa_phong());
@@ -142,23 +201,29 @@ public class ThongTinDatPhongDAO {
     }
 
     public boolean update(ThongTinDatPhong ttdp) {
-        String sql = "UPDATE thong_tin_dat_phong SET ma_phong = ?, ma_khach_hang = ?, loai_phong = ?, ngay_dat_phong = ?, tong_tien = ?, ghi_chu = ?, ngay_nhan_phong = ?, ngay_tra_phong = ? WHERE ma_dat_phong = ?";
+        String updateSQL = "UPDATE thong_tin_dat_phong SET type = 2 WHERE ma_dat_phong = ?";
+        String insertSQL = "INSERT INTO thong_tin_dat_phong (ma_phong, ma_khach_hang, loai_phong, ngay_dat_phong, tong_tien, ghi_chu, ngay_nhan_phong, ngay_tra_phong, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)";
 
-        try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStm = conn.prepareStatement(sql)) {
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStmUpdate = conn.prepareStatement(updateSQL); PreparedStatement preStmInsert = conn.prepareStatement(insertSQL)) {
 
-            preStm.setString(1, ttdp.getMa_phong());
-            preStm.setInt(2, ttdp.getMa_khach_hang());
-            preStm.setString(3, ttdp.getLoai_phong());
+            preStmUpdate.setInt(1, ttdp.getMa_dat_phong());
+            if (preStmUpdate.executeUpdate() <= 0) {
+                return false;
+            }
 
-            preStm.setDate(4, new java.sql.Date(ttdp.getNgay_dat_phong().getTime()));
-            preStm.setBigDecimal(5, ttdp.getTong_tien());
-            preStm.setString(6, ttdp.getGhi_chu());
-            preStm.setDate(7, new java.sql.Date(ttdp.getNgay_nhan_phong().getTime()));
-            preStm.setDate(8, new java.sql.Date(ttdp.getNgay_tra_phong().getTime()));
+            preStmInsert.setString(1, ttdp.getMa_phong());
+            preStmInsert.setInt(2, ttdp.getMa_khach_hang());
+            preStmInsert.setString(3, ttdp.getLoai_phong());
+            preStmInsert.setDate(4, new java.sql.Date(ttdp.getNgay_dat_phong().getTime()));
+            preStmInsert.setBigDecimal(5, ttdp.getTong_tien());
+            preStmInsert.setString(6, ttdp.getGhi_chu());
+            preStmInsert.setDate(7, new java.sql.Date(ttdp.getNgay_nhan_phong().getTime()));
+            preStmInsert.setDate(8, new java.sql.Date(ttdp.getNgay_tra_phong().getTime()));
 
-            preStm.setInt(9, ttdp.getMa_dat_phong());
+            if (preStmInsert.executeUpdate() > 0) {
+                return true;
+            }
 
-            return preStm.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -184,14 +249,15 @@ public class ThongTinDatPhongDAO {
 
     public boolean delete(String maDatPhong) {
         String selectSQL = "SELECT ma_phong FROM thong_tin_dat_phong WHERE ma_dat_phong = ?";
-        String deleteSQL = "DELETE FROM thong_tin_dat_phong WHERE ma_dat_phong = ?";
-        String updateSQL = "UPDATE thong_tin_phong SET trang_thai = N'Trống' WHERE ma_phong = ?";
+        String updatePhongSQL = "UPDATE thong_tin_phong SET trang_thai = N'Trống' WHERE ma_phong = ?";
+        String updateDPTypeSQL = "UPDATE thong_tin_dat_phong SET type = 3 WHERE ma_dat_phong = ?";
 
-        try (Connection conn = DataProvider.dataConnection(); PreparedStatement selectStmt = conn.prepareStatement(selectSQL); PreparedStatement deleteStmt = conn.prepareStatement(deleteSQL); PreparedStatement updateStmt = conn.prepareStatement(updateSQL)) {
-
+        try (
+                Connection conn = DataProvider.dataConnection(); PreparedStatement selectStmt = conn.prepareStatement(selectSQL); PreparedStatement updatePhongStmt = conn.prepareStatement(updatePhongSQL); PreparedStatement updateDPTypeStmt = conn.prepareStatement(updateDPTypeSQL)) {
             String maPhong = null;
             selectStmt.setString(1, maDatPhong);
             ResultSet rs = selectStmt.executeQuery();
+
             if (rs.next()) {
                 maPhong = rs.getString("ma_phong");
             }
@@ -201,17 +267,36 @@ public class ThongTinDatPhongDAO {
                 return false;
             }
 
-            deleteStmt.setString(1, maDatPhong);
-            if (deleteStmt.executeUpdate() > 0) {
-                updateStmt.setString(1, maPhong);
-                updateStmt.executeUpdate();
-                return true;
-            } else {
-                System.out.println("❌ Xóa thất bại: " + maDatPhong);
-            }
+            updatePhongStmt.setString(1, maPhong);
+            updatePhongStmt.executeUpdate();
+
+            updateDPTypeStmt.setString(1, maDatPhong);
+            return updateDPTypeStmt.executeUpdate() > 0;
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "❌ Hóa đơn đã được in. Không thể hủy đặt phòng!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean insertHuyDP(String ma_dat_phong) {
+        String sql = "INSERT INTO dich_vu_ho_tro (ma_khach_hang, ten_dich_vu, noi_dung, trang_thai) VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStm = conn.prepareStatement(sql)) {
+            int ma_khach_hang = AuthKhachHang.maKhachHang();
+            String ten_dich_vu = "HỦY ĐẶT PHÒNG";
+            String noi_dung = "Ad hủy giúp tui phòng này (Mã đặt phòng: " + ma_dat_phong + ")";
+            String trang_thai = "Chưa xử lý";
+
+            preStm.setInt(1, ma_khach_hang);
+            preStm.setString(2, ten_dich_vu);
+            preStm.setString(3, noi_dung);
+            preStm.setString(4, trang_thai);
+
+            return preStm.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return false;
     }
@@ -249,47 +334,5 @@ public class ThongTinDatPhongDAO {
             e.printStackTrace();
         }
         return null;
-    }
-    
-    public ThongTinDatPhong findById(int ma_dat_phong){
-        String sql = "select * from thong_tin_dat_phong where ma_dat_phong = ?";
-        try {
-            Connection con = DataProvider.dataConnection();
-            PreparedStatement pps = con.prepareCall(sql);
-            pps.setInt(1, ma_dat_phong);
-            ResultSet rs = pps.executeQuery();
-            if(rs.next()){
-                ThongTinDatPhong ttdp = new ThongTinDatPhong();
-                ttdp.setMa_dat_phong(rs.getInt("ma_dat_phong"));
-                ttdp.setMa_phong(rs.getString("ma_phong"));
-                ttdp.setMa_khach_hang(rs.getInt("ma_khach_hang"));
-                ttdp.setLoai_phong(rs.getString("loai_phong"));
-                ttdp.setNgay_dat_phong(rs.getDate("ngay_dat_phong"));
-                ttdp.setTong_tien(rs.getBigDecimal("tong_tien"));
-                ttdp.setGhi_chu(rs.getString("ghi_chu"));
-                ttdp.setNgay_nhan_phong(rs.getDate("ngay_nhan_phong"));
-                ttdp.setNgay_tra_phong(rs.getDate("ngay_tra_phong"));
-                return ttdp;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-    
-    public int getMaDP(){
-        String sql = "select MAX(ma_dat_phong) from thong_tin_dat_phong";
-        try {
-            Connection con = DataProvider.dataConnection();
-            PreparedStatement pps = con.prepareCall(sql);
-            ResultSet rs = pps.executeQuery();
-            if(rs.next()){
-                int maDP = rs.getInt(1);
-                return maDP;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
     }
 }

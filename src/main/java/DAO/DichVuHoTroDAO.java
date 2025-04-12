@@ -16,20 +16,22 @@ import java.util.List;
  * @author Admin
  */
 public class DichVuHoTroDAO {
-    public List<DichVuHoTro> findAll(){
-        String sql = "select * from dich_vu_ho_tro";
+
+    public List<DichVuHoTro> findAll() {
+        String sql = "SELECT * FROM dich_vu_ho_tro";
         try {
             Connection con = DataProvider.dataConnection();
             PreparedStatement pps = con.prepareCall(sql);
             List<DichVuHoTro> list = new ArrayList<>();
             ResultSet rs = pps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 DichVuHoTro dv = new DichVuHoTro();
                 dv.setMa_dich_vu(rs.getInt("ma_dich_vu"));
                 dv.setMa_khach_hang(rs.getInt("ma_khach_hang"));
                 dv.setTen_dich_vu(rs.getString("ten_dich_vu"));
                 dv.setNoi_dung(rs.getString("noi_dung"));
                 dv.setTrang_thai(rs.getString("trang_thai"));
+                dv.setPhan_hoi_khach_hang(rs.getString("phan_hoi_khach_hang"));
                 list.add(dv);
             }
             return list;
@@ -38,8 +40,8 @@ public class DichVuHoTroDAO {
         }
         return null;
     }
-    
-    public List<DichVuHoTro> findByKhachHang(int maKhachHang){
+
+    public List<DichVuHoTro> findByKhachHang(int maKhachHang) {
         String sql = "select * from dich_vu_ho_tro where ma_khach_hang = ?";
         try {
             Connection con = DataProvider.dataConnection();
@@ -47,7 +49,7 @@ public class DichVuHoTroDAO {
             pps.setInt(1, maKhachHang);
             List<DichVuHoTro> list = new ArrayList<>();
             ResultSet rs = pps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 DichVuHoTro dv = new DichVuHoTro();
                 dv.setMa_dich_vu(rs.getInt("ma_dich_vu"));
                 dv.setMa_khach_hang(rs.getInt("ma_khach_hang"));
@@ -62,15 +64,15 @@ public class DichVuHoTroDAO {
         }
         return null;
     }
-    
-    public DichVuHoTro findById(int maDichVu){
+
+    public DichVuHoTro findById(int maDichVu) {
         String sql = "select * from dich_vu_ho_tro where ma_dich_vu = ?";
         try {
             Connection con = DataProvider.dataConnection();
             PreparedStatement pps = con.prepareCall(sql);
             pps.setInt(1, maDichVu);
             ResultSet rs = pps.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 DichVuHoTro dv = new DichVuHoTro();
                 dv.setMa_dich_vu(rs.getInt("ma_dich_vu"));
                 dv.setMa_khach_hang(rs.getInt("ma_khach_hang"));
@@ -83,9 +85,10 @@ public class DichVuHoTroDAO {
         }
         return null;
     }
-    
-    public boolean insert(DichVuHoTro dv){
-        String sql = "insert into dich_vu_ho_tro values(?,?,?,?)";
+
+    public boolean insert(DichVuHoTro dv) {
+        String sql = "INSERT INTO dich_vu_ho_tro (ma_khach_hang, ten_dich_vu, noi_dung, trang_thai) VALUES (?, ?, ?, ?)";
+
         try {
             Connection con = DataProvider.dataConnection();
             PreparedStatement pps = con.prepareCall(sql);
@@ -99,18 +102,20 @@ public class DichVuHoTroDAO {
         }
         return false;
     }
-    
-    public boolean updateTrangThai(int maDichVu, String trangThai){
-        String sql = "update dich_vu_ho_tro set trang_thai = ? where ma_dich_vu = ?";
+
+    public boolean updateTrangThai(int maDichVu, String trangThai, String phanHoi) {
+        String sql = "UPDATE dich_vu_ho_tro SET trang_thai = ?, phan_hoi_khach_hang = ? WHERE ma_dich_vu = ?";
         try {
             Connection con = DataProvider.dataConnection();
             PreparedStatement pps = con.prepareCall(sql);
             pps.setString(1, trangThai);
-            pps.setInt(2, maDichVu);
+            pps.setString(2, phanHoi);
+            pps.setInt(3, maDichVu);
             return pps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
+
 }

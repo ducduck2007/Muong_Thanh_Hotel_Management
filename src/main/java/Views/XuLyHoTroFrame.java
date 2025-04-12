@@ -30,7 +30,7 @@ public class XuLyHoTroFrame extends javax.swing.JFrame {
     }
 
     public void initTable() {
-        String[] cols = new String[]{"Mã dịch vụ", "Tên dịch vụ", "Mã khách hàng", "Nội dung", "Trạng thái"};
+        String[] cols = new String[]{"Mã dịch vụ", "Tên dịch vụ", "Mã khách hàng", "Nội dung", "Trạng thái", "Phản hồi khách hàng"};
         tableModel.setColumnIdentifiers(cols);
         tblDichVu.setModel(tableModel);
     }
@@ -40,7 +40,14 @@ public class XuLyHoTroFrame extends javax.swing.JFrame {
         DichVuHoTroDAO dvDao = new DichVuHoTroDAO();
         List<DichVuHoTro> list = dvDao.findAll();
         for (DichVuHoTro dichVuHoTro : list) {
-            tableModel.addRow(new Object[]{dichVuHoTro.getMa_dich_vu(), dichVuHoTro.getMa_khach_hang(), dichVuHoTro.getTen_dich_vu(), dichVuHoTro.getNoi_dung(), dichVuHoTro.getTrang_thai()});
+            tableModel.addRow(new Object[]{
+                dichVuHoTro.getMa_dich_vu(),
+                dichVuHoTro.getTen_dich_vu(),
+                dichVuHoTro.getMa_khach_hang(),
+                dichVuHoTro.getNoi_dung(),
+                dichVuHoTro.getTrang_thai(),
+                dichVuHoTro.getPhan_hoi_khach_hang()
+            });
         }
     }
 
@@ -55,12 +62,14 @@ public class XuLyHoTroFrame extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDichVu = new javax.swing.JTable();
-        cboTrangThai = new javax.swing.JComboBox<>();
         btnCapNhat = new javax.swing.JButton();
         txtMaDichVu = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txt_phan_hoi = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,9 +85,6 @@ public class XuLyHoTroFrame extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(tblDichVu);
-
-        cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đã xử lý", "Chưa xử lý" }));
-        cboTrangThai.setPreferredSize(new java.awt.Dimension(89, 30));
 
         btnCapNhat.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCapNhat.setText("Cập nhật");
@@ -111,6 +117,13 @@ public class XuLyHoTroFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel3.setText("Phản hồi");
+
+        txt_phan_hoi.setColumns(20);
+        txt_phan_hoi.setRows(5);
+        jScrollPane2.setViewportView(txt_phan_hoi);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -123,11 +136,13 @@ public class XuLyHoTroFrame extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jScrollPane1)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel1)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel3))
                             .addGap(101, 101, 101)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(cboTrangThai, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtMaDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtMaDichVu, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING))
                             .addGap(32, 32, 32)
                             .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(156, 156, 156))
@@ -142,12 +157,14 @@ public class XuLyHoTroFrame extends javax.swing.JFrame {
                     .addComponent(txtMaDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(cboTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         pack();
@@ -158,31 +175,37 @@ public class XuLyHoTroFrame extends javax.swing.JFrame {
         if (txtMaDichVu.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập mã dịch vụ", "Cảnh cáo", JOptionPane.WARNING_MESSAGE);
             return;
-        } else {
-            try {
-                int maDichVu = Integer.parseInt(txtMaDichVu.getText());
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Mã dịch vụ chỉ được nhập số", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+        }
+
+        int maDichVu;
+        try {
+            maDichVu = Integer.parseInt(txtMaDichVu.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Mã dịch vụ chỉ được nhập số", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         DichVuHoTroDAO dvDao = new DichVuHoTroDAO();
-        int maDichVu = Integer.parseInt(txtMaDichVu.getText());
         if (dvDao.findById(maDichVu) == null) {
             JOptionPane.showMessageDialog(this, "Không tìm thấy mã dịch vụ", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return;
-        } else {
-            String trangThai = (String) cboTrangThai.getSelectedItem();
+        }
 
-            int choice = JOptionPane.showConfirmDialog(this, "Bạn có cập nhập không ?");
-            if (choice == JOptionPane.YES_OPTION) {
-                if (dvDao.updateTrangThai(maDichVu, trangThai)) {
-                    JOptionPane.showMessageDialog(this, "Cập nhập thành công");
-                    fillTable();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Cập nhập thất bại");
-                }
+        String phanHoi = txt_phan_hoi.getText().trim();
+        if (phanHoi.equals("")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập phản hồi", "Cảnh cáo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String trangThai = "Đã xử lý";
+
+        int choice = JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật không?");
+        if (choice == JOptionPane.YES_OPTION) {
+            if (dvDao.updateTrangThai(maDichVu, trangThai, phanHoi)) {
+                JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+                fillTable();
+            } else {
+                JOptionPane.showMessageDialog(this, "Cập nhật thất bại");
             }
         }
     }//GEN-LAST:event_btnCapNhatActionPerformed
@@ -237,12 +260,14 @@ public class XuLyHoTroFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapNhat;
-    private javax.swing.JComboBox<String> cboTrangThai;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblDichVu;
     private javax.swing.JTextField txtMaDichVu;
+    private javax.swing.JTextArea txt_phan_hoi;
     // End of variables declaration//GEN-END:variables
 }

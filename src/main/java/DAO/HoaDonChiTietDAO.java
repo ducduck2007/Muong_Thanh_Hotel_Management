@@ -27,7 +27,7 @@ public class HoaDonChiTietDAO {
                 + "FROM thong_tin_dat_phong ttp "
                 + "LEFT JOIN khach_hang kh ON ttp.ma_khach_hang = kh.ma_khach_hang "
                 + "LEFT JOIN dich_vu_ho_tro dvht ON ttp.ma_khach_hang = dvht.ma_khach_hang "
-                + "WHERE ttp.ma_khach_hang = ? AND ttp.ngay_dat_phong = ?";
+                + "WHERE ttp.ma_khach_hang = ? AND ttp.ngay_dat_phong = ? AND ttp.type = 1";
 
         try (Connection conn = DataProvider.dataConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -84,9 +84,8 @@ public class HoaDonChiTietDAO {
         String checkSql = "SELECT COUNT(*) FROM hoa_don_chi_tiet WHERE ma_khach_hang = ? AND ma_dat_phong = ?";
         String getTenDichVuSql = "SELECT ten_dich_vu FROM hoa_don_chi_tiet WHERE ma_khach_hang = ? AND ma_dat_phong = ?";
         String insertSql = "INSERT INTO hoa_don_chi_tiet (ma_khach_hang, ten_khach_hang, ma_phong, ma_dat_phong, ma_nhan_vien, "
-                + "ten_dich_vu, loai_phong, tong_tien, ngay_dat_phong, ngay_nhan_phong, ngay_tra_phong) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
+                + "ten_dich_vu, loai_phong, tong_tien, ngay_dat_phong, ngay_nhan_phong, ngay_tra_phong, ma_dich_vu) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String updateSql = "UPDATE hoa_don_chi_tiet SET ten_dich_vu = ? WHERE ma_khach_hang = ? AND ma_dat_phong = ?";
 
         try (Connection conn = DataProvider.dataConnection(); PreparedStatement checkStmt = conn.prepareStatement(checkSql); PreparedStatement getTenDichVuStmt = conn.prepareStatement(getTenDichVuSql); PreparedStatement insertStmt = conn.prepareStatement(insertSql); PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
@@ -106,11 +105,9 @@ public class HoaDonChiTietDAO {
 
                     if (tenDVcu == null || tenDVcu.trim().isEmpty()) {
                         updateStmt.setString(1, tenMoi);
-                    }
-                    else if (!tenDVcu.contains(tenMoi)) {
+                    } else if (!tenDVcu.contains(tenMoi)) {
                         updateStmt.setString(1, tenDVcu + ":" + tenMoi);
-                    }
-                    else {
+                    } else {
                         return;
                     }
 
@@ -120,6 +117,7 @@ public class HoaDonChiTietDAO {
                 }
 
             } else {
+
                 insertStmt.setInt(1, hoaDon.getMa_khach_hang());
                 insertStmt.setString(2, hoaDon.getTen_khach_hang());
                 insertStmt.setString(3, hoaDon.getMa_phong());
@@ -131,6 +129,7 @@ public class HoaDonChiTietDAO {
                 insertStmt.setDate(9, new java.sql.Date(hoaDon.getNgay_dat_phong().getTime()));
                 insertStmt.setDate(10, new java.sql.Date(hoaDon.getNgay_nhan_phong().getTime()));
                 insertStmt.setDate(11, new java.sql.Date(hoaDon.getNgay_tra_phong().getTime()));
+                insertStmt.setInt(12, hoaDon.getMa_dich_vu());
 
                 int affectedRows = insertStmt.executeUpdate();
                 if (affectedRows > 0) {

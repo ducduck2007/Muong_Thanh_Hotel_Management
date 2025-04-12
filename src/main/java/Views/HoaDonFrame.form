@@ -49,11 +49,11 @@
                                   <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txt_tong_tien" pref="590" max="32767" attributes="0"/>
-                                  <Component id="txt_so_dt" max="32767" attributes="0"/>
-                                  <Component id="txt_ma_phong" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txt_so_dt" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="txt_tong_tien" max="32767" attributes="0"/>
+                                  <Component id="txt_ma_phong" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>

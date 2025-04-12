@@ -73,44 +73,47 @@ public class HoaDonChiTietFrame extends javax.swing.JFrame {
     }
 
     public void onLoad() {
-        System.out.println("==== DEBUG: onLoad() ====");
-        System.out.println("Input -> maKhachHang: " + maKhachHang + ", ngayDatPhong: " + ngayDatPhong + ", maNhanVien: " + maNhanVien);
+    System.out.println("==== DEBUG: onLoad() ====");
+    System.out.println("Input -> maKhachHang: " + maKhachHang + ", ngayDatPhong: " + ngayDatPhong + ", maNhanVien: " + maNhanVien);
 
-        if (maKhachHang == null || maKhachHang.isEmpty() || ngayDatPhong == null || ngayDatPhong.isEmpty() || maNhanVien == null || maNhanVien.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "⚠ Lỗi: Không đủ thông tin để load hóa đơn chi tiết!", "Lỗi thiếu dữ liệu", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        HoaDonChiTietDAO hdctDAO = new HoaDonChiTietDAO();
-        List<HoaDonChiTiet> danhSach = hdctDAO.getThongTinDatPhong(maKhachHang, ngayDatPhong, maNhanVien);
-
-        if (danhSach.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "⚠ Không tìm thấy thông tin đặt phòng!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "✅ Tìm thấy " + danhSach.size() + " hóa đơn đặt phòng!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-
-            System.out.println("✅ Tìm thấy " + danhSach.size() + " hóa đơn đặt phòng:");
-            for (HoaDonChiTiet hd : danhSach) {
-                System.out.println("----------------------------");
-                System.out.println("ma_khach_hang  : " + hd.getMa_khach_hang());
-                System.out.println("ten_khach_hang  : " + hd.getTen_khach_hang());
-                System.out.println("ma_phong       : " + hd.getMa_phong());
-                System.out.println("ma_dat_phong   : " + hd.getMa_dat_phong());
-                System.out.println("ma_nhan_vien   : " + hd.getMa_nhan_vien());
-                System.out.println("ma_dich_vu     : " + hd.getMa_dich_vu());
-                System.out.println("ten_dich_vu    : " + hd.getTen_dich_vu());
-                System.out.println("loai_phong     : " + hd.getLoai_phong());
-                System.out.println("tong_tien      : " + hd.getTong_tien());
-                System.out.println("ngay_dat_phong : " + hd.getNgay_dat_phong());
-                System.out.println("ngay_nhan_phong: " + hd.getNgay_nhan_phong());
-                System.out.println("ngay_tra_phong : " + hd.getNgay_tra_phong());
-                System.out.println("----------------------------");
-
-                hdctDAO.insertHoaDonChiTiet(hd);
-            }
-            fillTable();
-        }
+    // Kiểm tra thông tin đầu vào
+    if (maKhachHang == null || maKhachHang.isEmpty() || ngayDatPhong == null || ngayDatPhong.isEmpty() || maNhanVien == null || maNhanVien.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "⚠ Lỗi: Không đủ thông tin để load hóa đơn chi tiết!", "Lỗi thiếu dữ liệu", JOptionPane.ERROR_MESSAGE);
+        return;
     }
+
+    HoaDonChiTietDAO hdctDAO = new HoaDonChiTietDAO();
+    List<HoaDonChiTiet> danhSach = hdctDAO.getThongTinDatPhong(maKhachHang, ngayDatPhong, maNhanVien);
+
+    // Kiểm tra nếu danh sách không có dữ liệu
+    if (danhSach.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "⚠ Không tìm thấy thông tin đặt phòng!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+    } else {
+        JOptionPane.showMessageDialog(null, "✅ Tìm thấy " + danhSach.size() + " hóa đơn đặt phòng!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+
+        System.out.println("✅ Tìm thấy " + danhSach.size() + " hóa đơn đặt phòng:");
+        for (HoaDonChiTiet hd : danhSach) {
+            System.out.println("----------------------------");
+            System.out.println("ma_khach_hang  : " + hd.getMa_khach_hang());
+            System.out.println("ten_khach_hang  : " + hd.getTen_khach_hang());
+            System.out.println("ma_phong       : " + hd.getMa_phong());
+            System.out.println("ma_dat_phong   : " + hd.getMa_dat_phong());
+            System.out.println("ma_nhan_vien   : " + hd.getMa_nhan_vien());
+            System.out.println("ma_dich_vu     : " + hd.getMa_dich_vu());
+            System.out.println("ten_dich_vu    : " + hd.getTen_dich_vu());
+            System.out.println("loai_phong     : " + hd.getLoai_phong());
+            System.out.println("tong_tien      : " + hd.getTong_tien());
+            System.out.println("ngay_dat_phong : " + hd.getNgay_dat_phong());
+            System.out.println("ngay_nhan_phong: " + hd.getNgay_nhan_phong());
+            System.out.println("ngay_tra_phong : " + hd.getNgay_tra_phong());
+            System.out.println("----------------------------");
+
+            // Chèn hóa đơn chi tiết vào database
+            hdctDAO.insertHoaDonChiTiet(hd);
+        }
+        fillTable();  // Cập nhật bảng với thông tin mới
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.

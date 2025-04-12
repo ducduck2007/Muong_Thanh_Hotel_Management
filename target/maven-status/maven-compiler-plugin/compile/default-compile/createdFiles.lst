@@ -83,6 +83,7 @@ Views\KhachHangFrame$3.class
 Views\SystemFrame$5.class
 Views\ThietLapGiaFrame$6.class
 Views\DichVuFrame$4.class
+Views\DataOldTTDP.class
 DAO\HoaDonChiTietDAO.class
 Views\ChangePasswordFrame$2.class
 Views\KhachHangFrame$4.class
@@ -100,7 +101,6 @@ Views\DichVuFrame$5.class
 Views\QuanLyNhanVienFrame$8.class
 Views\LienHeKhachHangFrame$2.class
 Views\ClientFrame$6.class
-Views\ThongTinDatPhongFrame$12.class
 Views\QuanLyNhanVienFrame$6.class
 Views\ThongTinPhongFrame$4.class
 Views\QuenMatKhau$3.class
@@ -110,6 +110,7 @@ Views\ThongTinDatPhongFrame$6.class
 Views\HoaDonFrame$11.class
 Views\QuanLyNhanVienFrame.class
 Views\LichLamViecFrame$4.class
+Views\DataOldTTDP$1.class
 Views\SystemFrame$7.class
 Views\LoginSystem$1.class
 Models\HoaDonChiTiet.class
