@@ -29,8 +29,6 @@ public class SystemFrame extends javax.swing.JFrame {
         initComponents();
         CaLamViecCheck.checkGioLamViec();
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -340,11 +338,16 @@ public class SystemFrame extends javax.swing.JFrame {
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
         // TODO add your handling code here:
-        this.dispose();
-        QuanLyNhanVienFrame qlnvFrame = new QuanLyNhanVienFrame();
-        qlnvFrame.setLocationRelativeTo(null);
-        qlnvFrame.setVisible(true);
-        return;
+        if (AuthNhanVien.isManager() == 1) {
+            this.dispose();
+            QuanLyNhanVienFrame qlnvFrame = new QuanLyNhanVienFrame();
+            qlnvFrame.setLocationRelativeTo(null);
+            qlnvFrame.setVisible(true);
+            return;
+        } else {
+            JOptionPane.showMessageDialog(null, "Bạn không có quyền vào mục này", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
     }//GEN-LAST:event_jLabel8MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
