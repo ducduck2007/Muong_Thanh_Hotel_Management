@@ -51,7 +51,7 @@ public class CaLamViecCheck {
                         timer.cancel();
 
                         SwingUtilities.invokeLater(() -> {
-                            JOptionPane.showMessageDialog(null, "Bạn bị thoát vì bạn đang làm quá giờ làm của mình");
+//                            JOptionPane.showMessageDialog(null, "Bạn bị thoát vì bạn đang làm quá giờ làm của mình");
                             LoginSystem lsFrame = new LoginSystem();
                             lsFrame.setLocationRelativeTo(null);
                             lsFrame.setVisible(true);

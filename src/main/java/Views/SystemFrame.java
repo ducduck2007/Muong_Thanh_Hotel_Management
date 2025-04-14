@@ -470,21 +470,21 @@ public class SystemFrame extends javax.swing.JFrame {
                 if (lichLamViec.getCaLamViec().equals("Ca 1: 06h00 - 14h00") && (timeInt < 600 || timeInt >= 1400)) {
                     JOptionPane.showMessageDialog(this, "Bạn không được truy cập vì chưa đến giờ làm việc của bạn");
                     this.dispose();
-                    LoginSystem lsFrame = new LoginSystem();
-                    lsFrame.setLocationRelativeTo(null);
-                    lsFrame.setVisible(true);
+//                    LoginSystem lsFrame = new LoginSystem();
+//                    lsFrame.setLocationRelativeTo(null);
+//                    lsFrame.setVisible(true);
                 } else if (lichLamViec.getCaLamViec().equals("Ca 2: 14h00 - 22h00") && (timeInt < 1400 || timeInt >= 2200)) {
                     JOptionPane.showMessageDialog(this, "Bạn không được truy cập vì chưa đến giờ làm việc của bạn");
                     this.dispose();
-                    LoginSystem lsFrame = new LoginSystem();
-                    lsFrame.setLocationRelativeTo(null);
-                    lsFrame.setVisible(true);
+//                    LoginSystem lsFrame = new LoginSystem();
+//                    lsFrame.setLocationRelativeTo(null);
+//                    lsFrame.setVisible(true);
                 } else if (lichLamViec.getCaLamViec().equals("Ca 3: 22h00 - 06h00") && !(timeInt >= 2200 || timeInt < 600)) {
                     JOptionPane.showMessageDialog(this, "Bạn không được truy cập vì chưa đến giờ làm việc của bạn");
                     this.dispose();
-                    LoginSystem lsFrame = new LoginSystem();
-                    lsFrame.setLocationRelativeTo(null);
-                    lsFrame.setVisible(true);
+//                    LoginSystem lsFrame = new LoginSystem();
+//                    lsFrame.setLocationRelativeTo(null);
+//                    lsFrame.setVisible(true);
                 }
             }
         }
