@@ -807,6 +807,11 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
                 return;
             }
 
+            if (!ttdpDAO.daDatPhong(ma_khach_hang)) {
+                JOptionPane.showMessageDialog(null, "Khách hàng này chưa từng đặt phòng, không thể gửi yêu cầu hủy!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
             try {
                 if (!ttdpDAO.exists(ma_dat_phong)) {
                     JOptionPane.showMessageDialog(null, "❌ Mã đặt phòng không tồn tại!", "Lỗi", JOptionPane.ERROR_MESSAGE);

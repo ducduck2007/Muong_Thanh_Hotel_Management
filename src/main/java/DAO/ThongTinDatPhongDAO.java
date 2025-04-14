@@ -335,4 +335,19 @@ public class ThongTinDatPhongDAO {
         }
         return null;
     }
+
+    public boolean daDatPhong(String maKhachHang) {
+        String sql = "SELECT COUNT(*) FROM thong_tin_dat_phong WHERE ma_khach_hang = ? AND type = 1";
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, maKhachHang);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }
