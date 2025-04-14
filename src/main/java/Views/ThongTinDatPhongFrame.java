@@ -392,9 +392,9 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel11.setText("Từng bóng hình em");
+        jLabel11.setText("Dữ liệu mới:");
 
-        jLabel12.setText("Dữ liệu đẹp anh khó thể xóa");
+        jLabel12.setText("Dữ liệu cập nhập:");
 
         tbl_ds_phong_dat_old.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

@@ -459,12 +459,12 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel11">
               <Properties>
-                <Property name="text" type="java.lang.String" value="T&#x1eeb;ng b&#xf3;ng h&#xec;nh em"/>
+                <Property name="text" type="java.lang.String" value="D&#x1eef; li&#x1ec7;u m&#x1edb;i:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel12">
               <Properties>
-                <Property name="text" type="java.lang.String" value="D&#x1eef; li&#x1ec7;u &#x111;&#x1eb9;p anh kh&#xf3; th&#x1ec3; x&#xf3;a"/>
+                <Property name="text" type="java.lang.String" value="D&#x1eef; li&#x1ec7;u c&#x1ead;p nh&#x1ead;p:"/>
               </Properties>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane5">
