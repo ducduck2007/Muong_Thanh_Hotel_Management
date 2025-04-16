@@ -181,11 +181,19 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
             }
 
             ChangePasswordDAO cpDAO = new ChangePasswordDAO();
-
             String matKhauHienTai = cpDAO.getMatKhauKH(emailKH);
+
             if (!BCrypt.checkpw(mkKHcuStr, matKhauHienTai)) {
                 JOptionPane.showMessageDialog(this,
                         "❌ Mật khẩu cũ không đúng!",
+                        "Lỗi",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (BCrypt.checkpw(mkKHmoiStr, matKhauHienTai)) {
+                JOptionPane.showMessageDialog(this,
+                        "❌ Mật khẩu mới không được trùng với mật khẩu cũ!",
                         "Lỗi",
                         JOptionPane.ERROR_MESSAGE);
                 return;
@@ -200,7 +208,6 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
             }
 
             String matKhauMớiDaMãHóa = BCrypt.hashpw(mkKHmoiStr, BCrypt.gensalt(12));
-
             ChangePassword cp = new ChangePassword();
             cp.setEmailKH(emailKH);
             cp.setMkKH(matKhauMớiDaMãHóa);
@@ -242,11 +249,19 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
             }
 
             ChangePasswordDAO cpDAO = new ChangePasswordDAO();
-
             String matKhauHienTai = cpDAO.getMatKhauNV(emailKH);
+
             if (!BCrypt.checkpw(mkKHcuStr, matKhauHienTai)) {
                 JOptionPane.showMessageDialog(this,
                         "❌ Mật khẩu cũ không đúng!",
+                        "Lỗi",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (BCrypt.checkpw(mkKHmoiStr, matKhauHienTai)) {
+                JOptionPane.showMessageDialog(this,
+                        "❌ Mật khẩu mới không được trùng với mật khẩu cũ!",
                         "Lỗi",
                         JOptionPane.ERROR_MESSAGE);
                 return;
@@ -261,7 +276,6 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
             }
 
             String matKhauMớiDaMãHóa = BCrypt.hashpw(mkKHmoiStr, BCrypt.gensalt(12));
-
             ChangePassword cp = new ChangePassword();
             cp.setEmailNV(emailKH);
             cp.setMkNV(matKhauMớiDaMãHóa);
