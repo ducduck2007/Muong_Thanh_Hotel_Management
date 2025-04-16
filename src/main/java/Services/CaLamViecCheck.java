@@ -64,6 +64,8 @@ public class CaLamViecCheck {
                     }
                 } else if (AuthNhanVien.isManager() == 0) {
                     System.out.println(":D");
+                } else if (AuthKhachHang.user != null ) {
+                    System.out.println(":(");
                 } else {
                     timer.cancel();
                 }
