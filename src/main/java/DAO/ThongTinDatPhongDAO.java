@@ -66,6 +66,50 @@ public class ThongTinDatPhongDAO {
         return list;
     }
 
+    public List<ThongTinDatPhong> getDataPH() {
+        List<ThongTinDatPhong> list = new ArrayList<>();
+        String sql;
+        boolean locTheoKhachHang = AuthKhachHang.user != null;
+
+        if (locTheoKhachHang) {
+            sql = "SELECT * FROM thong_tin_dat_phong WHERE ngay_tra_phong > '1900-01-01' AND type = 3 AND ma_khach_hang = ?";
+        } else {
+            sql = "SELECT * FROM thong_tin_dat_phong WHERE ngay_tra_phong > '1900-01-01' AND type = 3";
+        }
+
+        try {
+            Connection conn = DataProvider.dataConnection();
+            PreparedStatement preStm = conn.prepareStatement(sql);
+
+            if (locTheoKhachHang) {
+                preStm.setInt(1, AuthKhachHang.maKhachHang());
+            }
+
+            ResultSet rs = preStm.executeQuery();
+            while (rs.next()) {
+                ThongTinDatPhong ttdp = new ThongTinDatPhong();
+                ttdp.setMa_dat_phong(rs.getInt("ma_dat_phong"));
+                ttdp.setMa_phong(rs.getString("ma_phong"));
+                ttdp.setMa_khach_hang(rs.getInt("ma_khach_hang"));
+                ttdp.setLoai_phong(rs.getString("loai_phong"));
+                ttdp.setNgay_dat_phong(rs.getDate("ngay_dat_phong"));
+                ttdp.setTong_tien(rs.getBigDecimal("tong_tien"));
+                ttdp.setGhi_chu(rs.getString("ghi_chu"));
+                ttdp.setNgay_nhan_phong(rs.getDate("ngay_nhan_phong"));
+                ttdp.setNgay_tra_phong(rs.getDate("ngay_tra_phong"));
+                list.add(ttdp);
+            }
+
+            rs.close();
+            preStm.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
     public List<ThongTinDatPhong> getDataPDOld() {
         List<ThongTinDatPhong> list = new ArrayList<>();
         String sql;
@@ -200,11 +244,49 @@ public class ThongTinDatPhongDAO {
         return false;
     }
 
-    public boolean update(ThongTinDatPhong ttdp) {
+    public Boolean update(ThongTinDatPhong ttdp) {
+        String selectSQL = "SELECT * FROM thong_tin_dat_phong WHERE ma_dat_phong = ?";
         String updateSQL = "UPDATE thong_tin_dat_phong SET type = 2 WHERE ma_dat_phong = ?";
         String insertSQL = "INSERT INTO thong_tin_dat_phong (ma_phong, ma_khach_hang, loai_phong, ngay_dat_phong, tong_tien, ghi_chu, ngay_nhan_phong, ngay_tra_phong, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)";
 
-        try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStmUpdate = conn.prepareStatement(updateSQL); PreparedStatement preStmInsert = conn.prepareStatement(insertSQL)) {
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStmSelect = conn.prepareStatement(selectSQL); PreparedStatement preStmUpdate = conn.prepareStatement(updateSQL); PreparedStatement preStmInsert = conn.prepareStatement(insertSQL)) {
+
+            preStmSelect.setInt(1, ttdp.getMa_dat_phong());
+            ResultSet rs = preStmSelect.executeQuery();
+
+            if (rs.next()) {
+                boolean isSame = true;
+
+                if (!ttdp.getMa_phong().equals(rs.getString("ma_phong"))) {
+                    isSame = false;
+                }
+                if (ttdp.getMa_khach_hang() != rs.getInt("ma_khach_hang")) {
+                    isSame = false;
+                }
+                if (!ttdp.getLoai_phong().equals(rs.getString("loai_phong"))) {
+                    isSame = false;
+                }
+                if (!ttdp.getNgay_dat_phong().equals(rs.getDate("ngay_dat_phong"))) {
+                    isSame = false;
+                }
+                if (ttdp.getTong_tien().compareTo(rs.getBigDecimal("tong_tien")) != 0) {
+                    isSame = false;
+                }
+                if ((ttdp.getGhi_chu() == null && rs.getString("ghi_chu") != null)
+                        || (ttdp.getGhi_chu() != null && !ttdp.getGhi_chu().equals(rs.getString("ghi_chu")))) {
+                    isSame = false;
+                }
+                if (!ttdp.getNgay_nhan_phong().equals(rs.getDate("ngay_nhan_phong"))) {
+                    isSame = false;
+                }
+                if (!ttdp.getNgay_tra_phong().equals(rs.getDate("ngay_tra_phong"))) {
+                    isSame = false;
+                }
+
+                if (isSame) {
+                    return null; // không có gì thay đổi
+                }
+            }
 
             preStmUpdate.setInt(1, ttdp.getMa_dat_phong());
             if (preStmUpdate.executeUpdate() <= 0) {
@@ -220,9 +302,7 @@ public class ThongTinDatPhongDAO {
             preStmInsert.setDate(7, new java.sql.Date(ttdp.getNgay_nhan_phong().getTime()));
             preStmInsert.setDate(8, new java.sql.Date(ttdp.getNgay_tra_phong().getTime()));
 
-            if (preStmInsert.executeUpdate() > 0) {
-                return true;
-            }
+            return preStmInsert.executeUpdate() > 0;
 
         } catch (Exception e) {
             e.printStackTrace();

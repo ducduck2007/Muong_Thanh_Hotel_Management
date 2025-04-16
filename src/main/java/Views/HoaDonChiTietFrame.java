@@ -6,6 +6,9 @@ package Views;
 
 import DAO.HoaDonChiTietDAO;
 import Models.HoaDonChiTiet;
+import Services.AuthNhanVien;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -28,6 +31,14 @@ public class HoaDonChiTietFrame extends javax.swing.JFrame {
         initComponents();
         initTable();
         fillTable();
+
+        if (AuthNhanVien.user == null) {
+            return;
+        } else {
+            javax.swing.Timer timer = new javax.swing.Timer(1500, e -> onLoad());
+            timer.setRepeats(false);
+            timer.start();
+        }
     }
 
     public void initTable() {
@@ -73,47 +84,47 @@ public class HoaDonChiTietFrame extends javax.swing.JFrame {
     }
 
     public void onLoad() {
-    System.out.println("==== DEBUG: onLoad() ====");
-    System.out.println("Input -> maKhachHang: " + maKhachHang + ", ngayDatPhong: " + ngayDatPhong + ", maNhanVien: " + maNhanVien);
+        System.out.println("==== DEBUG: onLoad() ====");
+        System.out.println("Input -> maKhachHang: " + maKhachHang + ", ngayDatPhong: " + ngayDatPhong + ", maNhanVien: " + maNhanVien);
 
-    // Kiểm tra thông tin đầu vào
-    if (maKhachHang == null || maKhachHang.isEmpty() || ngayDatPhong == null || ngayDatPhong.isEmpty() || maNhanVien == null || maNhanVien.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "⚠ Lỗi: Không đủ thông tin để load hóa đơn chi tiết!", "Lỗi thiếu dữ liệu", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    HoaDonChiTietDAO hdctDAO = new HoaDonChiTietDAO();
-    List<HoaDonChiTiet> danhSach = hdctDAO.getThongTinDatPhong(maKhachHang, ngayDatPhong, maNhanVien);
-
-    // Kiểm tra nếu danh sách không có dữ liệu
-    if (danhSach.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "⚠ Không tìm thấy thông tin đặt phòng!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-    } else {
-        JOptionPane.showMessageDialog(null, "✅ Tìm thấy " + danhSach.size() + " hóa đơn đặt phòng!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-
-        System.out.println("✅ Tìm thấy " + danhSach.size() + " hóa đơn đặt phòng:");
-        for (HoaDonChiTiet hd : danhSach) {
-            System.out.println("----------------------------");
-            System.out.println("ma_khach_hang  : " + hd.getMa_khach_hang());
-            System.out.println("ten_khach_hang  : " + hd.getTen_khach_hang());
-            System.out.println("ma_phong       : " + hd.getMa_phong());
-            System.out.println("ma_dat_phong   : " + hd.getMa_dat_phong());
-            System.out.println("ma_nhan_vien   : " + hd.getMa_nhan_vien());
-            System.out.println("ma_dich_vu     : " + hd.getMa_dich_vu());
-            System.out.println("ten_dich_vu    : " + hd.getTen_dich_vu());
-            System.out.println("loai_phong     : " + hd.getLoai_phong());
-            System.out.println("tong_tien      : " + hd.getTong_tien());
-            System.out.println("ngay_dat_phong : " + hd.getNgay_dat_phong());
-            System.out.println("ngay_nhan_phong: " + hd.getNgay_nhan_phong());
-            System.out.println("ngay_tra_phong : " + hd.getNgay_tra_phong());
-            System.out.println("----------------------------");
-
-            // Chèn hóa đơn chi tiết vào database
-            hdctDAO.insertHoaDonChiTiet(hd);
+        // Kiểm tra thông tin đầu vào
+        if (maKhachHang == null || maKhachHang.isEmpty() || ngayDatPhong == null || ngayDatPhong.isEmpty() || maNhanVien == null || maNhanVien.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "⚠ Lỗi: Không đủ thông tin để load hóa đơn chi tiết!", "Lỗi thiếu dữ liệu", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        fillTable();  // Cập nhật bảng với thông tin mới
+
+        HoaDonChiTietDAO hdctDAO = new HoaDonChiTietDAO();
+        List<HoaDonChiTiet> danhSach = hdctDAO.getThongTinDatPhong(maKhachHang, ngayDatPhong, maNhanVien);
+
+        // Kiểm tra nếu danh sách không có dữ liệu
+        if (danhSach.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "⚠ Không tìm thấy thông tin đặt phòng!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "✅ Tìm thấy " + danhSach.size() + " hóa đơn đặt phòng!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+
+            System.out.println("✅ Tìm thấy " + danhSach.size() + " hóa đơn đặt phòng:");
+            for (HoaDonChiTiet hd : danhSach) {
+                System.out.println("----------------------------");
+                System.out.println("ma_khach_hang  : " + hd.getMa_khach_hang());
+                System.out.println("ten_khach_hang  : " + hd.getTen_khach_hang());
+                System.out.println("ma_phong       : " + hd.getMa_phong());
+                System.out.println("ma_dat_phong   : " + hd.getMa_dat_phong());
+                System.out.println("ma_nhan_vien   : " + hd.getMa_nhan_vien());
+                System.out.println("ma_dich_vu     : " + hd.getMa_dich_vu());
+                System.out.println("ten_dich_vu    : " + hd.getTen_dich_vu());
+                System.out.println("loai_phong     : " + hd.getLoai_phong());
+                System.out.println("tong_tien      : " + hd.getTong_tien());
+                System.out.println("ngay_dat_phong : " + hd.getNgay_dat_phong());
+                System.out.println("ngay_nhan_phong: " + hd.getNgay_nhan_phong());
+                System.out.println("ngay_tra_phong : " + hd.getNgay_tra_phong());
+                System.out.println("----------------------------");
+
+                // Chèn hóa đơn chi tiết vào database
+                hdctDAO.insertHoaDonChiTiet(hd);
+            }
+            fillTable();  // Cập nhật bảng với thông tin mới
+        }
     }
-}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -128,7 +139,6 @@ public class HoaDonChiTietFrame extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_hdct = new javax.swing.JTable();
-        btnLoad = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -145,14 +155,6 @@ public class HoaDonChiTietFrame extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(tbl_hdct);
-
-        btnLoad.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        btnLoad.setText("Cập nhật");
-        btnLoad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoadActionPerformed(evt);
-            }
-        });
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quay_lai.png"))); // NOI18N
@@ -175,18 +177,13 @@ public class HoaDonChiTietFrame extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnLoad, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnLoad, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -206,11 +203,6 @@ public class HoaDonChiTietFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadActionPerformed
-        // TODO add your handling code here:
-        onLoad();
-    }//GEN-LAST:event_btnLoadActionPerformed
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
         // TODO add your handling code here:
@@ -257,7 +249,6 @@ public class HoaDonChiTietFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLoad;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

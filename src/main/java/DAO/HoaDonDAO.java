@@ -5,6 +5,7 @@
 package DAO;
 
 import Models.HoaDon;
+import Services.AuthKhachHang;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,20 +19,39 @@ import java.util.List;
 public class HoaDonDAO {
 
     public List<HoaDon> getData() {
-        String sql = "SELECT kh.ma_khach_hang, kh.so_dien_thoai, dp.ngay_dat_phong, "
-                + "SUM(dp.tong_tien) AS tong_tien, "
-                + "STRING_AGG(dp.ma_phong, ', ') AS danh_sach_phong "
-                + "FROM thong_tin_dat_phong dp "
-                + "JOIN khach_hang kh ON dp.ma_khach_hang = kh.ma_khach_hang "
-                + "WHERE dp.ngay_tra_phong > '1900-01-01' AND dp.type = 1 "
-                + "GROUP BY kh.ma_khach_hang, kh.so_dien_thoai, dp.ngay_dat_phong "
-                + "ORDER BY dp.ngay_dat_phong DESC, kh.ma_khach_hang";
+        String sql;
+        boolean locTheoKhachHang = AuthKhachHang.user != null;
+
+        if (locTheoKhachHang) {
+            sql = "SELECT kh.ma_khach_hang, kh.so_dien_thoai, dp.ngay_dat_phong, "
+                    + "SUM(dp.tong_tien) AS tong_tien, "
+                    + "STRING_AGG(dp.ma_phong, ', ') AS danh_sach_phong "
+                    + "FROM thong_tin_dat_phong dp "
+                    + "JOIN khach_hang kh ON dp.ma_khach_hang = kh.ma_khach_hang "
+                    + "WHERE dp.ngay_tra_phong > '1900-01-01' AND dp.type = 1 AND kh.ma_khach_hang = ? "
+                    + "GROUP BY kh.ma_khach_hang, kh.so_dien_thoai, dp.ngay_dat_phong "
+                    + "ORDER BY dp.ngay_dat_phong DESC, kh.ma_khach_hang";
+        } else {
+            sql = "SELECT kh.ma_khach_hang, kh.so_dien_thoai, dp.ngay_dat_phong, "
+                    + "SUM(dp.tong_tien) AS tong_tien, "
+                    + "STRING_AGG(dp.ma_phong, ', ') AS danh_sach_phong "
+                    + "FROM thong_tin_dat_phong dp "
+                    + "JOIN khach_hang kh ON dp.ma_khach_hang = kh.ma_khach_hang "
+                    + "WHERE dp.ngay_tra_phong > '1900-01-01' AND dp.type = 1 "
+                    + "GROUP BY kh.ma_khach_hang, kh.so_dien_thoai, dp.ngay_dat_phong "
+                    + "ORDER BY dp.ngay_dat_phong DESC, kh.ma_khach_hang";
+        }
 
         List<HoaDon> list = new ArrayList<>();
 
         try {
             Connection conn = DataProvider.dataConnection();
             PreparedStatement preStm = conn.prepareStatement(sql);
+
+            if (locTheoKhachHang) {
+                preStm.setInt(1, AuthKhachHang.maKhachHang());
+            }
+
             ResultSet rs = preStm.executeQuery();
 
             while (rs.next()) {

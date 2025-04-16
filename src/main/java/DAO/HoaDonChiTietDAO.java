@@ -5,6 +5,7 @@
 package DAO;
 
 import Models.HoaDonChiTiet;
+import Services.AuthKhachHang;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -145,12 +146,23 @@ public class HoaDonChiTietDAO {
     }
 
     public List<HoaDonChiTiet> getData() {
-        String sql = "SELECT * FROM hoa_don_chi_tiet";
+        String sql;
+        boolean locTheoKhachHang = AuthKhachHang.user != null;
+
+        if (locTheoKhachHang) {
+            sql = "SELECT * FROM hoa_don_chi_tiet WHERE ma_khach_hang = ?";
+        } else {
+            sql = "SELECT * FROM hoa_don_chi_tiet";
+        }
+
         List<HoaDonChiTiet> list = new ArrayList<>();
 
-        try {
-            Connection conn = DataProvider.dataConnection();
-            PreparedStatement preStm = conn.prepareStatement(sql);
+        try (
+                Connection conn = DataProvider.dataConnection(); PreparedStatement preStm = conn.prepareStatement(sql)) {
+            if (locTheoKhachHang) {
+                preStm.setInt(1, AuthKhachHang.user.getMa_khach_hang());
+            }
+
             ResultSet rs = preStm.executeQuery();
 
             while (rs.next()) {
@@ -169,9 +181,8 @@ public class HoaDonChiTietDAO {
                 ttp.setNgay_tra_phong(rs.getDate("ngay_tra_phong"));
                 list.add(ttp);
             }
+
             rs.close();
-            preStm.close();
-            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

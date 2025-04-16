@@ -46,11 +46,12 @@ public class LienHeKhachHangFrame extends javax.swing.JFrame {
         txt_so_dien_thoai = new javax.swing.JTextField();
         btn_xac_nhan = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
+        btn_xac_nhan1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("Số điện thoại");
 
         txt_so_dien_thoai.setPreferredSize(new java.awt.Dimension(64, 30));
@@ -69,35 +70,45 @@ public class LienHeKhachHangFrame extends javax.swing.JFrame {
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Hãy cho chúng tôi biết thông tin liên lạc của bạn");
 
+        btn_xac_nhan1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_xac_nhan1.setText("Hủy");
+        btn_xac_nhan1.setPreferredSize(new java.awt.Dimension(80, 30));
+        btn_xac_nhan1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_xac_nhan1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 1280, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(379, 379, 379)
-                .addComponent(txt_so_dien_thoai, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btn_xac_nhan, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_xac_nhan1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_so_dien_thoai, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_xac_nhan, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(585, 585, 585))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(214, 214, 214)
+                .addGap(177, 177, 177)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txt_so_dien_thoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btn_xac_nhan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(292, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_xac_nhan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_xac_nhan1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(329, Short.MAX_VALUE))
         );
 
         pack();
@@ -142,6 +153,36 @@ public class LienHeKhachHangFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_xac_nhanActionPerformed
 
+    private void btn_xac_nhan1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xac_nhan1ActionPerformed
+        // TODO add your handling code here:
+        String so_dien_thoai = txt_so_dien_thoai.getText().trim();
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+
+        KhachHang kh = new KhachHang();
+        KhachHangDAO khDAO = new KhachHangDAO();
+
+        kh.setTen_khach_hang(username);
+        kh.setEmail(email);
+        kh.setMat_khau(hashedPassword);
+        kh.setSo_dien_thoai(so_dien_thoai);
+
+        if (khDAO.insertKH(kh)) {
+            JOptionPane.showMessageDialog(this,
+                    "✅ Đăng ký tài khoản thành công! Xin mời quý khách đăng nhập.",
+                    "Thành công",
+                    JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+            FormDangKyNew lgC = new FormDangKyNew();
+            lgC.setLocationRelativeTo(null);
+            lgC.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "❌ Đăng ký tài khoản thất bại! Vui lòng kiểm tra lại.",
+                    "Lỗi",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_xac_nhan1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -179,6 +220,7 @@ public class LienHeKhachHangFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_xac_nhan;
+    private javax.swing.JButton btn_xac_nhan1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField txt_so_dien_thoai;

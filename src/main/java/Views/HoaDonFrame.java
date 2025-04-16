@@ -6,6 +6,7 @@ package Views;
 
 import DAO.HoaDonDAO;
 import Models.HoaDon;
+import Services.AuthKhachHang;
 import Services.AuthNhanVien;
 import Services.CaLamViecCheck;
 import java.util.List;
@@ -17,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  * @author ADMIN
  */
 public class HoaDonFrame extends javax.swing.JFrame {
-    
+
     DefaultTableModel tableModel = new DefaultTableModel();
 
     /**
@@ -30,25 +31,28 @@ public class HoaDonFrame extends javax.swing.JFrame {
         phanQuyen();
         CaLamViecCheck.checkGioLamViec();
     }
-    
+
     public void phanQuyen() {
         btnXemChiTiet.setEnabled(false);
-        if (AuthNhanVien.isManager() != 1) {
+
+        if (AuthNhanVien.user == null) {
+            btnXemChiTiet.setEnabled(true);
+        } else if (AuthNhanVien.isManager() != 1) {
             btnXemChiTiet.setEnabled(true);
         }
     }
-    
+
     public void initTable() {
         String[] cols_nv = new String[]{"Mã KH", "Số Điện Thoại", "Tổng Tiền", "Mã phòng", "Ngày ĐP"};
         tableModel.setColumnIdentifiers(cols_nv);
         tbl_hoa_don.setModel(tableModel);
     }
-    
+
     public void fillTable() {
         tableModel.setRowCount(0);
         HoaDonDAO hdDAO = new HoaDonDAO();
         List<HoaDon> list = hdDAO.getData();
-        
+
         for (HoaDon hoaDon : list) {
             tableModel.addRow(new Object[]{
                 hoaDon.getMa_khach_hang(),
@@ -293,13 +297,13 @@ public class HoaDonFrame extends javax.swing.JFrame {
     private void btnXemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemChiTietActionPerformed
         String ma_khach_hang = txt_ma_kh.getText().trim();
         String ngay_dat_phong = txt_ngay_dp.getText().trim();
-        String ma_nhan_vien = AuthNhanVien.getMaNhanVien();
-        
-        if (ma_khach_hang.isEmpty()) {
+        String ma_nhan_vien = (AuthNhanVien.user == null) ? "NV001" : AuthNhanVien.getMaNhanVien();
+
+        if (AuthNhanVien.user != null && ma_khach_hang.isEmpty()) {
             JOptionPane.showMessageDialog(this, "⚠️ Chọn row muốn in trong table để thực hiện", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         this.dispose();
         HoaDonChiTietFrame hdctF = new HoaDonChiTietFrame();
         hdctF.setMaKhachHang(ma_khach_hang);
@@ -347,7 +351,7 @@ public class HoaDonFrame extends javax.swing.JFrame {
             String tongTien = tbl_hoa_don.getValueAt(row, 2).toString();
             String danhSachPhong = tbl_hoa_don.getValueAt(row, 3).toString();
             String ngayDatPhong = tbl_hoa_don.getValueAt(row, 4).toString();
-            
+
             txt_ma_kh.setText(maKhachHang);
             txt_so_dt.setText(soDienThoai);
             txt_tong_tien.setText(tongTien);
@@ -358,20 +362,28 @@ public class HoaDonFrame extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        try {
-            System.out.println(AuthNhanVien.getMaNhanVien());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            System.out.println(AuthNhanVien.getMaNhanVien());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }//GEN-LAST:event_formWindowOpened
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
         // TODO add your handling code here:
-        this.dispose();
-        SystemFrame sFrame = new SystemFrame();
-        sFrame.setLocationRelativeTo(null);
-        sFrame.setVisible(true);
-        return;
+        if (AuthKhachHang.user == null) {
+            this.dispose();
+            SystemFrame sFrame = new SystemFrame();
+            sFrame.setLocationRelativeTo(null);
+            sFrame.setVisible(true);
+            return;
+        } else {
+            this.dispose();
+            ClientFrame sFrame = new ClientFrame();
+            sFrame.setLocationRelativeTo(null);
+            sFrame.setVisible(true);
+            return;
+        }
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void jLabel9MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseEntered

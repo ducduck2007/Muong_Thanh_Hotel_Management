@@ -7,6 +7,15 @@ package Views;
 import DAO.KhachHangDAO;
 import Models.KhachHang;
 import Services.AuthKhachHang;
+import java.util.Properties;
+import java.util.Random;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,8 +27,64 @@ public class FormDangKyNew extends javax.swing.JFrame {
     /**
      * Creates new form FormDangKyNew
      */
+    private String maOTP;
+
     public FormDangKyNew() {
         initComponents();
+    }
+
+    public static void sendOTP(String toEmail, String otp) {
+        final String fromEmail = "ducdqth04091@fpt.edu.vn";
+        final String password = "aoni wshf dabv qnte";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+
+        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(fromEmail, password);
+            }
+        });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(fromEmail, "Muong Thanh Hotel"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
+            message.setSubject("Your OTP Verification Code");
+            message.setSentDate(new java.util.Date());
+
+            String content = "<h3>Hello,</h3>"
+                    + "<p>Your verification code (OTP) is: <b style='color:blue;font-size:20px;'>" + otp + "</b></p>"
+                    + "<p>Please do not share this code with anyone. It will expire shortly.</p>"
+                    + "<hr>"
+                    + "<p><i>This email was sent automatically by the Muong Thanh Hotel system. Please do not reply.</i></p>";
+
+            message.setContent(content, "text/html; charset=utf-8");
+
+            message.setHeader("X-Priority", "1");
+            message.setHeader("X-Mailer", "JavaMailer");
+            message.setHeader("Content-type", "text/HTML; charset=UTF-8");
+
+            Transport.send(message);
+            System.out.println("✅ OTP sent successfully to: " + toEmail);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String generateOTP(int length) {
+        String digits = "0123456789";
+        StringBuilder otp = new StringBuilder();
+
+        Random rand = new Random();
+        for (int i = 0; i < length; i++) {
+            otp.append(digits.charAt(rand.nextInt(digits.length())));
+        }
+
+        return otp.toString();
     }
 
     /**
@@ -49,6 +114,9 @@ public class FormDangKyNew extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         txt_password = new javax.swing.JPasswordField();
+        jLabel12 = new javax.swing.JLabel();
+        txt_otp_email = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -164,6 +232,20 @@ public class FormDangKyNew extends javax.swing.JFrame {
 
         txt_password.setPreferredSize(new java.awt.Dimension(90, 30));
 
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel12.setText("Mã OTP");
+
+        txt_otp_email.setPreferredSize(new java.awt.Dimension(71, 30));
+
+        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton3.setText("Gửi OTP");
+        jButton3.setPreferredSize(new java.awt.Dimension(75, 30));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -171,14 +253,23 @@ public class FormDangKyNew extends javax.swing.JFrame {
             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(79, 79, 79)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel8)
-                    .addComponent(txt_email, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-                    .addComponent(jLabel7)
-                    .addComponent(txt_username, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_password, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txt_username, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                        .addComponent(txt_password, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel9)
+                        .addComponent(jLabel7)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel8))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addComponent(txt_otp_email, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(81, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -190,15 +281,21 @@ public class FormDangKyNew extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel8)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_otp_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 61, Short.MAX_VALUE))
         );
 
@@ -286,16 +383,18 @@ public class FormDangKyNew extends javax.swing.JFrame {
         char[] passwordArray = txt_password.getPassword();
         String password = new String(passwordArray);
         String email = txt_email.getText().trim();
+        String otp = txt_otp_email.getText().trim();
 
-        if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
+        if (username.isEmpty() || password.isEmpty() || email.isEmpty() || otp.isEmpty()) {
             JOptionPane.showMessageDialog(this,
-                    "⚠ Vui lòng nhập đầy đủ thông tin để tiến hành đăng ký",
+                    "⚠ Vui lòng nhập đầy đủ thông tin và mã OTP để tiến hành đăng ký",
                     "Lỗi",
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if(txt_username.getText().matches(".*\\d.*")){
-            JOptionPane.showMessageDialog(this, "Tên khách hàng không được chứa số","Lỗi",JOptionPane.ERROR_MESSAGE);
+
+        if (txt_username.getText().matches(".*\\d.*")) {
+            JOptionPane.showMessageDialog(this, "Tên khách hàng không được chứa số", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -313,11 +412,32 @@ public class FormDangKyNew extends javax.swing.JFrame {
             return;
         }
 
+        if (!otp.equals(maOTP)) {
+            JOptionPane.showMessageDialog(this, "❌ Mã OTP không đúng! Vui lòng kiểm tra lại.", "Lỗi xác minh", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         LienHeKhachHangFrame lhkhFrame = new LienHeKhachHangFrame(username, password, email);
         lhkhFrame.setLocationRelativeTo(null);
         lhkhFrame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        String email = txt_email.getText().trim();
+
+        if (email.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập email!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String otp = generateOTP(6);
+        FormDangKyNew.sendOTP(email, otp);
+        maOTP = otp;
+
+        System.out.println("OTP là: " + otp);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -357,9 +477,11 @@ public class FormDangKyNew extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -374,6 +496,7 @@ public class FormDangKyNew extends javax.swing.JFrame {
     private javax.swing.JTextField txt_email;
     private javax.swing.JTextField txt_email_dang_nhap;
     private javax.swing.JPasswordField txt_mat_khau_dang_nhap;
+    private javax.swing.JTextField txt_otp_email;
     private javax.swing.JPasswordField txt_password;
     private javax.swing.JTextField txt_username;
     // End of variables declaration//GEN-END:variables

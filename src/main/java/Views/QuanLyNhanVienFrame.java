@@ -740,6 +740,7 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
         txt_password_nv.setText("");
         cbo_vai_tro.setSelectedIndex(0);
         txt_ghi_chu_nv.setText("");
+        txt_search_ten_nv.setText("");
         fillTable();
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -837,6 +838,25 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
 
     private void btn_search_name_nvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_search_name_nvActionPerformed
         // TODO add your handling code here:
+        String timKiemTheoTenNV = txt_search_ten_nv.getText().trim().toLowerCase();
+        tableModel_nv.setRowCount(0);
+
+        QuanLyNhanVienDAO qlnvDAO = new QuanLyNhanVienDAO();
+        List<QuanLyNhanVien> listNV = qlnvDAO.getDataNV();
+
+        for (QuanLyNhanVien nv : listNV) {
+            String tenNV = nv.getTen_nhan_vien().toLowerCase();
+            if (tenNV.contains(timKiemTheoTenNV)) {
+                String vai_tro = nv.getVai_tro() == 1 ? "Phục Vụ" : "Lễ Tân";
+                tableModel_nv.addRow(new Object[]{
+                    nv.getMa_nhan_vien(),
+                    nv.getTen_nhan_vien(),
+                    nv.getEmail(),
+                    vai_tro,
+                    nv.getGhi_chu() != null ? nv.getGhi_chu() : ""
+                });
+            }
+        }
     }//GEN-LAST:event_btn_search_name_nvActionPerformed
 
     private void tbl_nvMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_nvMouseClicked
