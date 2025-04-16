@@ -245,21 +245,18 @@ public class ThongTinDatPhongDAO {
     }
 
     public Boolean update(ThongTinDatPhong ttdp) {
-        String selectSQL = "SELECT * FROM thong_tin_dat_phong WHERE ma_dat_phong = ?";
-        String updateSQL = "UPDATE thong_tin_dat_phong SET type = 2 WHERE ma_dat_phong = ?";
-        String insertSQL = "INSERT INTO thong_tin_dat_phong (ma_phong, ma_khach_hang, loai_phong, ngay_dat_phong, tong_tien, ghi_chu, ngay_nhan_phong, ngay_tra_phong, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)";
+        String selectSQL = "SELECT * FROM thong_tin_dat_phong WHERE ma_phong = ? AND type = 1";
+        String updateOldToHistorySQL = "UPDATE thong_tin_dat_phong SET type = 2 WHERE ma_phong = ? AND type = 1";
+        String insertNewSQL = "INSERT INTO thong_tin_dat_phong (ma_phong, ma_khach_hang, loai_phong, ngay_dat_phong, tong_tien, ghi_chu, ngay_nhan_phong, ngay_tra_phong, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)";
 
-        try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStmSelect = conn.prepareStatement(selectSQL); PreparedStatement preStmUpdate = conn.prepareStatement(updateSQL); PreparedStatement preStmInsert = conn.prepareStatement(insertSQL)) {
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStmSelect = conn.prepareStatement(selectSQL); PreparedStatement preStmUpdateOld = conn.prepareStatement(updateOldToHistorySQL); PreparedStatement preStmInsert = conn.prepareStatement(insertNewSQL)) {
 
-            preStmSelect.setInt(1, ttdp.getMa_dat_phong());
+            preStmSelect.setString(1, ttdp.getMa_phong());
             ResultSet rs = preStmSelect.executeQuery();
 
             if (rs.next()) {
                 boolean isSame = true;
 
-                if (!ttdp.getMa_phong().equals(rs.getString("ma_phong"))) {
-                    isSame = false;
-                }
                 if (ttdp.getMa_khach_hang() != rs.getInt("ma_khach_hang")) {
                     isSame = false;
                 }
@@ -288,11 +285,11 @@ public class ThongTinDatPhongDAO {
                 }
             }
 
-            preStmUpdate.setInt(1, ttdp.getMa_dat_phong());
-            if (preStmUpdate.executeUpdate() <= 0) {
-                return false;
-            }
+            // Cập nhật dòng hiện tại thành type = 2
+            preStmUpdateOld.setString(1, ttdp.getMa_phong());
+            preStmUpdateOld.executeUpdate();
 
+            // Insert dòng mới
             preStmInsert.setString(1, ttdp.getMa_phong());
             preStmInsert.setInt(2, ttdp.getMa_khach_hang());
             preStmInsert.setString(3, ttdp.getLoai_phong());
