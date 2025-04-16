@@ -20,9 +20,9 @@ import javax.swing.SwingUtilities;
  */
 public class CaLamViecCheck {
 
-    public static void checkGioLamViec() {
-        Timer timer = new Timer();
+    private static Timer timer = new Timer();
 
+    public static void checkGioLamViec() {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -51,16 +51,27 @@ public class CaLamViecCheck {
                         timer.cancel();
 
                         SwingUtilities.invokeLater(() -> {
-//                            JOptionPane.showMessageDialog(null, "Bạn bị thoát vì bạn đang làm quá giờ làm của mình");
+                            JOptionPane.showMessageDialog(null, "Bạn bị thoát vì bạn đang làm quá giờ làm của mình");
+                            for (java.awt.Window window : java.awt.Window.getWindows()) {
+                                if (window instanceof javax.swing.JFrame) {
+                                    window.dispose();
+                                }
+                            }
                             LoginSystem lsFrame = new LoginSystem();
                             lsFrame.setLocationRelativeTo(null);
                             lsFrame.setVisible(true);
                         });
                     }
+                } else if (AuthNhanVien.isManager() == 0) {
+                    System.out.println(":D");
                 } else {
                     timer.cancel();
                 }
             }
-        }, 0, 100_000);
+        }, 0, 60_000);
+    }
+
+    public static void cancelTimer() {
+        timer.cancel();
     }
 }

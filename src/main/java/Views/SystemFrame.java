@@ -338,7 +338,7 @@ public class SystemFrame extends javax.swing.JFrame {
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
         // TODO add your handling code here:
-        if (AuthNhanVien.isManager() == 1) {
+        if (AuthNhanVien.isManager() == 0) {
             this.dispose();
             QuanLyNhanVienFrame qlnvFrame = new QuanLyNhanVienFrame();
             qlnvFrame.setLocationRelativeTo(null);
@@ -458,36 +458,6 @@ public class SystemFrame extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        Date d = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("HHmm");
-        int timeInt = Integer.parseInt(sdf.format(d));
-        System.out.println(timeInt);
-
-        LichLamViecDAO lvDao = new LichLamViecDAO();
-        List<LichLamViec> list = lvDao.getData();
-        for (LichLamViec lichLamViec : list) {
-            if (AuthNhanVien.getMaNhanVien().equals(lichLamViec.getMaNhanVien())) {
-                if (lichLamViec.getCaLamViec().equals("Ca 1: 06h00 - 14h00") && (timeInt < 600 || timeInt >= 1400)) {
-                    JOptionPane.showMessageDialog(this, "Bạn không được truy cập vì chưa đến giờ làm việc của bạn");
-                    this.dispose();
-//                    LoginSystem lsFrame = new LoginSystem();
-//                    lsFrame.setLocationRelativeTo(null);
-//                    lsFrame.setVisible(true);
-                } else if (lichLamViec.getCaLamViec().equals("Ca 2: 14h00 - 22h00") && (timeInt < 1400 || timeInt >= 2200)) {
-                    JOptionPane.showMessageDialog(this, "Bạn không được truy cập vì chưa đến giờ làm việc của bạn");
-                    this.dispose();
-//                    LoginSystem lsFrame = new LoginSystem();
-//                    lsFrame.setLocationRelativeTo(null);
-//                    lsFrame.setVisible(true);
-                } else if (lichLamViec.getCaLamViec().equals("Ca 3: 22h00 - 06h00") && !(timeInt >= 2200 || timeInt < 600)) {
-                    JOptionPane.showMessageDialog(this, "Bạn không được truy cập vì chưa đến giờ làm việc của bạn");
-                    this.dispose();
-//                    LoginSystem lsFrame = new LoginSystem();
-//                    lsFrame.setLocationRelativeTo(null);
-//                    lsFrame.setVisible(true);
-                }
-            }
-        }
     }//GEN-LAST:event_formWindowOpened
 
     /**

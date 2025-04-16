@@ -941,6 +941,7 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
             ClientFrame sFrame = new ClientFrame();
             sFrame.setLocationRelativeTo(null);
             sFrame.setVisible(true);
+            CaLamViecCheck.cancelTimer();
             return;
         }
     }//GEN-LAST:event_jLabel9MouseClicked

@@ -7,6 +7,7 @@ package Views;
 import DAO.HoaDonChiTietDAO;
 import Models.HoaDonChiTiet;
 import Services.AuthNhanVien;
+import Services.CaLamViecCheck;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -31,7 +32,7 @@ public class HoaDonChiTietFrame extends javax.swing.JFrame {
         initComponents();
         initTable();
         fillTable();
-
+        CaLamViecCheck.checkGioLamViec();
         if (AuthNhanVien.user == null) {
             return;
         } else {
@@ -210,6 +211,7 @@ public class HoaDonChiTietFrame extends javax.swing.JFrame {
         HoaDonFrame sFrame = new HoaDonFrame();
         sFrame.setLocationRelativeTo(null);
         sFrame.setVisible(true);
+        CaLamViecCheck.cancelTimer();
         return;
     }//GEN-LAST:event_jLabel8MouseClicked
 

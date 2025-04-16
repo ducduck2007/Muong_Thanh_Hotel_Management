@@ -424,6 +424,7 @@ public class KhachHangFrame extends javax.swing.JFrame {
         SystemFrame sFrame = new SystemFrame();
         sFrame.setLocationRelativeTo(null);
         sFrame.setVisible(true);
+        CaLamViecCheck.cancelTimer();
         return;
     }//GEN-LAST:event_jLabel9MouseClicked
 

@@ -29,7 +29,6 @@ public class QuanLyNhanVienFrame extends javax.swing.JFrame {
         initComponents();
         initTable();
         fillTable();
-        CaLamViecCheck.checkGioLamViec();
     }
 
     public void initTable() {

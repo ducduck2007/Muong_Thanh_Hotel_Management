@@ -51,7 +51,7 @@
                               </Group>
                               <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txt_so_dt" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="txt_so_dt" alignment="1" pref="576" max="32767" attributes="0"/>
                                   <Component id="txt_tong_tien" max="32767" attributes="0"/>
                                   <Component id="txt_ma_phong" max="32767" attributes="0"/>
                               </Group>
