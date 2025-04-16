@@ -134,7 +134,7 @@ public class FormDangKyNew extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("ĐĂNG NHẬP");
 
-        txt_email_dang_nhap.setText("username@gmail.com");
+        txt_email_dang_nhap.setText("test1@gmail.com");
         txt_email_dang_nhap.setPreferredSize(new java.awt.Dimension(71, 30));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
