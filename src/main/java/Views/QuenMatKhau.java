@@ -6,6 +6,8 @@ package Views;
 
 import DAO.DataProvider;
 import DAO.QuenMatKhauDAO;
+import DAO.ThongTinDatPhongDAO;
+import Services.AuthKhachHang;
 import java.security.SecureRandom;
 import java.util.Properties;
 import javax.mail.Authenticator;
