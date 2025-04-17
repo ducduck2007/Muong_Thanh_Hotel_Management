@@ -358,23 +358,37 @@ public class ThongTinDatPhongDAO {
     }
 
     public boolean insertHuyDP(String ma_dat_phong) {
-        String sql = "INSERT INTO dich_vu_ho_tro (ma_khach_hang, ten_dich_vu, noi_dung, trang_thai) VALUES (?, ?, ?, ?)";
+        String checkSQL = "SELECT COUNT(*) FROM dich_vu_ho_tro WHERE ma_khach_hang = ? AND ten_dich_vu = ? AND noi_dung LIKE ? AND trang_thai = 'Chưa xử lý'";
+        String insertSQL = "INSERT INTO dich_vu_ho_tro (ma_khach_hang, ten_dich_vu, noi_dung, trang_thai) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = DataProvider.dataConnection(); PreparedStatement preStm = conn.prepareStatement(sql)) {
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement checkStmt = conn.prepareStatement(checkSQL); PreparedStatement insertStmt = conn.prepareStatement(insertSQL)) {
+
             int ma_khach_hang = AuthKhachHang.maKhachHang();
             String ten_dich_vu = "HỦY ĐẶT PHÒNG";
             String noi_dung = "Ad hủy giúp tui phòng này (Mã đặt phòng: " + ma_dat_phong + ")";
             String trang_thai = "Chưa xử lý";
 
-            preStm.setInt(1, ma_khach_hang);
-            preStm.setString(2, ten_dich_vu);
-            preStm.setString(3, noi_dung);
-            preStm.setString(4, trang_thai);
+            checkStmt.setInt(1, ma_khach_hang);
+            checkStmt.setString(2, ten_dich_vu);
+            checkStmt.setString(3, "%Mã đặt phòng: " + ma_dat_phong + "%");
 
-            return preStm.executeUpdate() > 0;
+            ResultSet rs = checkStmt.executeQuery();
+            if (rs.next() && rs.getInt(1) > 0) {
+                JOptionPane.showMessageDialog(null, "❌ Bạn đã gửi yêu cầu hủy phòng này rồi, vui lòng chờ xử lý!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                return false;
+            }
+
+            insertStmt.setInt(1, ma_khach_hang);
+            insertStmt.setString(2, ten_dich_vu);
+            insertStmt.setString(3, noi_dung);
+            insertStmt.setString(4, trang_thai);
+
+            return insertStmt.executeUpdate() > 0;
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
