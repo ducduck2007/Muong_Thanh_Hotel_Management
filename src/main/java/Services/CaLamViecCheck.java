@@ -20,9 +20,17 @@ import javax.swing.SwingUtilities;
  */
 public class CaLamViecCheck {
 
-    private static Timer timer = new Timer();
+    private static Timer timer = null;
 
     public static void checkGioLamViec() {
+        // Nếu đã tồn tại timer cũ, hủy nó trước khi tạo mới
+        if (timer != null) {
+            timer.cancel();
+            timer.purge();
+        }
+
+        timer = new Timer();
+
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -35,7 +43,6 @@ public class CaLamViecCheck {
                     Date d = new Date();
                     SimpleDateFormat sdf = new SimpleDateFormat("HHmm");
                     int timeInt = Integer.parseInt(sdf.format(d));
-                    System.out.println(timeInt);
 
                     boolean ngoaiGioLam = false;
 
@@ -48,8 +55,7 @@ public class CaLamViecCheck {
                     }
 
                     if (ngoaiGioLam) {
-                        timer.cancel();
-
+                        cancelTimer();
                         SwingUtilities.invokeLater(() -> {
                             JOptionPane.showMessageDialog(null, "Bạn bị thoát vì bạn đang làm quá giờ làm của mình");
                             for (java.awt.Window window : java.awt.Window.getWindows()) {
@@ -64,16 +70,20 @@ public class CaLamViecCheck {
                     }
                 } else if (AuthNhanVien.isManager() == 0) {
                     System.out.println(":D");
-                } else if (AuthKhachHang.user != null ) {
+                } else if (AuthKhachHang.user != null) {
                     System.out.println(":(");
                 } else {
-                    timer.cancel();
+                    cancelTimer();
                 }
             }
         }, 0, 60_000);
     }
 
     public static void cancelTimer() {
-        timer.cancel();
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
     }
+
 }

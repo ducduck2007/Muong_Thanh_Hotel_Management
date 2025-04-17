@@ -358,15 +358,24 @@ public class ThongTinDatPhongDAO {
     }
 
     public boolean insertHuyDP(String ma_dat_phong) {
+        String checkOwnerSQL = "SELECT COUNT(*) FROM thong_tin_dat_phong WHERE ma_dat_phong = ? AND ma_khach_hang = ?";
         String checkSQL = "SELECT COUNT(*) FROM dich_vu_ho_tro WHERE ma_khach_hang = ? AND ten_dich_vu = ? AND noi_dung LIKE ? AND trang_thai = 'Chưa xử lý'";
         String insertSQL = "INSERT INTO dich_vu_ho_tro (ma_khach_hang, ten_dich_vu, noi_dung, trang_thai) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = DataProvider.dataConnection(); PreparedStatement checkStmt = conn.prepareStatement(checkSQL); PreparedStatement insertStmt = conn.prepareStatement(insertSQL)) {
+        try (Connection conn = DataProvider.dataConnection(); PreparedStatement checkOwnerStmt = conn.prepareStatement(checkOwnerSQL); PreparedStatement checkStmt = conn.prepareStatement(checkSQL); PreparedStatement insertStmt = conn.prepareStatement(insertSQL)) {
 
             int ma_khach_hang = AuthKhachHang.maKhachHang();
             String ten_dich_vu = "HỦY ĐẶT PHÒNG";
             String noi_dung = "Ad hủy giúp tui phòng này (Mã đặt phòng: " + ma_dat_phong + ")";
             String trang_thai = "Chưa xử lý";
+
+            checkOwnerStmt.setString(1, ma_dat_phong);
+            checkOwnerStmt.setInt(2, ma_khach_hang);
+            ResultSet rsOwner = checkOwnerStmt.executeQuery();
+            if (rsOwner.next() && rsOwner.getInt(1) == 0) {
+                JOptionPane.showMessageDialog(null, "❌ Mã đặt phòng này không thuộc về tài khoản của bạn!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
 
             checkStmt.setInt(1, ma_khach_hang);
             checkStmt.setString(2, ten_dich_vu);

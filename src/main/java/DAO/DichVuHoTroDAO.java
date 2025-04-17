@@ -56,6 +56,7 @@ public class DichVuHoTroDAO {
                 dv.setTen_dich_vu(rs.getString("ten_dich_vu"));
                 dv.setNoi_dung(rs.getString("noi_dung"));
                 dv.setTrang_thai(rs.getString("trang_thai"));
+                dv.setPhan_hoi_khach_hang(rs.getString("phan_hoi_khach_hang"));
                 list.add(dv);
             }
             return list;

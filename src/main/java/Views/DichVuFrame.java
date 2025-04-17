@@ -16,7 +16,9 @@ import javax.swing.table.DefaultTableModel;
  * @author ADMIN
  */
 public class DichVuFrame extends javax.swing.JFrame {
+
     DefaultTableModel tableModel = new DefaultTableModel();
+
     /**
      * Creates new form NewJFrame
      */
@@ -25,21 +27,29 @@ public class DichVuFrame extends javax.swing.JFrame {
         initTable();
         fillTable();
     }
-    
-    public void initTable(){
-        String[] cols = new String[]{"Mã dịch vụ","Mã khách hàng","Tên dịch vụ","Nội dung","Trạng thái"};
+
+    public void initTable() {
+        String[] cols = new String[]{"Mã dịch vụ", "Mã khách hàng", "Tên dịch vụ", "Nội dung", "Trạng thái", "Phản hồi từ admin"};
         tableModel.setColumnIdentifiers(cols);
         tblDichVu.setModel(tableModel);
     }
-    
-    public void fillTable(){
-        tableModel.setRowCount(0);
-        DichVuHoTroDAO dvDao = new DichVuHoTroDAO();
-        List<DichVuHoTro> list = dvDao.findByKhachHang(AuthKhachHang.maKhachHang());
-        for (DichVuHoTro dichVuHoTro : list) {
-            tableModel.addRow(new Object[]{dichVuHoTro.getMa_dich_vu(),dichVuHoTro.getMa_khach_hang(),dichVuHoTro.getTen_dich_vu(),dichVuHoTro.getNoi_dung(),dichVuHoTro.getTrang_thai()});
-        }
+
+    public void fillTable() {
+    tableModel.setRowCount(0);
+    DichVuHoTroDAO dvDao = new DichVuHoTroDAO();
+    List<DichVuHoTro> list = dvDao.findByKhachHang(AuthKhachHang.maKhachHang());
+    for (DichVuHoTro dichVuHoTro : list) {
+        tableModel.addRow(new Object[]{
+            dichVuHoTro.getMa_dich_vu(), 
+            dichVuHoTro.getMa_khach_hang(),
+            dichVuHoTro.getTen_dich_vu(),
+            dichVuHoTro.getNoi_dung(),
+            dichVuHoTro.getTrang_thai(),
+            dichVuHoTro.getPhan_hoi_khach_hang()
+        });
     }
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -226,30 +236,30 @@ public class DichVuFrame extends javax.swing.JFrame {
 
     private void btnGuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiActionPerformed
         StringBuilder sb = new StringBuilder();
-        if(txtTenDichVu.getText().equals("")){
+        if (txtTenDichVu.getText().equals("")) {
             sb.append("Xin nhập tên dịch vụ\n");
         }
-        if(txtaNoiDung.getText().equals("")){
+        if (txtaNoiDung.getText().equals("")) {
             sb.append("Xin nhập nội dung\n");
         }
-        if(sb.length() > 0){
+        if (sb.length() > 0) {
             JOptionPane.showMessageDialog(this, sb.toString());
             return;
         }
-        
+
         DichVuHoTroDAO dvDao = new DichVuHoTroDAO();
         DichVuHoTro dv = new DichVuHoTro();
         int maKhachHang = Integer.parseInt(txtMaKhachHang.getText());
         dv.setMa_khach_hang(maKhachHang);
         dv.setTen_dich_vu(txtTenDichVu.getText());
         dv.setNoi_dung(txtaNoiDung.getText());
-        
+
         int choice = JOptionPane.showConfirmDialog(this, "Bạn có muốn gửi không ?");
-        if(choice == JOptionPane.YES_OPTION){
-            if(dvDao.insert(dv)){
+        if (choice == JOptionPane.YES_OPTION) {
+            if (dvDao.insert(dv)) {
                 JOptionPane.showMessageDialog(this, "Gửi thành công");
                 fillTable();
-            }else {
+            } else {
                 JOptionPane.showMessageDialog(this, "Gửi thất bại");
             }
         }
@@ -285,7 +295,7 @@ public class DichVuFrame extends javax.swing.JFrame {
     private void tblDichVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDichVuMouseClicked
         // TODO add your handling code here:
         int row = tblDichVu.getSelectedRow();
-        if(row >= 0){
+        if (row >= 0) {
             int maDichVu = (int) tblDichVu.getValueAt(row, 0);
             DichVuHoTroDAO dvDao = new DichVuHoTroDAO();
             DichVuHoTro dv = dvDao.findById(maDichVu);
