@@ -225,7 +225,7 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
             }
         });
 
-        cbo_search_trang_thai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Tìm theo trạng thái phòng --", "Trống", "Đã được đặt" }));
+        cbo_search_trang_thai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Tìm theo trạng thái phòng --", "Trống", "Đã được đặt", "Đang dọn dẹp", "Bảo trì" }));
         cbo_search_trang_thai.setPreferredSize(new java.awt.Dimension(143, 30));
         cbo_search_trang_thai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

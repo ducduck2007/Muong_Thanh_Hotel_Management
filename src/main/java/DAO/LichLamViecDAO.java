@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
 public class LichLamViecDAO {
 
     public List<LichLamViec> getData() {
-        String sql = "SELECT llv.ma_lich, llv.ma_nhan_vien, nv.ten_nhan_vien, nv.vai_tro, llv.ngay_lam_viec, llv.ca_lam_viec "
+        String sql = "SELECT llv.ma_lich, llv.ma_nhan_vien, nv.ten_nhan_vien, nv.vai_tro, llv.ngay_lam_viec, llv.ca_lam_viec, llv.phong_truc "
                 + "FROM lich_lam_viec llv "
                 + "JOIN nhan_vien nv ON llv.ma_nhan_vien = nv.ma_nhan_vien";
 
@@ -35,6 +35,7 @@ public class LichLamViecDAO {
                 llv.setVaiTro(rs.getInt("vai_tro"));
                 llv.setNgayLamViec(rs.getString("ngay_lam_viec"));
                 llv.setCaLamViec(rs.getString("ca_lam_viec"));
+                llv.setPhongTruc(rs.getString("phong_truc"));
                 list.add(llv);
             }
         } catch (Exception e) {
@@ -98,15 +99,15 @@ public class LichLamViecDAO {
         }
         return false;
     }
-    
-    public LichLamViec findByMaNV(String maNV){
+
+    public LichLamViec findByMaNV(String maNV) {
         String sql = "select * from lich_lam_viec where ma_nhan_vien = ?";
         try {
             Connection con = DataProvider.dataConnection();
             PreparedStatement pps = con.prepareCall(sql);
             pps.setString(1, maNV);
             ResultSet rs = pps.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 LichLamViec lv = new LichLamViec();
                 lv.setMaLich(rs.getInt("ma_lich"));
                 lv.setMaNhanVien(rs.getString("ma_nhan_vien"));
@@ -119,4 +120,5 @@ public class LichLamViecDAO {
         }
         return null;
     }
+
 }
