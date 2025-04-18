@@ -160,7 +160,7 @@ public class FormDangKyNew extends javax.swing.JFrame {
             }
         });
 
-        txt_mat_khau_dang_nhap.setText("12345");
+        txt_mat_khau_dang_nhap.setText("123456");
         txt_mat_khau_dang_nhap.setPreferredSize(new java.awt.Dimension(71, 30));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

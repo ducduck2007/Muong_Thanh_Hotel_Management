@@ -473,10 +473,10 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
             ttp.setGhi_chu(ghi_chu);
 
             if (ttpDAO.update(ttp)) {
-                if (trang_thai.equals("Trống")) {
+                if (trang_thai.equals("Trống") || trang_thai.equals("Đang dọn dẹp") || trang_thai.equals("Bảo trì")) {
                     ttpDAO.updateNgayTraPhongVeMacDinh(ma_phong);
                 }
-
+                
                 JOptionPane.showMessageDialog(this,
                         "✅ Sửa thông tin phòng thành công!",
                         "Thành công",
