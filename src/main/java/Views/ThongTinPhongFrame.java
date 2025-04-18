@@ -130,8 +130,8 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
         cbo_search_loai_phong = new javax.swing.JComboBox<>();
         cbo_search_trang_thai = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        rdo_da_duoc_dat1 = new javax.swing.JRadioButton();
-        rdo_da_duoc_dat2 = new javax.swing.JRadioButton();
+        rdo_dang_don_dep = new javax.swing.JRadioButton();
+        rdo_bao_tri = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -242,13 +242,13 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
             }
         });
 
-        btg_status_phong.add(rdo_da_duoc_dat1);
-        rdo_da_duoc_dat1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        rdo_da_duoc_dat1.setText("Đang dọn dẹp");
+        btg_status_phong.add(rdo_dang_don_dep);
+        rdo_dang_don_dep.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        rdo_dang_don_dep.setText("Đang dọn dẹp");
 
-        btg_status_phong.add(rdo_da_duoc_dat2);
-        rdo_da_duoc_dat2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        rdo_da_duoc_dat2.setText("Bảo trì");
+        btg_status_phong.add(rdo_bao_tri);
+        rdo_bao_tri.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        rdo_bao_tri.setText("Bảo trì");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -270,9 +270,9 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
                                     .addGap(18, 18, 18)
                                     .addComponent(rdo_da_duoc_dat)
                                     .addGap(18, 18, 18)
-                                    .addComponent(rdo_da_duoc_dat1)
+                                    .addComponent(rdo_dang_don_dep)
                                     .addGap(18, 18, 18)
-                                    .addComponent(rdo_da_duoc_dat2))
+                                    .addComponent(rdo_bao_tri))
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel3)
@@ -313,8 +313,8 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(rdo_trong)
                             .addComponent(rdo_da_duoc_dat)
-                            .addComponent(rdo_da_duoc_dat1)
-                            .addComponent(rdo_da_duoc_dat2))
+                            .addComponent(rdo_dang_don_dep)
+                            .addComponent(rdo_bao_tri))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -430,12 +430,23 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
             String ma_phong = txt_ma_phong.getText().trim();
             String loai_phong = (String) cbo_loai_phong.getSelectedItem();
 
-            if (!rdo_trong.isSelected() && !rdo_da_duoc_dat.isSelected()) {
+            if (!rdo_trong.isSelected() && !rdo_da_duoc_dat.isSelected()
+                    && !rdo_dang_don_dep.isSelected() && !rdo_bao_tri.isSelected()) {
                 JOptionPane.showMessageDialog(this, "⚠️ Vui lòng chọn trạng thái phòng!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
-            String trang_thai = rdo_trong.isSelected() ? "Trống" : "Đã được đặt";
+            String trang_thai = "";
+            if (rdo_trong.isSelected()) {
+                trang_thai = "Trống";
+            } else if (rdo_da_duoc_dat.isSelected()) {
+                trang_thai = "Đã được đặt";
+            } else if (rdo_dang_don_dep.isSelected()) {
+                trang_thai = "Đang dọn dẹp";
+            } else if (rdo_bao_tri.isSelected()) {
+                trang_thai = "Bảo trì";
+            }
+
             String ghi_chu = txt_ghi_chu.getText().trim();
 
             if (ma_phong.isEmpty() || loai_phong.isEmpty() || ghi_chu.isEmpty()) {
@@ -548,9 +559,9 @@ public class ThongTinPhongFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JRadioButton rdo_bao_tri;
     private javax.swing.JRadioButton rdo_da_duoc_dat;
-    private javax.swing.JRadioButton rdo_da_duoc_dat1;
-    private javax.swing.JRadioButton rdo_da_duoc_dat2;
+    private javax.swing.JRadioButton rdo_dang_don_dep;
     private javax.swing.JRadioButton rdo_trong;
     private javax.swing.JTable tbl_phong;
     private javax.swing.JTextArea txt_ghi_chu;

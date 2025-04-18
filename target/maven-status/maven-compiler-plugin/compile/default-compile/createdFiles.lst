@@ -97,6 +97,7 @@ Views\ClientFrame$8.class
 DAO\ThongKeDoanhThuDAO.class
 Views\LichLamViecFrame$5.class
 Views\ThietLapGiaFrame$5.class
+Views\QuenMatKhau$4.class
 Views\ThongKeDoanhThuFrame$3.class
 Services\AuthNhanVien.class
 Views\DichVuFrame$5.class
