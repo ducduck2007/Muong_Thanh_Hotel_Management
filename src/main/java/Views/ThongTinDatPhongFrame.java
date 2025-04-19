@@ -874,6 +874,7 @@ public class ThongTinDatPhongFrame extends javax.swing.JFrame {
 
                 if (ttdpDAO.insertHuyDP(ma_dat_phong)) {
                     JOptionPane.showMessageDialog(this, "✅ Gửi yêu cầu hủy phòng thành công! Vui lòng chờ hệ thống Mường Thanh Hotel xử lý cho bạn nha.", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+                    txt_ma_dp.setText("");
                 } else {
                     JOptionPane.showMessageDialog(this, "❌ Hủy phòng thất bại! Vui lòng gửi yêu cầu hỗ trợ tới hệ thống.", "Lỗi", JOptionPane.ERROR_MESSAGE);
                 }

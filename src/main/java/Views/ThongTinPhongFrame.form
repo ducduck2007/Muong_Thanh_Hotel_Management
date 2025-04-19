@@ -374,12 +374,10 @@
             <Component class="javax.swing.JComboBox" name="cbo_search_trang_thai">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="5">
+                  <StringArray count="3">
                     <StringItem index="0" value="-- T&#xec;m theo tr&#x1ea1;ng th&#xe1;i ph&#xf2;ng --"/>
                     <StringItem index="1" value="Tr&#x1ed1;ng"/>
                     <StringItem index="2" value="&#x110;&#xe3; &#x111;&#x1b0;&#x1ee3;c &#x111;&#x1eb7;t"/>
-                    <StringItem index="3" value="&#x110;ang d&#x1ecd;n d&#x1eb9;p"/>
-                    <StringItem index="4" value="B&#x1ea3;o tr&#xec;"/>
                   </StringArray>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">

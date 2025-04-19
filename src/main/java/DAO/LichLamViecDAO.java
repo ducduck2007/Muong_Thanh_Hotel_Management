@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
 public class LichLamViecDAO {
 
     public List<LichLamViec> getData() {
-        String sql = "SELECT llv.ma_lich, llv.ma_nhan_vien, nv.ten_nhan_vien, nv.vai_tro, llv.ngay_lam_viec, llv.ca_lam_viec, llv.phong_truc "
+        String sql = "SELECT llv.ma_lich, llv.ma_nhan_vien, nv.ten_nhan_vien, nv.vai_tro, llv.ngay_lam_viec, llv.ca_lam_viec "
                 + "FROM lich_lam_viec llv "
                 + "JOIN nhan_vien nv ON llv.ma_nhan_vien = nv.ma_nhan_vien";
 
@@ -35,7 +35,6 @@ public class LichLamViecDAO {
                 llv.setVaiTro(rs.getInt("vai_tro"));
                 llv.setNgayLamViec(rs.getString("ngay_lam_viec"));
                 llv.setCaLamViec(rs.getString("ca_lam_viec"));
-                llv.setPhongTruc(rs.getString("phong_truc"));
                 list.add(llv);
             }
         } catch (Exception e) {
@@ -100,6 +99,62 @@ public class LichLamViecDAO {
         return false;
     }
 
+    public boolean insert(LichLamViec llv) {
+        if (!existsMaNhanVien(llv.getMaNhanVien())) {
+            JOptionPane.showMessageDialog(null, "Mã nhân viên không tồn tại!");
+            return false;
+        }
+
+        try (Connection conn = DataProvider.dataConnection()) {
+            String checkAllWeekSql = "SELECT ma_lich FROM lich_lam_viec WHERE ma_nhan_vien = ? AND ngay_lam_viec = 'Cả tuần'";
+            try (PreparedStatement checkAllWeekStm = conn.prepareStatement(checkAllWeekSql)) {
+                checkAllWeekStm.setString(1, llv.getMaNhanVien());
+                ResultSet rs = checkAllWeekStm.executeQuery();
+                if (rs.next()) {
+                    JOptionPane.showMessageDialog(null, "Nhân viên đã có lịch làm việc cả tuần, không thể thêm lịch riêng từng ngày!");
+                    return false;
+                }
+            }
+
+            if (llv.getNgayLamViec().equalsIgnoreCase("Cả tuần")) {
+                String checkAnyDaySql = "SELECT ma_lich FROM lich_lam_viec WHERE ma_nhan_vien = ? AND ngay_lam_viec != 'Cả tuần'";
+                try (PreparedStatement checkAnyDayStm = conn.prepareStatement(checkAnyDaySql)) {
+                    checkAnyDayStm.setString(1, llv.getMaNhanVien());
+                    ResultSet rs = checkAnyDayStm.executeQuery();
+                    if (rs.next()) {
+                        JOptionPane.showMessageDialog(null, "Nhân viên đã có lịch từng ngày, không thể thêm lịch cả tuần!");
+                        return false;
+                    }
+                }
+            }
+
+            String checkDuplicateSql = "SELECT ma_lich FROM lich_lam_viec WHERE ma_nhan_vien = ? AND ngay_lam_viec = ? AND ca_lam_viec = ?";
+            try (PreparedStatement checkDupStm = conn.prepareStatement(checkDuplicateSql)) {
+                checkDupStm.setString(1, llv.getMaNhanVien());
+                checkDupStm.setString(2, llv.getNgayLamViec());
+                checkDupStm.setString(3, llv.getCaLamViec());
+                ResultSet rs = checkDupStm.executeQuery();
+                if (rs.next()) {
+                    JOptionPane.showMessageDialog(null, "Nhân viên đã có lịch làm việc trùng ngày và ca!");
+                    return false;
+                }
+            }
+
+            String insertSql = "INSERT INTO lich_lam_viec (ma_nhan_vien, ngay_lam_viec, ca_lam_viec) VALUES (?, ?, ?)";
+            try (PreparedStatement preStm = conn.prepareStatement(insertSql)) {
+                preStm.setString(1, llv.getMaNhanVien());
+                preStm.setString(2, llv.getNgayLamViec());
+                preStm.setString(3, llv.getCaLamViec());
+                return preStm.executeUpdate() > 0;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
     public LichLamViec findByMaNV(String maNV) {
         String sql = "select * from lich_lam_viec where ma_nhan_vien = ?";
         try {
@@ -120,5 +175,4 @@ public class LichLamViecDAO {
         }
         return null;
     }
-
 }
