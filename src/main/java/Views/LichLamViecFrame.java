@@ -309,7 +309,12 @@ public class LichLamViecFrame extends javax.swing.JFrame {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        update();
+        if (AuthNhanVien.isManager() == 0) {
+            update();
+        } else {
+            JOptionPane.showMessageDialog(this, "Chỉ có quản lý mới được cập nhập!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4ActionPerformed
@@ -353,41 +358,47 @@ public class LichLamViecFrame extends javax.swing.JFrame {
 
     private void btnSua1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua1ActionPerformed
         // TODO add your handling code here:
-        String MaNhanVien = txt_ma_nhan_vien.getText().trim();
-        String NgayLamViec = (String) cboNgayLamViec.getSelectedItem();
-        String CaLamViec = (String) cbo_ca_lam_viec.getSelectedItem();
+        if (AuthNhanVien.isManager() == 0) {
 
-        if (MaNhanVien.isEmpty() || NgayLamViec.isEmpty() || CaLamViec.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin.");
-            return;
-        }
-        if (!MaNhanVien.matches("^NV\\d{3}$")) {
-            JOptionPane.showMessageDialog(this, "⚠️ Mã nhân viên phải có định dạng 'NV+3 số' (VD: NV015, NV123)", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+            String MaNhanVien = txt_ma_nhan_vien.getText().trim();
+            String NgayLamViec = (String) cboNgayLamViec.getSelectedItem();
+            String CaLamViec = (String) cbo_ca_lam_viec.getSelectedItem();
 
-        try {
-            LichLamViec llv = new LichLamViec();
-            LichLamViecDAO llvDAO = new LichLamViecDAO();
-
-            llv.setMaNhanVien(MaNhanVien);
-            llv.setNgayLamViec(NgayLamViec);
-            llv.setCaLamViec(CaLamViec);
-
-            int choice = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thêm lịch làm việc không?");
-            if (choice == JOptionPane.YES_OPTION) {
-                if (llvDAO.insert(llv)) {
-                    JOptionPane.showMessageDialog(this, "Thêm lịch làm việc thành công.");
-                    fillTable();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Thêm lịch làm việc thất bại.");
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Yêu cầu đã bị hủy.");
+            if (MaNhanVien.isEmpty() || NgayLamViec.isEmpty() || CaLamViec.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin.");
+                return;
+            }
+            if (!MaNhanVien.matches("^NV\\d{3}$")) {
+                JOptionPane.showMessageDialog(this, "⚠️ Mã nhân viên phải có định dạng 'NV+3 số' (VD: NV015, NV123)", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+                return;
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                LichLamViec llv = new LichLamViec();
+                LichLamViecDAO llvDAO = new LichLamViecDAO();
+
+                llv.setMaNhanVien(MaNhanVien);
+                llv.setNgayLamViec(NgayLamViec);
+                llv.setCaLamViec(CaLamViec);
+
+                int choice = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thêm lịch làm việc không?");
+                if (choice == JOptionPane.YES_OPTION) {
+                    if (llvDAO.insert(llv)) {
+                        JOptionPane.showMessageDialog(this, "Thêm lịch làm việc thành công.");
+                        fillTable();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Thêm lịch làm việc thất bại.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Yêu cầu đã bị hủy.");
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Chỉ có quản lý mới được thêm!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
         }
     }//GEN-LAST:event_btnSua1ActionPerformed
 
